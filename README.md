@@ -1,5 +1,6 @@
 # Magento2-Cypress-Integration
-A complete end-to-end Magento 2 testing
+
+This is set of Cypress tests for <a href="https://firebearstudio.com/the-improved-import.html">FireBear Studio Improved Import & Export extension for Magento 2</a>. The core issue of run Cypress tests on Magento 2 backend is that id of each HTML element always unique and generated based on user session, for Cypress tests every element should have permanent static id - this what we did with our addon - add unique element id's and other required things to make Magento 2 admin testing of our extension possible with Cypress. Based on that addon you can add id's to any element on M2 backend and get your Cypress tests running! 
 
 **Installing Cypress via node.js package manager**
 
