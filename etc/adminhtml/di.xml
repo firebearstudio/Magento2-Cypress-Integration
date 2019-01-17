@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @copyright: Copyright © 2019 Firebear Studio. All rights reserved.
+ * @author   : Firebear Studio <fbeardev@gmail.com>
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Firebear\ImportExport\Ui\DataProvider\Import\Job\Form\Modifier\AdvancedImport"
+                type="Firebear\ImportExportCypress\Ui\DataProvider\Import\Job\Form\Modifier\AdvancedImport" />
+    <preference for="Firebear\ImportExport\Ui\DataProvider\Export\Job\Form\Modifier\AdvancedExport"
+                type="Firebear\ImportExportCypress\Ui\DataProvider\Export\Job\Form\Modifier\AdvancedExport" />
+</config>

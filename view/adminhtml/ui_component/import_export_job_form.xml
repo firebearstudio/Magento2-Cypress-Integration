@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @copyright: Copyright © 2019 Firebear Studio. All rights reserved.
+ * @author   : Firebear Studio <fbeardev@gmail.com>
+ */
+-->
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <fieldset name="general">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="additionalClasses" xsi:type="array">
+                    <item name="fieldset_general" xsi:type="boolean">true</item>
+                </item>
+            </item>
+        </argument>
+        <field name="is_active">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="additionalClasses" xsi:type="array">
+                        <item name="general_is_active" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="title">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="additionalClasses" xsi:type="array">
+                        <item name="general_title" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="frequency">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="additionalClasses" xsi:type="array">
+                        <item name="general_frequency" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="cron">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="additionalClasses" xsi:type="array">
+                        <item name="general_cron" xsi:type="boolean">true</item>
+                    </item>
+                    <item name="elementTmpl" xsi:type="string">Firebear_ImportExportCypress/form/element/cron</item>
+                </item>
+            </argument>
+        </field>
+		<field name="event">
+			<argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+                    <item name="additionalClasses" xsi:type="array">
+                        <item name="general_event" xsi:type="boolean">true</item>
+                    </item>
+				</item>
+			</argument>
+		</field>		
+        <field name="language">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="additionalClasses" xsi:type="array">
+                        <item name="general_language" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="divided_additional">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="additionalClasses" xsi:type="array">
+                        <item name="general_divided_additional" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+    </fieldset>
+    <fieldset name="settings">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="additionalClasses" xsi:type="array">
+                    <item name="fieldset_settings" xsi:type="boolean">true</item>
+                </item>
+            </item>
+        </argument>
+        <field name="entity">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="additionalClasses" xsi:type="array">
+                        <item name="settings_entity" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="enable_last_entity_id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="additionalClasses" xsi:type="array">
+                        <item name="settings_enable_last_entity_id" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+    </fieldset>
+    <fieldset name="behavior_stores">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="additionalClasses" xsi:type="array">
+                    <item name="fieldset_behavior_stores" xsi:type="boolean">true</item>
+                </item>
+            </item>
+        </argument>
+        <field name="behavior_field_store_ids">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="additionalClasses" xsi:type="array">
+                        <item name="behavior_stores_behavior_field_store_ids" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+    </fieldset>
+    <fieldset name="behavior">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="additionalClasses" xsi:type="array">
+                    <item name="fieldset_behavior" xsi:type="boolean">true</item>
+                </item>
+            </item>
+        </argument>
+        <field name="behavior_field_file_format">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="additionalClasses" xsi:type="array">
+                        <item name="behavior_behavior_field_file_format" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="behavior_field_separator">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="additionalClasses" xsi:type="array">
+                        <item name="behavior_behavior_field_separator" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="behavior_field_multiple_value_separator">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="additionalClasses" xsi:type="array">
+                        <item name="behavior_behavior_field_multiple_value_separator" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="behavior_field_enclosure">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="additionalClasses" xsi:type="array">
+                        <item name="behavior_behavior_field_enclosure" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+    </fieldset>
+    <fieldset name="source">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="additionalClasses" xsi:type="array">
+                    <item name="fieldset_source" xsi:type="boolean">true</item>
+                </item>
+            </item>
+        </argument>
+        <field name="export_source_entity">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="additionalClasses" xsi:type="array">
+                        <item name="source_export_source_entity" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <button name="check_button" class="Magento\Ui\Component\Container">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="buttonClasses" xsi:type="string">source_check_button</item>
+                    <item name="template" xsi:type="string">Firebear_ImportExportCypress/form/element/button</item>
+                </item>
+            </argument>
+        </button>
+    </fieldset>
+    <fieldset name="source_data_map_container">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="additionalClasses" xsi:type="array">
+                    <item name="fieldset_source_data_map_container" xsi:type="boolean">true</item>
+                </item>
+            </item>
+        </argument>
+        <field name="source_data_count">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="additionalClasses" xsi:type="array">
+                        <item name="source_data_map_container_source_data_count" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <dynamicRows name="source_data_map">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="additionalClasses" xsi:type="array">
+                        <item name="source_data_map_rows" xsi:type="boolean">true</item>
+                    </item>
+                    <item name="template" xsi:type="string">Firebear_ImportExportCypress/form/element/dynamic-rows/templates/default</item>
+                </item>
+            </argument>
+            <container name="record">
+                <field name="source_data_entity">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="additionalClasses" xsi:type="array">
+                                <item name="source_data_map_source_data_entity" xsi:type="boolean">true</item>
+                            </item>
+                        </item>
+                    </argument>
+                </field>
+                <field name="source_data_system">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="additionalClasses" xsi:type="array">
+                                <item name="source_data_map_source_data_system" xsi:type="boolean">true</item>
+                            </item>
+                        </item>
+                    </argument>
+                </field>
+                <field name="source_data_export">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="additionalClasses" xsi:type="array">
+                                <item name="source_data_map_source_data_export" xsi:type="boolean">true</item>
+                            </item>
+                        </item>
+                    </argument>
+                </field>
+                <field name="source_data_replace">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="additionalClasses" xsi:type="array">
+                                <item name="source_data_map_source_data_replace" xsi:type="boolean">true</item>
+                            </item>
+                        </item>
+                    </argument>
+                </field>
+                <field name="source_data_position">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="additionalClasses" xsi:type="array">
+                                <item name="_hidden" xsi:type="boolean">true</item>
+                            </item>
+                        </item>
+                    </argument>
+                </field>
+            </container>
+        </dynamicRows>
+    </fieldset>
+    <fieldset name="source_data_filter_container">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="additionalClasses" xsi:type="array">
+                    <item name="fieldset_source_data_filter_container" xsi:type="boolean">true</item>
+                </item>
+            </item>
+        </argument>
+        <dynamicRows name="source_filter_map">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="additionalClasses" xsi:type="array">
+                        <item name="source_filter_map_rows" xsi:type="boolean">true</item>
+                    </item>
+                    <item name="template" xsi:type="string">Firebear_ImportExportCypress/form/element/dynamic-rows/templates/default</item>
+                </item>
+            </argument>
+            <container name="record">
+                <field name="source_filter_entity">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="additionalClasses" xsi:type="array">
+                                <item name="source_filter_map_source_filter_entity" xsi:type="boolean">true</item>
+                            </item>
+                        </item>
+                    </argument>
+                </field>
+                <field name="source_filter_field">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="additionalClasses" xsi:type="array">
+                                <item name="source_filter_map_source_filter_field" xsi:type="boolean">true</item>
+                            </item>
+                        </item>
+                    </argument>
+                </field>
+                <field name="source_filter_filter">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="additionalClasses" xsi:type="array">
+                                <item name="source_filter_map_source_filter_filter" xsi:type="boolean">true</item>
+                            </item>
+                        </item>
+                    </argument>
+                </field>
+                <field name="source_filter_position">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="additionalClasses" xsi:type="array">
+                                <item name="_hidden" xsi:type="boolean">true</item>
+                            </item>
+                        </item>
+                    </argument>
+                </field>
+            </container>
+        </dynamicRows>
+    </fieldset>
+    <fieldset name="xml_conf">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="additionalClasses" xsi:type="array">
+                    <item name="fieldset_xml_conf" xsi:type="boolean">true</item>
+                </item>
+            </item>
+        </argument>
+        <field name="xml_switch">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="additionalClasses" xsi:type="array">
+                        <item name="xml_conf_xml_switch" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="xslt">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="additionalClasses" xsi:type="array">
+                        <item name="xml_conf_xslt" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+    </fieldset>
+</form>

@@ -1,0 +1,30 @@
+<!--
+/**
+ * @copyright: Copyright © 2019 Firebear Studio. All rights reserved.
+ * @author   : Firebear Studio <fbeardev@gmail.com>
+ */
+-->
+<input class="admin__control-text" type="hidden"
+       data-bind="
+        value: value,
+        hasFocus: focused,
+        attr: {
+            name: inputName,
+            placeholder: placeholder,
+            'aria-describedby': noticeId,
+            id: uid
+    }"/>
+<div data-bind="foreach: { data: getList(), as: 'item' }">
+    <div class="col-m-2">
+        <input class="admin__control-text" type="text" style="width:80%" css="item.field"
+               data-bind="
+        value: $parent[item.field],
+        hasFocus: false,
+        valueUpdate: $parent.valueUpdate,
+        attr: {
+            name: item.field,
+        }"/>
+        <div class="note admin__field-note"><span data-bind="text:item.label"></span></div>
+    </div>
+</div>
+<div style="clear: both"/>

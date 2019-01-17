@@ -1,0 +1,23 @@
+<!--
+/**
+ * @copyright: Copyright © 2017 Firebear Studio. All rights reserved.
+ * @author   : Firebear Studio <fbeardev@gmail.com>
+ */
+-->
+<button type="button"
+        css="buttonClasses"
+        click="action"
+        disable="disabled"
+        attr="'data-index': index">
+    <span text="title">
+    </span>
+</button>
+<br/><br/>
+<!-- ko if: error -->
+<label class="admin__field-label"><span><b>Errors:</b></span></label>
+<div class="admin__field-error" text="error"/>
+<!-- /ko -->
+<!-- ko if: notice -->
+<div class="admin__field-success" if="notice" data-bind="text:notice">
+</div>
+<!-- /ko -->
