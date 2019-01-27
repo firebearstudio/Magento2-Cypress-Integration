@@ -1,6 +1,6 @@
 
 context('Import Products', () => {
-    it('import products - new job', () => {
+    it(' only update - xml - file - new job', () => {
         //login
         cy.visit('http://import.com/admin')
         cy.get('#username')
@@ -19,11 +19,10 @@ context('Import Products', () => {
         cy.get('@addJobButton').click()
 
         //specify general section
-        cy.wait(6000)
-        cy.get('.general_is_active').find('.admin__actions-switch-label').as('generalIsActive')
+        cy.get('.general_is_active',{timeout: 60000}).find('.admin__actions-switch-label').as('generalIsActive')
         cy.get('@generalIsActive').click()
         cy.get('.general_title ').find('input')
-            .type('Test Product Import').should('have.value', 'Test Product Import')
+            .type('Product Import - only update - xml - file').should('have.value', 'Product Import - only update - xml - file')
         cy.get('.general_reindex').find('.admin__actions-switch-label').as('generalReindex')
         cy.get('@generalReindex').click()
 
@@ -35,29 +34,30 @@ context('Import Products', () => {
 
         //specify Import Behavior section
         cy.get('.fieldset_behavior').find('.fieldset-wrapper-title').as('fieldsetBehaviour')
-        //cy.get('@fieldsetBehaviour').click()
         cy.get('.behavior_behavior').find('select').as('behaviorBehavior')
         cy.get('@behaviorBehavior').select('append');
 
-        //specify Import Source setction
+        //specify Import Source section
+        cy.get('.source_type_file').find('select').as('importSourceType')
+        cy.get('@importSourceType').select('xml');
         cy.get('.source_import_source').find('select').as('importSource')
-        cy.get('@importSource').select('google');
-        cy.get('.google_file_path').find('input').as('googleFilePath')
-        cy.get('@googleFilePath')
-            .invoke('val', 'https://docs.google.com/spreadsheets/d/13FemIzzexF5koAdQYjbcKscqoCfXyknYWkQkbSZGPsk/edit#gid=1164219475')
-            .trigger('change')
+        cy.get('@importSource').select('file');
+        cy.get('.file_file_path').find('input').as('filePath')
+        cy.get('@filePath')
+            .type('pub/media/importexport/import_only_update.xml')
+            .should('have.value', 'pub/media/importexport/import_only_update.xml')
 
         //validate Import file
         cy.get('.source_check_button').click()
-        cy.wait(5000)
+        cy.get('.fieldset_source').contains('File validated successfully',{timeout: 60000})
 
         //save and run process
         cy.get('#save_and_run').click()
         cy.get('.run').click()
-        cy.wait(15000)
 
         //check Import results
-        cy.get('#debug-run').contains('The import was successful.')
-
+        cy.get('#debug-run').contains('This file is empty',{timeout: 60000}).should('not.exist')
+        cy.get('#debug-run').contains('Data validation failed',{timeout: 60000}).should('not.exist')
+        cy.get('#debug-run').contains('The import was successful.',{timeout: 60000})
     })
 })
