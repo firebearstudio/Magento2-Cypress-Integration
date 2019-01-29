@@ -51,7 +51,7 @@ context('Import Products', () => {
         cy.get('.fieldset_source').contains('File validated successfully',{timeout: 60000})
 
         //save and run process
-        cy.get('#save_and_run').click()
+        cy.get('#save_and_run').click({force:true})
         cy.get('.run').click()
 
         //check Import results
@@ -85,7 +85,7 @@ context('Import Products', () => {
         cy.get('.admin__data-grid-outer-wrap').contains('Test Bundle and Grouped - simple product 1',{timeout: 60000})
         cy.get('.admin__data-grid-outer-wrap')
             .contains('Test Bundle and Grouped - simple product 1').click({force:true});
-        cy.get('.catalog-product-edit').contains('Customizable Options',{timeout: 60000}).click({force:true});
+        cy.get('[data-index="custom_options"]',{timeout: 60000}).find('.fieldset-wrapper-title').click({force:true});
         cy.get('[data-index="options"]').find('[data-index="values"]').find('tbody').find('tr').should('have.length', 3)
     })
 })
