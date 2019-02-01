@@ -1,6 +1,6 @@
 
-context('Import Products', () => {
-    it(' only update - xml - file - new job', () => {
+context('Import Сategories', () => {
+    it('delete - csv - url - new job', () => {
         //login
         cy.visit('http://import.com/admin')
         cy.get('#username')
@@ -22,7 +22,8 @@ context('Import Products', () => {
         cy.get('.general_is_active',{timeout: 60000}).find('.admin__actions-switch-label').as('generalIsActive')
         cy.get('@generalIsActive').click()
         cy.get('.general_title ').find('input')
-            .type('Product Import - only update - xml - file').should('have.value', 'Product Import - only update - xml - file')
+            .type('Category Import - delete - csv - url')
+            .should('have.value', 'Category Import - delete - csv - url')
         cy.get('.general_reindex').find('.admin__actions-switch-label').as('generalReindex')
         cy.get('@generalReindex').click()
 
@@ -30,22 +31,20 @@ context('Import Products', () => {
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
         cy.get('@fieldsetSettings').click()
         cy.get('.settings_entity').find('select').as('settingsEntity')
-        cy.get('@settingsEntity').select('catalog_product');
+        cy.get('@settingsEntity').select('catalog_category');
 
         //specify Import Behavior section
         cy.get('.fieldset_behavior').find('.fieldset-wrapper-title').as('fieldsetBehaviour')
         cy.get('.behavior_behavior').find('select').as('behaviorBehavior')
-        cy.get('@behaviorBehavior').select('update');
+        cy.get('@behaviorBehavior').select('delete');
 
         //specify Import Source section
-        cy.get('.source_type_file').find('select').as('importSourceType')
-        cy.get('@importSourceType').select('xml');
         cy.get('.source_import_source').find('select').as('importSource')
-        cy.get('@importSource').select('file');
-        cy.get('.file_file_path').find('input').as('filePath')
-        cy.get('@filePath')
-            .type('pub/media/importexport/import_only_update.xml')
-            .should('have.value', 'pub/media/importexport/import_only_update.xml')
+        cy.get('@importSource').select('url');
+        cy.get('.url_file_path ').find('input').as('urlFilePath')
+        cy.get('@urlFilePath')
+            .type('http://import.com/pub/media/importexport/import_categories_delete.csv')
+            .should('have.value', 'http://import.com/pub/media/importexport/import_categories_delete.csv')
 
         //validate Import file
         cy.get('.source_check_button').click()
@@ -59,5 +58,13 @@ context('Import Products', () => {
         cy.get('#debug-run').contains('This file is empty',{timeout: 60000}).should('not.exist')
         cy.get('#debug-run').contains('Data validation failed',{timeout: 60000}).should('not.exist')
         cy.get('#debug-run').contains('The import was successful.',{timeout: 60000})
+
+        //check that categories were removed
+        cy.get('#menu-magento-catalog-catalog').find('.item-catalog-categories').find('a').as('goToCategories')
+        cy.get('@goToCategories').click({force:true})
+        cy.get('#tree-div').contains('Default Category',{timeout: 60000})
+        cy.get('#tree-div').contains('First test category',{timeout: 60000}).should('not.exist')
+        cy.get('#tree-div').contains('Second test category',{timeout: 60000}).should('not.exist')
+        cy.get('#tree-div').contains('Third test category',{timeout: 60000}).should('not.exist')
     })
 })

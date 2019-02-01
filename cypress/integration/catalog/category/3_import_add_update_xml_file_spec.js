@@ -1,6 +1,6 @@
 
-context('Import Products', () => {
-    it(' only update - xml - file - new job', () => {
+context('Import Сategories', () => {
+    it('add update - xml - file - new job', () => {
         //login
         cy.visit('http://import.com/admin')
         cy.get('#username')
@@ -22,7 +22,7 @@ context('Import Products', () => {
         cy.get('.general_is_active',{timeout: 60000}).find('.admin__actions-switch-label').as('generalIsActive')
         cy.get('@generalIsActive').click()
         cy.get('.general_title ').find('input')
-            .type('Product Import - only update - xml - file').should('have.value', 'Product Import - only update - xml - file')
+            .type('Category Import - add update - xml - file').should('have.value', 'Category Import - add update - xml - file')
         cy.get('.general_reindex').find('.admin__actions-switch-label').as('generalReindex')
         cy.get('@generalReindex').click()
 
@@ -30,12 +30,12 @@ context('Import Products', () => {
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
         cy.get('@fieldsetSettings').click()
         cy.get('.settings_entity').find('select').as('settingsEntity')
-        cy.get('@settingsEntity').select('catalog_product');
+        cy.get('@settingsEntity').select('catalog_category');
 
         //specify Import Behavior section
         cy.get('.fieldset_behavior').find('.fieldset-wrapper-title').as('fieldsetBehaviour')
         cy.get('.behavior_behavior').find('select').as('behaviorBehavior')
-        cy.get('@behaviorBehavior').select('update');
+        cy.get('@behaviorBehavior').select('append');
 
         //specify Import Source section
         cy.get('.source_type_file').find('select').as('importSourceType')
@@ -44,8 +44,8 @@ context('Import Products', () => {
         cy.get('@importSource').select('file');
         cy.get('.file_file_path').find('input').as('filePath')
         cy.get('@filePath')
-            .type('pub/media/importexport/import_only_update.xml')
-            .should('have.value', 'pub/media/importexport/import_only_update.xml')
+            .type('pub/media/importexport/import_categories_only_update.xml')
+            .should('have.value', 'pub/media/importexport/import_categories_only_update.xml')
 
         //validate Import file
         cy.get('.source_check_button').click()

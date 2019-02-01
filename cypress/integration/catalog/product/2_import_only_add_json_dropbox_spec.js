@@ -56,7 +56,7 @@ context('Import Products', () => {
         cy.get('.fieldset_source').contains('File validated successfully',{timeout: 60000})
 
         //save and run process
-        cy.get('#save_and_run').click()
+        cy.get('#save_and_run').click({force:true})
         cy.get('.run').click()
 
         //check Import results
