@@ -60,6 +60,7 @@ context('Import Сategories', () => {
         cy.get('.run').click()
 
         //check Import results
+        cy.get('#debug-run').contains('Entity catalog_category',{timeout: 60000})
         cy.get('#debug-run').contains('This file is empty',{timeout: 60000}).should('not.exist')
         cy.get('#debug-run').contains('Data validation failed',{timeout: 60000}).should('not.exist')
         cy.get('#debug-run').contains('Import data validation is complete.',{timeout: 60000})

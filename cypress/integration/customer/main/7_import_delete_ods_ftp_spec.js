@@ -69,10 +69,11 @@ context('Import Сustomers', () => {
         cy.get('.fieldset_source').contains('File validated successfully',{timeout: 60000})
 
         //save and run process
-        cy.get('#save_and_run').click()
+        cy.get('#save_and_run').click({force:true})
         cy.get('.run').click()
 
         //check Import results
+        cy.get('#debug-run').contains('Entity customer',{timeout: 60000})
         cy.get('#debug-run').contains('This file is empty',{timeout: 60000}).should('not.exist')
         cy.get('#debug-run').contains('Data validation failed',{timeout: 60000}).should('not.exist')
         cy.get('#debug-run').contains('The import was successful.',{timeout: 60000})

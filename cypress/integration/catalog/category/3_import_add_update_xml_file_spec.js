@@ -44,8 +44,8 @@ context('Import Сategories', () => {
         cy.get('@importSource').select('file');
         cy.get('.file_file_path').find('input').as('filePath')
         cy.get('@filePath')
-            .type('pub/media/importexport/import_categories_only_update.xml')
-            .should('have.value', 'pub/media/importexport/import_categories_only_update.xml')
+            .type('pub/media/importexport/import_categories_add_update.xml')
+            .should('have.value', 'pub/media/importexport/import_categories_add_update.xml')
 
         //validate Import file
         cy.get('.source_check_button').click()
@@ -56,6 +56,7 @@ context('Import Сategories', () => {
         cy.get('.run').click()
 
         //check Import results
+        cy.get('#debug-run').contains('Entity catalog_category',{timeout: 60000})
         cy.get('#debug-run').contains('This file is empty',{timeout: 60000}).should('not.exist')
         cy.get('#debug-run').contains('Data validation failed',{timeout: 60000}).should('not.exist')
         cy.get('#debug-run').contains('The import was successful.',{timeout: 60000})

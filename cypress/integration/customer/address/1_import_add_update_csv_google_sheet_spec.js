@@ -1,6 +1,6 @@
 
-context('Import Сustomers', () => {
-    it('add update - xlsx - ftp - new job', () => {
+context('Import Сustomer Addresses', () => {
+    it('add update - csv - google sheet - new job', () => {
         //login
         cy.visit('http://import.com/admin')
         cy.get('#username')
@@ -22,8 +22,8 @@ context('Import Сustomers', () => {
         cy.get('.general_is_active',{timeout: 60000}).find('.admin__actions-switch-label').as('generalIsActive')
         cy.get('@generalIsActive').click()
         cy.get('.general_title ').find('input')
-            .type('Сustomer Import - add update - xlsx - ftp')
-            .should('have.value', 'Сustomer Import - add update - xlsx - ftp')
+            .type('Customer Address Import - add update - csv - google sheet')
+            .should('have.value', 'Customer Address Import - add update - csv - google sheet')
         cy.get('.general_reindex').find('.admin__actions-switch-label').as('generalReindex')
         cy.get('@generalReindex').click()
 
@@ -31,7 +31,7 @@ context('Import Сustomers', () => {
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
         cy.get('@fieldsetSettings').click()
         cy.get('.settings_entity').find('select').as('settingsEntity')
-        cy.get('@settingsEntity').select('customer');
+        cy.get('@settingsEntity').select('customer_address');
 
         //specify Import Behavior section
         cy.get('.fieldset_behavior').find('.fieldset-wrapper-title').as('fieldsetBehaviour')
@@ -39,30 +39,12 @@ context('Import Сustomers', () => {
         cy.get('@behaviorBehavior').select('add_update');
 
         //specify Import Source section
-        cy.get('.source_type_file').find('select').as('importSourceType')
-        cy.get('@importSourceType').select('xlsx');
         cy.get('.source_import_source').find('select').as('importSource')
-        cy.get('@importSource').select('ftp');
-        cy.get('.ftp_file_path').find('input').as('ftpFilePath')
-        cy.get('@ftpFilePath')
-            .type('/files/import_customers_add_update.xlsx')
-            .should('have.value', '/files/import_customers_add_update.xlsx')
-        cy.get('.ftp_host ').find('input').as('ftpHost')
-        cy.get('@ftpHost')
-            .type('***')
-            .should('have.value', '***')
-        cy.get('.ftp_port').find('input').as('ftpPort')
-        cy.get('@ftpPort')
-            .type('***')
-            .should('have.value', '***')
-        cy.get('.ftp_user').find('input').as('ftpUserName')
-        cy.get('@ftpUserName')
-            .type('***')
-            .should('have.value', '***')
-        cy.get('.ftp_password ').find('input').as('ftpPassword')
-        cy.get('@ftpPassword')
-            .type('***')
-            .should('have.value', '***')
+        cy.get('@importSource').select('google');
+        cy.get('.google_file_path').find('input').as('googleFilePath')
+        cy.get('@googleFilePath')
+            .invoke('val', 'https://docs.google.com/spreadsheets/d/13FemIzzexF5koAdQYjbcKscqoCfXyknYWkQkbSZGPsk/edit#gid=467742921')
+            .trigger('change')
 
         //validate Import file
         cy.get('.source_check_button').click()
@@ -73,14 +55,30 @@ context('Import Сustomers', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.get('#debug-run').contains('Entity customer',{timeout: 60000})
+        cy.get('#debug-run').contains('Entity customer_address',{timeout: 60000})
         cy.get('#debug-run').contains('This file is empty',{timeout: 60000}).should('not.exist')
         cy.get('#debug-run').contains('Data validation failed',{timeout: 60000}).should('not.exist')
         cy.get('#debug-run').contains('The import was successful.',{timeout: 60000})
 
-        //check that customers were created
+        //check that customer addresses were created
         cy.get('#menu-magento-customer-customer').find('.item-customer-manage').find('a').as('goToCustomersGrid')
         cy.get('@goToCustomersGrid').click({force:true})
         cy.get('.admin__data-grid-outer-wrap').contains('3 records found',{timeout: 60000});
+        cy.get('.data-row').get('[data-repeat-index="1"]',{timeout: 60000})
+            .contains('Edit',{timeout: 60000}).click({force:true})
+        cy.get('#tab_address',{timeout: 60000}).click();
+        cy.get('[name="address[3][prefix]"]',{timeout: 60000}).should('have.value', 'Mrs.');
+        cy.get('[name="address[3][firstname]"]',{timeout: 60000}).should('have.value', 'Jane');
+        cy.get('[name="address[3][middlename]"]',{timeout: 60000}).should('have.value', 'R');
+        cy.get('[name="address[3][lastname]"]',{timeout: 60000}).should('have.value', 'Roe');
+        cy.get('[name="address[3][suffix]"]',{timeout: 60000}).should('have.value', 'Sr.');
+        cy.get('[name="address[3][company]"]',{timeout: 60000}).should('have.value', 'FireBear Studio');
+        cy.get('[name="address[3][street][0]"]',{timeout: 60000}).should('have.value', 'Test');
+        cy.get('[name="address[3][street][1]"]',{timeout: 60000}).should('have.value', '96');
+        cy.get('[name="address[3][city]"]',{timeout: 60000}).should('have.value', 'Test');
+        cy.get('[name="address[3][country_id]"]',{timeout: 60000}).should('have.value', 'DE');
+        cy.get('[name="address[3][postcode]"]',{timeout: 60000}).should('have.value', '12345');
+        cy.get('[name="address[3][telephone]"]',{timeout: 60000}).should('have.value', '5555555556');
+        cy.get('[name="address[3][vat_id]"]',{timeout: 60000}).should('have.value', 'EU555555555');
     })
 })
