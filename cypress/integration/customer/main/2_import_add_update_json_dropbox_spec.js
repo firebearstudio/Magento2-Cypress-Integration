@@ -39,9 +39,9 @@ context('Import Сustomers', () => {
         cy.get('@behaviorBehavior').select('add_update');
 
         //specify Import Source section
-        cy.get('.source_type_file').find('select').as('importSourceType')
+        cy.get('.type_file').find('select').as('importSourceType')
         cy.get('@importSourceType').select('json');
-        cy.get('.source_import_source').find('select').as('importSource')
+        cy.get('.import_source').find('select').as('importSource')
         cy.get('@importSource').select('dropbox');
         cy.get('.dropbox_file_path ').find('input').as('dropboxFilePath')
         cy.get('@dropboxFilePath')

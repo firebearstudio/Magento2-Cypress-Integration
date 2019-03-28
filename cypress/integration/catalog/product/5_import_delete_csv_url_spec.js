@@ -39,7 +39,7 @@ context('Import Products', () => {
         cy.get('@behaviorBehavior').select('delete');
 
         //specify Import Source section
-        cy.get('.source_import_source').find('select').as('importSource')
+        cy.get('.import_source').find('select').as('importSource')
         cy.get('@importSource').select('url');
         cy.get('.url_file_path ').find('input').as('urlFilePath')
         cy.get('@urlFilePath')

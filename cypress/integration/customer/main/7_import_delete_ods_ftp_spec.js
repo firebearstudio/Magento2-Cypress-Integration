@@ -39,9 +39,9 @@ context('Import Сustomers', () => {
         cy.get('@behaviorBehavior').select('delete');
 
         //specify Import Source section
-        cy.get('.source_type_file').find('select').as('importSourceType')
+        cy.get('.type_file').find('select').as('importSourceType')
         cy.get('@importSourceType').select('ods');
-        cy.get('.source_import_source').find('select').as('importSource')
+        cy.get('.import_source').find('select').as('importSource')
         cy.get('@importSource').select('ftp');
         cy.get('.ftp_file_path').find('input').as('ftpFilePath')
         cy.get('@ftpFilePath')

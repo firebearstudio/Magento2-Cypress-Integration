@@ -39,9 +39,9 @@ context('Import Сustomer Addresses', () => {
         cy.get('@behaviorBehavior').select('add_update');
 
         //specify Import Source section
-        cy.get('.source_type_file').find('select').as('importSourceType')
+        cy.get('.type_file').find('select').as('importSourceType')
         cy.get('@importSourceType').select('xml');
-        cy.get('.source_import_source').find('select').as('importSource')
+        cy.get('.import_source').find('select').as('importSource')
         cy.get('@importSource').select('file');
         cy.get('.file_file_path').find('input').as('filePath')
         cy.get('@filePath')

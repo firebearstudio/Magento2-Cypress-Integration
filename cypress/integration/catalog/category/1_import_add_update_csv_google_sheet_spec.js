@@ -39,7 +39,7 @@ context('Import Сategories', () => {
         cy.get('@behaviorBehavior').select('append');
 
         //specify Import Source section
-        cy.get('.source_import_source').find('select').as('importSource')
+        cy.get('.import_source').find('select').as('importSource')
         cy.get('@importSource').select('google');
         cy.get('.google_file_path').find('input').as('googleFilePath')
         cy.get('@googleFilePath')

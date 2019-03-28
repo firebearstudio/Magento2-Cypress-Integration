@@ -39,7 +39,7 @@ context('Import Сategories', () => {
         cy.get('@behaviorBehavior').select('replace');
 
         //specify Import Source section
-        cy.get('.source_import_source').find('select').as('importSource')
+        cy.get('.import_source').find('select').as('importSource')
         cy.get('@importSource').select('sftp');
         cy.get('.sftp_file_path').find('input').as('sftpFilePath')
         cy.get('@sftpFilePath')

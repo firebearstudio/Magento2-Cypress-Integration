@@ -39,9 +39,9 @@ context('Import Products', () => {
         cy.get('@behaviorBehavior').select('append');
 
         //specify Import Source section
-        cy.get('.source_type_file').find('select').as('importSourceType')
+        cy.get('.type_file').find('select').as('importSourceType')
         cy.get('@importSourceType').select('xlsx');
-        cy.get('.source_import_source').find('select').as('importSource')
+        cy.get('.import_source').find('select').as('importSource')
         cy.get('@importSource').select('ftp');
         cy.get('.ftp_file_path').find('input').as('ftpFilePath')
         cy.get('@ftpFilePath')
