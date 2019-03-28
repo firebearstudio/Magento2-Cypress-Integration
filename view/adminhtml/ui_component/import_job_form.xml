@@ -275,16 +275,7 @@
                     <item name="fieldset_source_data_map_container" xsi:type="boolean">true</item>
                 </item>
             </item>
-        </argument>
-        <field name="platforms">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="additionalClasses" xsi:type="array">
-                        <item name="source_data_map_container_platforms" xsi:type="boolean">true</item>
-                    </item>
-                </item>
-            </argument>
-        </field>
+        </argument>      
         <field name="replace_default_value">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
