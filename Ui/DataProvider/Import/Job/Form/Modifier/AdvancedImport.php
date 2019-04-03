@@ -5,6 +5,7 @@
  */
 
 namespace Firebear\ImportExportCypress\Ui\DataProvider\Import\Job\Form\Modifier;
+
 /**
  * Data provider for advanced inventory form
  */
@@ -25,5 +26,4 @@ class AdvancedImport extends \Firebear\ImportExport\Ui\DataProvider\Import\Job\F
 
         return $childrenArray;
     }
-    
 }
