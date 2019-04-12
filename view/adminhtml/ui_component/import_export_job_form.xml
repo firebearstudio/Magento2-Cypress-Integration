@@ -191,7 +191,7 @@
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="buttonClasses" xsi:type="string">source_check_button</item>
-                    <item name="template" xsi:type="string">Firebear_ImportExportCypress/form/element/button</item>
+                    <item name="template" xsi:type="string">Firebear_ImportExportCypress/form/element/connect</item>
                 </item>
             </argument>
         </button>
