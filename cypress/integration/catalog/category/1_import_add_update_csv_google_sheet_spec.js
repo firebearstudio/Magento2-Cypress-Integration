@@ -56,9 +56,12 @@ context('Import Сategories', () => {
 
         //check Import results
         cy.get('#debug-run').contains('Entity catalog_category',{timeout: 60000})
-        cy.get('#debug-run').contains('This file is empty',{timeout: 60000}).should('not.exist')
-        cy.get('#debug-run').contains('Data validation failed',{timeout: 60000}).should('not.exist')
-        cy.get('#debug-run').contains('The import was successful.',{timeout: 60000})
+        cy.get('#debug-run').contains('The import was successful.',{timeout: 600000})
+        cy.get('#debug-run').contains('REINDEX completed',{timeout: 600000})
+        cy.get('#debug-run').contains('This file is empty').should('not.exist')
+        cy.get('#debug-run').contains('Data validation failed').should('not.exist')
+        cy.get('#debug-run').contains('Invalid').should('not.exist')
+        cy.get('#debug-run').contains('Exception').should('not.exist')
 
         //check that categories were created
         cy.get('#menu-magento-catalog-catalog').find('.item-catalog-categories').find('a').as('goToCategories')

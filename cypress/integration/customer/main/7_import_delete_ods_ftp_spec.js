@@ -74,9 +74,12 @@ context('Import Сustomers', () => {
 
         //check Import results
         cy.get('#debug-run').contains('Entity customer',{timeout: 60000})
-        cy.get('#debug-run').contains('This file is empty',{timeout: 60000}).should('not.exist')
-        cy.get('#debug-run').contains('Data validation failed',{timeout: 60000}).should('not.exist')
-        cy.get('#debug-run').contains('The import was successful.',{timeout: 60000})
+        cy.get('#debug-run').contains('The import was successful.',{timeout: 600000})
+        cy.get('#debug-run').contains('REINDEX completed',{timeout: 600000})
+        cy.get('#debug-run').contains('This file is empty').should('not.exist')
+        cy.get('#debug-run').contains('Data validation failed').should('not.exist')
+        cy.get('#debug-run').contains('Invalid').should('not.exist')
+        cy.get('#debug-run').contains('Exception').should('not.exist')
 
         //check that customers were removed
         cy.get('#menu-magento-customer-customer').find('.item-customer-manage').find('a').as('goToCustomersGrid')

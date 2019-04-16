@@ -61,9 +61,11 @@ context('Import Products', () => {
 
         //check Import results
         cy.get('#debug-run').contains('Entity catalog_product',{timeout: 60000})
-        cy.get('#debug-run').contains('This file is empty',{timeout: 60000}).should('not.exist')
-        cy.get('#debug-run').contains('Data validation failed',{timeout: 60000}).should('not.exist')
-        cy.get('#debug-run').contains('Import data validation is complete.',{timeout: 60000})
-        cy.get('#debug-run').contains('Invalid',{timeout: 60000}).should('not.exist')
+        cy.get('#debug-run').contains('Import data validation is complete.',{timeout: 600000})
+        cy.get('#debug-run').contains('REINDEX completed',{timeout: 600000})
+        cy.get('#debug-run').contains('This file is empty').should('not.exist')
+        cy.get('#debug-run').contains('Data validation failed').should('not.exist')
+        cy.get('#debug-run').contains('Invalid').should('not.exist')
+        cy.get('#debug-run').contains('Exception').should('not.exist')
     })
 })
