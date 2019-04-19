@@ -1,5 +1,5 @@
 
-context('Export Products', () => {
+context('Export Customer Addresses', () => {
     it('xlsx - ftp - new job', () => {
         //login
         cy.visit('http://import.com/admin')
@@ -22,12 +22,12 @@ context('Export Products', () => {
         cy.get('.general_is_active',{timeout: 60000}).find('.admin__actions-switch-label').as('generalIsActive')
         cy.get('@generalIsActive').click()
         cy.get('.general_title ').find('input')
-            .type('Product Export - xlsx - ftp')
-            .should('have.value', 'Product Export - xlsx - ftp')
+            .type('Customers Addresses Export - xlsx - ftp')
+            .should('have.value', 'Customers Addresses Export - xlsx - ftp')
 
         //specify Export Settings section
         cy.get('.settings_entity').find('select').as('settingsEntity')
-        cy.get('@settingsEntity').select('catalog_product')
+        cy.get('@settingsEntity').select('customer_address')
 
         //specify Export Behavior section
         cy.get('.behavior_behavior_field_file_format').find('select').as('fileFormat')
@@ -38,8 +38,8 @@ context('Export Products', () => {
         cy.get('@exportSource').select('ftp');
         cy.get('.export_source_ftp_file_path').find('input').as('ftpFilePath')
         cy.get('@ftpFilePath')
-            .type('/files/import_add_update_sample_data.xlsx')
-            .should('have.value', '/files/import_add_update_sample_data.xlsx')
+            .type('/files/import_customer_addresses_add_update_sample_data.xlsx')
+            .should('have.value', '/files/import_customer_addresses_add_update_sample_data.xlsx')
         cy.get('.export_source_ftp_host').find('input').as('ftpHost')
         cy.get('@ftpHost')
             .type('***')
@@ -66,7 +66,7 @@ context('Export Products', () => {
         cy.get('.run').click()
 
         //check Export results
-        cy.get('#debug-run').contains('Entity catalog_product',{timeout: 60000})
+        cy.get('#debug-run').contains('Entity customer_address',{timeout: 60000})
         cy.get('#debug-run').contains('The export is finished.',{timeout: 60000})
         cy.get('#debug-run').contains('There is no data for the export.',{timeout: 60000}).should('not.exist')
         cy.get('#debug-run').contains('Please provide filter data.',{timeout: 60000}).should('not.exist')
