@@ -1,6 +1,6 @@
 
 context('Import Customers and Addresses', () => {
-    it('add update - csv - google sheet - new job', () => {
+    it('add update - json - dropbox - new job', () => {
         //login
         cy.visit('http://import.com/admin')
         cy.get('#username')
@@ -22,8 +22,8 @@ context('Import Customers and Addresses', () => {
         cy.get('.general_is_active',{timeout: 60000}).find('.admin__actions-switch-label').as('generalIsActive')
         cy.get('@generalIsActive').click()
         cy.get('.general_title ').find('input')
-            .type('Customer and Addresses Import  - add update - csv - google sheet')
-            .should('have.value', 'Customer and Addresses Import  - add update - csv - google sheet')
+            .type('Сustomers and Addresses Import - add update - json - dropbox')
+            .should('have.value', 'Сustomers and Addresses Import - add update - json - dropbox')
         cy.get('.general_reindex').find('.admin__actions-switch-label').as('generalReindex')
         cy.get('@generalReindex').click()
 
@@ -39,12 +39,17 @@ context('Import Customers and Addresses', () => {
         cy.get('@behaviorBehavior').select('append');
 
         //specify Import Source section
+        cy.get('.type_file').find('select').as('importSourceType')
+        cy.get('@importSourceType').select('json');
         cy.get('.import_source').find('select').as('importSource')
-        cy.get('@importSource').select('google');
-        cy.get('.google_file_path').find('input').as('googleFilePath')
-        cy.get('@googleFilePath')
-            .invoke('val', 'https://docs.google.com/spreadsheets/d/13FemIzzexF5koAdQYjbcKscqoCfXyknYWkQkbSZGPsk/edit#gid=1732782711')
-            .trigger('change')
+        cy.get('@importSource').select('dropbox');
+        cy.get('.dropbox_file_path ').find('input').as('dropboxFilePath')
+        cy.get('@dropboxFilePath')
+            .type('/import_сustomers_and_addresses_add_update.json').should('have.value', '/import_сustomers_and_addresses_add_update.json')
+        cy.get('.dropbox_access_token ').find('input').as('dropboxAccessToken')
+        cy.get('@dropboxAccessToken')
+            .type('***')
+            .should('have.value', '***')
 
         //validate Import file
         cy.get('.source_check_button').click()
@@ -55,17 +60,12 @@ context('Import Customers and Addresses', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.get('#debug-run').contains('Entity customer_composite',{timeout: 60000})
+        cy.get('#debug-run').contains('Entity customer',{timeout: 60000})
         cy.get('#debug-run').contains('The import was successful.',{timeout: 60000})
         cy.get('#debug-run').contains('REINDEX completed',{timeout: 60000})
         cy.get('#debug-run').contains('This file is empty').should('not.exist')
         cy.get('#debug-run').contains('Data validation failed').should('not.exist')
         cy.get('#debug-run').contains('Invalid').should('not.exist')
         cy.get('#debug-run').contains('Exception').should('not.exist')
-
-        //check that customers were created
-        cy.get('#menu-magento-customer-customer').find('.item-customer-manage').find('a').as('goToCustomersGrid')
-        cy.get('@goToCustomersGrid').click({force:true})
-        cy.get('.admin__data-grid-outer-wrap').contains('3 records found',{timeout: 60000});
     })
 })
