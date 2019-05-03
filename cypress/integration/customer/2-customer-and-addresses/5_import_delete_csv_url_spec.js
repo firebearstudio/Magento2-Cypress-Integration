@@ -1,6 +1,6 @@
 
 context('Import Customers and Addresses', () => {
-    it('add update - xml - file - new job', () => {
+    it('delete - csv - url - new job', () => {
         //login
         cy.visit('http://import.com/admin')
         cy.get('#username')
@@ -22,8 +22,8 @@ context('Import Customers and Addresses', () => {
         cy.get('.general_is_active',{timeout: 60000}).find('.admin__actions-switch-label').as('generalIsActive')
         cy.get('@generalIsActive').click()
         cy.get('.general_title ').find('input')
-            .type('Сustomers and Addresses Import - add update - xml - file')
-            .should('have.value', 'Сustomers and Addresses Import - add update - xml - file')
+            .type('Customer and Addresses Import - delete - csv - url')
+            .should('have.value', 'Customer and Addresses Import - delete - csv - url')
         cy.get('.general_reindex').find('.admin__actions-switch-label').as('generalReindex')
         cy.get('@generalReindex').click()
 
@@ -36,17 +36,15 @@ context('Import Customers and Addresses', () => {
         //specify Import Behavior section
         cy.get('.fieldset_behavior').find('.fieldset-wrapper-title').as('fieldsetBehaviour')
         cy.get('.behavior_behavior').find('select').as('behaviorBehavior')
-        cy.get('@behaviorBehavior').select('append');
+        cy.get('@behaviorBehavior').select('delete');
 
         //specify Import Source section
-        cy.get('.type_file').find('select').as('importSourceType')
-        cy.get('@importSourceType').select('xml');
         cy.get('.import_source').find('select').as('importSource')
-        cy.get('@importSource').select('file');
-        cy.get('.file_file_path').find('input').as('filePath')
-        cy.get('@filePath')
-            .type('pub/media/importexport/import_customers_and_addresses_add_update.xml')
-            .should('have.value', 'pub/media/importexport/import_customers_and_addresses_add_update.xml')
+        cy.get('@importSource').select('url');
+        cy.get('.url_file_path ').find('input').as('urlFilePath')
+        cy.get('@urlFilePath')
+            .type('http://import.com/pub/media/importexport/import_customers_and_addresses_delete.csv')
+            .should('have.value', 'http://import.com/pub/media/importexport/import_customers_and_addresses_delete.csv')
 
         //validate Import file
         cy.get('.source_check_button').click()

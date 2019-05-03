@@ -60,7 +60,7 @@ context('Import Customers and Addresses', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.get('#debug-run').contains('Entity customer',{timeout: 60000})
+        cy.get('#debug-run').contains('Entity customer_composite',{timeout: 60000})
         cy.get('#debug-run').contains('The import was successful.',{timeout: 60000})
         cy.get('#debug-run').contains('REINDEX completed',{timeout: 60000})
         cy.get('#debug-run').contains('This file is empty').should('not.exist')
