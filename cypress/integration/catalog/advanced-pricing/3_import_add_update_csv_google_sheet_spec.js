@@ -1,6 +1,6 @@
 
 context('Import Advanced Pricing', () => {
-    it('add update - xlsx - ftp - new job', () => {
+    it('add update - csv - google sheet - new job', () => {
         //login
         cy.visit('http://import.com/admin')
         cy.get('#username')
@@ -22,8 +22,8 @@ context('Import Advanced Pricing', () => {
         cy.get('.general_is_active',{timeout: 60000}).find('.admin__actions-switch-label').as('generalIsActive')
         cy.get('@generalIsActive').click()
         cy.get('.general_title ').find('input')
-            .type('Advanced Pricing Import - add update - xlsx - ftp')
-            .should('have.value', 'Advanced Pricing Import - add update - xlsx - ftp')
+            .type('Advanced Pricing Import - add update - csv - google sheet')
+            .should('have.value', 'Advanced Pricing Import - add update - csv - google sheet')
         cy.get('.general_reindex').find('.admin__actions-switch-label').as('generalReindex')
         cy.get('@generalReindex').click()
 
@@ -39,30 +39,12 @@ context('Import Advanced Pricing', () => {
         cy.get('@behaviorBehavior').select('append');
 
         //specify Import Source section
-        cy.get('.type_file').find('select').as('importSourceType')
-        cy.get('@importSourceType').select('xlsx');
         cy.get('.import_source').find('select').as('importSource')
-        cy.get('@importSource').select('ftp');
-        cy.get('.ftp_file_path').find('input').as('ftpFilePath')
-        cy.get('@ftpFilePath')
-            .type('/files/import_advanced_pricing_add_update.xlsx')
-            .should('have.value', '/files/import_advanced_pricing_add_update.xlsx')
-        cy.get('.ftp_host ').find('input').as('ftpHost')
-        cy.get('@ftpHost')
-            .type('***')
-            .should('have.value', '***')
-        cy.get('.ftp_port').find('input').as('ftpPort')
-        cy.get('@ftpPort')
-            .type('***')
-            .should('have.value', '***')
-        cy.get('.ftp_user').find('input').as('ftpUserName')
-        cy.get('@ftpUserName')
-            .type('***')
-            .should('have.value', '***')
-        cy.get('.ftp_password ').find('input').as('ftpPassword')
-        cy.get('@ftpPassword')
-            .type('***')
-            .should('have.value', '***')
+        cy.get('@importSource').select('google');
+        cy.get('.google_file_path').find('input').as('googleFilePath')
+        cy.get('@googleFilePath')
+            .invoke('val', 'https://docs.google.com/spreadsheets/d/13FemIzzexF5koAdQYjbcKscqoCfXyknYWkQkbSZGPsk/edit#gid=61507826')
+            .trigger('change')
 
         //validate Import file
         cy.get('.source_check_button').click()

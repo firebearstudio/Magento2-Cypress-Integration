@@ -1,6 +1,6 @@
 
 context('Import Advanced Pricing', () => {
-    it('add update - xlsx - ftp - new job', () => {
+    it('only add - json - dropbox - new job', () => {
         //login
         cy.visit('http://import.com/admin')
         cy.get('#username')
@@ -22,8 +22,8 @@ context('Import Advanced Pricing', () => {
         cy.get('.general_is_active',{timeout: 60000}).find('.admin__actions-switch-label').as('generalIsActive')
         cy.get('@generalIsActive').click()
         cy.get('.general_title ').find('input')
-            .type('Advanced Pricing Import - add update - xlsx - ftp')
-            .should('have.value', 'Advanced Pricing Import - add update - xlsx - ftp')
+            .type('Advanced Pricing - only add - json - dropbox')
+            .should('have.value', 'Advanced Pricing - only add - json - dropbox')
         cy.get('.general_reindex').find('.admin__actions-switch-label').as('generalReindex')
         cy.get('@generalReindex').click()
 
@@ -40,27 +40,14 @@ context('Import Advanced Pricing', () => {
 
         //specify Import Source section
         cy.get('.type_file').find('select').as('importSourceType')
-        cy.get('@importSourceType').select('xlsx');
+        cy.get('@importSourceType').select('json');
         cy.get('.import_source').find('select').as('importSource')
-        cy.get('@importSource').select('ftp');
-        cy.get('.ftp_file_path').find('input').as('ftpFilePath')
-        cy.get('@ftpFilePath')
-            .type('/files/import_advanced_pricing_add_update.xlsx')
-            .should('have.value', '/files/import_advanced_pricing_add_update.xlsx')
-        cy.get('.ftp_host ').find('input').as('ftpHost')
-        cy.get('@ftpHost')
-            .type('***')
-            .should('have.value', '***')
-        cy.get('.ftp_port').find('input').as('ftpPort')
-        cy.get('@ftpPort')
-            .type('***')
-            .should('have.value', '***')
-        cy.get('.ftp_user').find('input').as('ftpUserName')
-        cy.get('@ftpUserName')
-            .type('***')
-            .should('have.value', '***')
-        cy.get('.ftp_password ').find('input').as('ftpPassword')
-        cy.get('@ftpPassword')
+        cy.get('@importSource').select('dropbox');
+        cy.get('.dropbox_file_path ').find('input').as('dropboxFilePath')
+        cy.get('@dropboxFilePath')
+            .type('/import_advanced_pricing_add_update.json').should('have.value', '/import_advanced_pricing_add_update.json')
+        cy.get('.dropbox_access_token ').find('input').as('dropboxAccessToken')
+        cy.get('@dropboxAccessToken')
             .type('***')
             .should('have.value', '***')
 
@@ -73,8 +60,8 @@ context('Import Advanced Pricing', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.get('#debug-run').contains('Entity advanced_pricing',{timeout: 60000})
-        cy.get('#debug-run').contains('The import was successful.',{timeout: 60000})
+        cy.get('#debug-run').contains('Entity catalog_product',{timeout: 60000})
+        cy.get('#debug-run').contains('Import data validation is complete.',{timeout: 60000})
         cy.get('#debug-run').contains('REINDEX completed',{timeout: 60000})
         cy.get('#debug-run').contains('This file is empty').should('not.exist')
         cy.get('#debug-run').contains('Data validation failed').should('not.exist')
