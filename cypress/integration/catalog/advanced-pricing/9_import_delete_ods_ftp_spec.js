@@ -1,6 +1,6 @@
 
 context('Import Advanced Pricing', () => {
-    it('add update - xlsx - ftp - new job', () => {
+    it('delete - ods - ftp - new job', () => {
         //login
         cy.visit('http://import.com/admin')
         cy.get('#username')
@@ -22,8 +22,8 @@ context('Import Advanced Pricing', () => {
         cy.get('.general_is_active',{timeout: 60000}).find('.admin__actions-switch-label').as('generalIsActive')
         cy.get('@generalIsActive').click()
         cy.get('.general_title ').find('input')
-            .type('Advanced Pricing Import - add update - xlsx - ftp')
-            .should('have.value', 'Advanced Pricing Import - add update - xlsx - ftp')
+            .type('Advanced Pricing Import - delete - ods - ftp')
+            .should('have.value', 'Advanced Pricing Import - delete - ods - ftp')
         cy.get('.general_reindex').find('.admin__actions-switch-label').as('generalReindex')
         cy.get('@generalReindex').click()
 
@@ -36,17 +36,17 @@ context('Import Advanced Pricing', () => {
         //specify Import Behavior section
         cy.get('.fieldset_behavior').find('.fieldset-wrapper-title').as('fieldsetBehaviour')
         cy.get('.behavior_behavior').find('select').as('behaviorBehavior')
-        cy.get('@behaviorBehavior').select('append');
+        cy.get('@behaviorBehavior').select('delete');
 
         //specify Import Source section
         cy.get('.type_file').find('select').as('importSourceType')
-        cy.get('@importSourceType').select('xlsx');
+        cy.get('@importSourceType').select('ods');
         cy.get('.import_source').find('select').as('importSource')
         cy.get('@importSource').select('ftp');
         cy.get('.ftp_file_path').find('input').as('ftpFilePath')
         cy.get('@ftpFilePath')
-            .type('/files/import_advanced_pricing_add_update.xlsx')
-            .should('have.value', '/files/import_advanced_pricing_add_update.xlsx')
+            .type('/files/import_advanced_pricing_delete.ods')
+            .should('have.value', '/files/import_advanced_pricing_delete.ods')
         cy.get('.ftp_host ').find('input').as('ftpHost')
         cy.get('@ftpHost')
             .type('***')

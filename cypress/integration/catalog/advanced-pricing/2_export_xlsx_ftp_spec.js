@@ -38,8 +38,8 @@ context('Export Advanced Pricing', () => {
         cy.get('@exportSource').select('ftp');
         cy.get('.export_source_ftp_file_path').find('input').as('ftpFilePath')
         cy.get('@ftpFilePath')
-            .type('/files/import_advanced_pricing_add_update.xlsx')
-            .should('have.value', '/files/import_advanced_pricing_add_update.xlsx')
+            .type('/files/import_advanced_pricing_add_update_sample_data.xlsx')
+            .should('have.value', '/files/import_advanced_pricing_add_update_sample_data.xlsx')
         cy.get('.export_source_ftp_host').find('input').as('ftpHost')
         cy.get('@ftpHost')
             .type('***')
