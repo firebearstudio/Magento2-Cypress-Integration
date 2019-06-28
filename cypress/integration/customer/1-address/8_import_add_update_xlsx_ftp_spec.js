@@ -80,26 +80,5 @@ context('Import Сustomer Addresses', () => {
         cy.get('#debug-run').contains('Data validation failed').should('not.exist')
         cy.get('#debug-run').contains('Invalid').should('not.exist')
         cy.get('#debug-run').contains('Exception').should('not.exist')
-
-        //check that customer addresses were created
-        cy.get('#menu-magento-customer-customer').find('.item-customer-manage').find('a').as('goToCustomersGrid')
-        cy.get('@goToCustomersGrid').click({force:true})
-        cy.get('.admin__data-grid-outer-wrap').contains('3 records found',{timeout: 60000});
-        cy.get('.data-row').get('[data-repeat-index="1"]',{timeout: 60000})
-            .contains('Edit',{timeout: 60000}).click({force:true})
-        cy.get('#tab_address',{timeout: 60000}).click();
-        cy.get('[name="address[3][prefix]"]',{timeout: 60000}).should('have.value', 'Mrs.');
-        cy.get('[name="address[3][firstname]"]',{timeout: 60000}).should('have.value', 'Jane');
-        cy.get('[name="address[3][middlename]"]',{timeout: 60000}).should('have.value', 'R');
-        cy.get('[name="address[3][lastname]"]',{timeout: 60000}).should('have.value', 'Roe');
-        cy.get('[name="address[3][suffix]"]',{timeout: 60000}).should('have.value', 'Sr.');
-        cy.get('[name="address[3][company]"]',{timeout: 60000}).should('have.value', 'FireBear Studio');
-        cy.get('[name="address[3][street][0]"]',{timeout: 60000}).should('have.value', 'Test');
-        cy.get('[name="address[3][street][1]"]',{timeout: 60000}).should('have.value', '96');
-        cy.get('[name="address[3][city]"]',{timeout: 60000}).should('have.value', 'Test');
-        cy.get('[name="address[3][country_id]"]',{timeout: 60000}).should('have.value', 'DE');
-        cy.get('[name="address[3][postcode]"]',{timeout: 60000}).should('have.value', '12345');
-        cy.get('[name="address[3][telephone]"]',{timeout: 60000}).should('have.value', '5555555556');
-        cy.get('[name="address[3][vat_id]"]',{timeout: 60000}).should('have.value', 'EU555555555');
     })
 })

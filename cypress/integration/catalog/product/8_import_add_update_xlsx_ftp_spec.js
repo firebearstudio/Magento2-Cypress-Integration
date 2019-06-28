@@ -84,7 +84,12 @@ context('Import Products', () => {
         //check that products were created
         cy.get('#menu-magento-catalog-catalog').find('.item-catalog-products').find('a').as('goToProductsGrid')
         cy.get('@goToProductsGrid').click({force:true})
-        cy.get('.admin__data-grid-outer-wrap').contains('18 records found',{timeout: 60000});
+        cy.get('[data-bind="collapsible: {openClass: false, closeOnOuter: false}"]',{timeout: 60000}).find('button').as('filtersButton')
+        cy.get('@filtersButton').click({force:true})
+        cy.get('[name="sku"]').invoke('val', 'tst').trigger('change',{force:true})
+        cy.get('[data-bind="i18n: \'Apply Filters\'"]',{timeout: 60000}).as('applyFiltersButton')
+        cy.get('@applyFiltersButton').click({force:true})
+        cy.get('.admin__data-grid-outer-wrap').contains('18 records found',{timeout: 60000})
 
         //check that configurable product has a child's products
         cy.get('.admin__data-grid-outer-wrap').contains('Test Configurable product',{timeout: 60000})

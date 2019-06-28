@@ -62,15 +62,5 @@ context('Import Сustomer Addresses', () => {
         cy.get('#debug-run').contains('Data validation failed').should('not.exist')
         cy.get('#debug-run').contains('Invalid').should('not.exist')
         cy.get('#debug-run').contains('Exception').should('not.exist')
-
-        //check that customers were removed
-        cy.get('#menu-magento-customer-customer').find('.item-customer-manage').find('a').as('goToCustomersGrid')
-        cy.get('@goToCustomersGrid').click({force:true})
-        cy.get('.admin__data-grid-outer-wrap').contains('3 records found',{timeout: 60000});
-        cy.get('.data-row').get('[data-repeat-index="1"]',{timeout: 60000})
-            .contains('Edit',{timeout: 60000}).click({force:true})
-        cy.get('#tab_address',{timeout: 60000}).click();
-        cy.get('#container').contains('Add New Addresses',{timeout: 60000})
-        cy.get('#container').get('[name="address[3][prefix]"]',{timeout: 60000}).should('not.exist')
     })
 })

@@ -80,11 +80,5 @@ context('Import Products', () => {
         cy.get('#debug-run').contains('Data validation failed').should('not.exist')
         cy.get('#debug-run').contains('Invalid').should('not.exist')
         cy.get('#debug-run').contains('Exception').should('not.exist')
-
-        //check that products were removed
-        cy.get('#menu-magento-catalog-catalog').find('.item-catalog-products').find('a').as('goToProductsGrid')
-        cy.get('@goToProductsGrid').click({force:true})
-        cy.get('.admin__data-grid-outer-wrap').contains('18 records found',{timeout: 60000}).should('not.exist')
-        cy.get('.admin__data-grid-outer-wrap').contains('0 records found',{timeout: 60000})
     })
 })

@@ -80,10 +80,5 @@ context('Import Сustomers', () => {
         cy.get('#debug-run').contains('Data validation failed').should('not.exist')
         cy.get('#debug-run').contains('Invalid').should('not.exist')
         cy.get('#debug-run').contains('Exception').should('not.exist')
-
-        //check that customers were removed
-        cy.get('#menu-magento-customer-customer').find('.item-customer-manage').find('a').as('goToCustomersGrid')
-        cy.get('@goToCustomersGrid').click({force:true})
-        cy.get('.admin__data-grid-outer-wrap').contains('2 records found',{timeout: 60000});
     })
 })
