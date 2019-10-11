@@ -1,5 +1,5 @@
-context('Import Url Rewrites', () => {
-    it('add update - ods - dropbox - new job', () => {
+context('Import Cart Price Rules', () => {
+    it(' add update - xml - file - new job', () => {
         //login
         cy.visit('http://import.com/admin')
         cy.get('#username')
@@ -21,8 +21,7 @@ context('Import Url Rewrites', () => {
         cy.get('.general_is_active',{timeout: 60000}).find('.admin__actions-switch-label').as('generalIsActive')
         cy.get('@generalIsActive').click()
         cy.get('.general_title ').find('input')
-            .type('Url Rewrites Import - add update - ods - dropbox')
-            .should('have.value', 'Url Rewrites Import - add update - ods - dropbox')
+            .type('Cart Price Rules - add update - xml - file').should('have.value', 'Cart Price Rules - add update - xml - file')
         cy.get('.general_reindex').find('.admin__actions-switch-label').as('generalReindex')
         cy.get('@generalReindex').click()
 
@@ -30,7 +29,7 @@ context('Import Url Rewrites', () => {
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
         cy.get('@fieldsetSettings').click()
         cy.get('.settings_entity').find('select').as('settingsEntity')
-        cy.get('@settingsEntity').select('url_rewrite');
+        cy.get('@settingsEntity').select('cart_price_rule');
 
         //specify Import Behavior section
         cy.get('.fieldset_behavior').find('.fieldset-wrapper-title').as('fieldsetBehaviour')
@@ -39,16 +38,13 @@ context('Import Url Rewrites', () => {
 
         //specify Import Source section
         cy.get('.type_file').find('select').as('importSourceType')
-        cy.get('@importSourceType').select('ods');
+        cy.get('@importSourceType').select('xml');
         cy.get('.import_source').find('select').as('importSource')
-        cy.get('@importSource').select('dropbox');
-        cy.get('.dropbox_file_path ').find('input').as('dropboxFilePath')
-        cy.get('@dropboxFilePath')
-            .type('/url_rewrites.ods').should('have.value', '/url_rewrites.ods')
-        cy.get('.dropbox_access_token ').find('input').as('dropboxAccessToken')
-        cy.get('@dropboxAccessToken')
-            .type('***')
-            .should('have.value', '***')
+        cy.get('@importSource').select('file');
+        cy.get('.file_file_path').find('input').as('filePath')
+        cy.get('@filePath')
+            .type('pub/media/importexport//c/a/cart_price_rules.xml')
+            .should('have.value', 'pub/media/importexport//c/a/cart_price_rules.xml')
 
         //validate Import file
         cy.get('.source_check_button').click()
@@ -59,9 +55,9 @@ context('Import Url Rewrites', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.get('#debug-run').contains('Entity url_rewrite',{timeout: 60000})
-        cy.get('#debug-run').contains('Import data validation is complete.',{timeout: 600000})
-        cy.get('#debug-run').contains('REINDEX completed',{timeout: 600000})
+        cy.get('#debug-run').contains('Entity cart_price_rule',{timeout: 60000})
+        cy.get('#debug-run').contains('The import was successful.',{timeout: 60000})
+        cy.get('#debug-run').contains('REINDEX completed',{timeout: 60000})
         cy.get('#debug-run').contains('This file is empty').should('not.exist')
         cy.get('#debug-run').contains('Data validation failed').should('not.exist')
         cy.get('#debug-run').contains('Invalid').should('not.exist')

@@ -1,5 +1,5 @@
-context('Import Url Rewrites', () => {
-    it('add update - ods - dropbox - new job', () => {
+context('Import Cart Price Rules', () => {
+    it('add update - json - dropbox - new job', () => {
         //login
         cy.visit('http://import.com/admin')
         cy.get('#username')
@@ -21,8 +21,8 @@ context('Import Url Rewrites', () => {
         cy.get('.general_is_active',{timeout: 60000}).find('.admin__actions-switch-label').as('generalIsActive')
         cy.get('@generalIsActive').click()
         cy.get('.general_title ').find('input')
-            .type('Url Rewrites Import - add update - ods - dropbox')
-            .should('have.value', 'Url Rewrites Import - add update - ods - dropbox')
+            .type('Cart Price Rules - add update - json - dropbox')
+            .should('have.value', 'Cart Price Rules - add update - json - dropbox')
         cy.get('.general_reindex').find('.admin__actions-switch-label').as('generalReindex')
         cy.get('@generalReindex').click()
 
@@ -30,7 +30,7 @@ context('Import Url Rewrites', () => {
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
         cy.get('@fieldsetSettings').click()
         cy.get('.settings_entity').find('select').as('settingsEntity')
-        cy.get('@settingsEntity').select('url_rewrite');
+        cy.get('@settingsEntity').select('cart_price_rule');
 
         //specify Import Behavior section
         cy.get('.fieldset_behavior').find('.fieldset-wrapper-title').as('fieldsetBehaviour')
@@ -39,12 +39,12 @@ context('Import Url Rewrites', () => {
 
         //specify Import Source section
         cy.get('.type_file').find('select').as('importSourceType')
-        cy.get('@importSourceType').select('ods');
+        cy.get('@importSourceType').select('json');
         cy.get('.import_source').find('select').as('importSource')
         cy.get('@importSource').select('dropbox');
         cy.get('.dropbox_file_path ').find('input').as('dropboxFilePath')
         cy.get('@dropboxFilePath')
-            .type('/url_rewrites.ods').should('have.value', '/url_rewrites.ods')
+            .type('/cart_price_rules.json').should('have.value', '/cart_price_rules.json')
         cy.get('.dropbox_access_token ').find('input').as('dropboxAccessToken')
         cy.get('@dropboxAccessToken')
             .type('***')
@@ -59,7 +59,7 @@ context('Import Url Rewrites', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.get('#debug-run').contains('Entity url_rewrite',{timeout: 60000})
+        cy.get('#debug-run').contains('Entity cart_price_rule',{timeout: 60000})
         cy.get('#debug-run').contains('Import data validation is complete.',{timeout: 600000})
         cy.get('#debug-run').contains('REINDEX completed',{timeout: 600000})
         cy.get('#debug-run').contains('This file is empty').should('not.exist')
