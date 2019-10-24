@@ -76,7 +76,7 @@ context('Import Cms Page', () => {
         cy.get('#debug-run').contains('Invalid').should('not.exist')
         cy.get('#debug-run').contains('Exception').should('not.exist')
 
-        //check that mappinf changed cms page's title
+        //check that mapping changed cms page's title
         cy.get('#menu-magento-backend-content').find('.item-versionscms-page-page').find('a').as('goToCmsPageGrid')
         cy.get('@goToCmsPageGrid').click({force:true})
         cy.get('._odd-row').find('.data-grid-cell-content').contains('Title New')

@@ -80,7 +80,7 @@ context('Import Cms Page', () => {
         cy.get('#debug-run').contains('Invalid').should('not.exist')
         cy.get('#debug-run').contains('Exception').should('not.exist')
 
-        //check that  url rewrites were deleted
+        //check that cms pages were deleted
         cy.get('#menu-magento-backend-content').find('.item-versionscms-page-page').find('a').as('goToCmsPageGrid')
         cy.get('@goToCmsPageGrid').click({force:true})
         cy.get('.admin__control-support-text').contains('0',{timeout: 60000})
