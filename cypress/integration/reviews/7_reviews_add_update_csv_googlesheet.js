@@ -1,4 +1,4 @@
-context('Import Reviews', () => {
+context('Import Review', () => {
     it('add update - csv - google sheet - new job', () => {
         //login
         cy.visit('http://import.com/admin')
