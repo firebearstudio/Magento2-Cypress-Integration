@@ -1,4 +1,4 @@
-context('Import Attributes', () => {
+context('Import Reviews', () => {
     it('add update - csv - google sheet - new job', () => {
         //login
         cy.visit('http://import.com/admin')
@@ -61,14 +61,5 @@ context('Import Attributes', () => {
         cy.get('#debug-run').contains('Data validation failed').should('not.exist')
         cy.get('#debug-run').contains('Invalid').should('not.exist')
         cy.get('#debug-run').contains('Exception').should('not.exist')
-
-        //check that reviews were added
-        cy.get('#menu-magento-backend-marketing').find('.item-catalog-reviews-ratings-reviews-all').find('a').as('goToReviewsGrid')
-        cy.get('@goToReviewsGrid').click({force:true})
-        cy.get('[data-bind="collapsible: {openClass: false, closeOnOuter: false}"]',{timeout: 60000}).find('button').as('filtersButton')
-        cy.get('@filtersButton').click({force:true})
-        cy.get('[name="sku"]').invoke('val', 'tst').trigger('change',{force:true})
-        cy.get('[data-bind="i18n: \'Apply Filters\'"]',{timeout: 60000}).as('applyFiltersButton')
-        cy.get('@applyFiltersButton').click({force:true})
     })
 })
