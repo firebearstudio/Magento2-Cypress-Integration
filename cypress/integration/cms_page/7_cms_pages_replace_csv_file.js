@@ -1,5 +1,5 @@
-context('Import Review', () => {
-    it('add update - csv - google sheet - new job', () => {
+context('Import Cms Page', () => {
+    it(' replace - csv - file - new job', () => {
         //login
         cy.visit('http://import.com/admin')
         cy.get('#username')
@@ -21,8 +21,7 @@ context('Import Review', () => {
         cy.get('.general_is_active',{timeout: 60000}).find('.admin__actions-switch-label').as('generalIsActive')
         cy.get('@generalIsActive').click()
         cy.get('.general_title ').find('input')
-            .type('Reviews Import - add update - csv - google sheet')
-            .should('have.value', 'Reviews Import - add update - csv - google sheet')
+            .type('Cms Page Import - replace - csv - file').should('have.value', 'Cms Page Import - replace - csv - file')
         cy.get('.general_reindex').find('.admin__actions-switch-label').as('generalReindex')
         cy.get('@generalReindex').click()
 
@@ -30,20 +29,20 @@ context('Import Review', () => {
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
         cy.get('@fieldsetSettings').click()
         cy.get('.settings_entity').find('select').as('settingsEntity')
-        cy.get('@settingsEntity').select('review');
+        cy.get('@settingsEntity').select('cms_page');
 
         //specify Import Behavior section
         cy.get('.fieldset_behavior').find('.fieldset-wrapper-title').as('fieldsetBehaviour')
         cy.get('.behavior_behavior').find('select').as('behaviorBehavior')
-        cy.get('@behaviorBehavior').select('append');
+        cy.get('@behaviorBehavior').select('replace');
 
         //specify Import Source section
         cy.get('.import_source').find('select').as('importSource')
-        cy.get('@importSource').select('google');
-        cy.get('.google_file_path').find('input').as('googleFilePath')
-        cy.get('@googleFilePath')
-            .invoke('val', 'https://docs.google.com/spreadsheets/d/13FemIzzexF5koAdQYjbcKscqoCfXyknYWkQkbSZGPsk/edit#gid=884145049')
-            .trigger('change')
+        cy.get('@importSource').select('file');
+        cy.get('.file_file_path').find('input').as('filePath')
+        cy.get('@filePath')
+            .type('pub/media/importexport//c/m/cms_pages_replace.csv')
+            .should('have.value', 'pub/media/importexport//c/m/cms_pages_replace.csv')
 
         //validate Import file
         cy.get('.source_check_button').click()
@@ -54,8 +53,7 @@ context('Import Review', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.get('#debug-run').contains('Entity review',{timeout: 60000})
-        cy.get('#debug-run').contains('The import was successful.',{timeout: 60000})
+        cy.get('#debug-run').contains('Entity cms_page',{timeout: 60000})
         cy.get('#debug-run').contains('REINDEX completed',{timeout: 60000})
         cy.get('#debug-run').contains('This file is empty').should('not.exist')
         cy.get('#debug-run').contains('Data validation failed').should('not.exist')
@@ -63,3 +61,4 @@ context('Import Review', () => {
         cy.get('#debug-run').contains('Exception').should('not.exist')
     })
 })
+

@@ -1,5 +1,5 @@
-context('Import Review', () => {
-    it('add update - csv - google sheet - new job', () => {
+context('Import Cart Price Rules', () => {
+    it('add update - json - dropbox - new job', () => {
         //login
         cy.visit('http://import.com/admin')
         cy.get('#username')
@@ -21,8 +21,8 @@ context('Import Review', () => {
         cy.get('.general_is_active',{timeout: 60000}).find('.admin__actions-switch-label').as('generalIsActive')
         cy.get('@generalIsActive').click()
         cy.get('.general_title ').find('input')
-            .type('Reviews Import - add update - csv - google sheet')
-            .should('have.value', 'Reviews Import - add update - csv - google sheet')
+            .type('Cart Price Rules - add update - json - dropbox')
+            .should('have.value', 'Cart Price Rules - add update - json - dropbox')
         cy.get('.general_reindex').find('.admin__actions-switch-label').as('generalReindex')
         cy.get('@generalReindex').click()
 
@@ -30,7 +30,7 @@ context('Import Review', () => {
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
         cy.get('@fieldsetSettings').click()
         cy.get('.settings_entity').find('select').as('settingsEntity')
-        cy.get('@settingsEntity').select('review');
+        cy.get('@settingsEntity').select('cart_price_rule');
 
         //specify Import Behavior section
         cy.get('.fieldset_behavior').find('.fieldset-wrapper-title').as('fieldsetBehaviour')
@@ -38,12 +38,17 @@ context('Import Review', () => {
         cy.get('@behaviorBehavior').select('append');
 
         //specify Import Source section
+        cy.get('.type_file').find('select').as('importSourceType')
+        cy.get('@importSourceType').select('json');
         cy.get('.import_source').find('select').as('importSource')
-        cy.get('@importSource').select('google');
-        cy.get('.google_file_path').find('input').as('googleFilePath')
-        cy.get('@googleFilePath')
-            .invoke('val', 'https://docs.google.com/spreadsheets/d/13FemIzzexF5koAdQYjbcKscqoCfXyknYWkQkbSZGPsk/edit#gid=884145049')
-            .trigger('change')
+        cy.get('@importSource').select('dropbox');
+        cy.get('.dropbox_file_path ').find('input').as('dropboxFilePath')
+        cy.get('@dropboxFilePath')
+            .type('/cart_price_rules.json').should('have.value', '/cart_price_rules.json')
+        cy.get('.dropbox_access_token ').find('input').as('dropboxAccessToken')
+        cy.get('@dropboxAccessToken')
+            .type('***')
+            .should('have.value', '***')
 
         //validate Import file
         cy.get('.source_check_button').click()
@@ -54,9 +59,9 @@ context('Import Review', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.get('#debug-run').contains('Entity review',{timeout: 60000})
-        cy.get('#debug-run').contains('The import was successful.',{timeout: 60000})
-        cy.get('#debug-run').contains('REINDEX completed',{timeout: 60000})
+        cy.get('#debug-run').contains('Entity cart_price_rule',{timeout: 60000})
+        cy.get('#debug-run').contains('Import data validation is complete.',{timeout: 600000})
+        cy.get('#debug-run').contains('REINDEX completed',{timeout: 600000})
         cy.get('#debug-run').contains('This file is empty').should('not.exist')
         cy.get('#debug-run').contains('Data validation failed').should('not.exist')
         cy.get('#debug-run').contains('Invalid').should('not.exist')
