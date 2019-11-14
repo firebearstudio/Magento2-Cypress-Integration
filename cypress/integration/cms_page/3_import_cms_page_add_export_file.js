@@ -1,5 +1,5 @@
-context('Import Сustomer Finances', () => {
-    it('add update - csv - sftp - new job', () => {
+context('Import Cms Page', () => {
+    it('add - csv - sftp - new job', () => {
         //login
         cy.visit('http://import.com/admin')
         cy.get('#username')
@@ -21,8 +21,8 @@ context('Import Сustomer Finances', () => {
         cy.get('.general_is_active',{timeout: 60000}).find('.admin__actions-switch-label').as('generalIsActive')
         cy.get('@generalIsActive').click()
         cy.get('.general_title ').find('input')
-            .type('Customer Finances Import - add update - csv - sftp')
-            .should('have.value', 'Customer Finances Import - add update - csv - sftp')
+            .type('Cms Page Import - export file - add - csv - sftp')
+            .should('have.value', 'Cms Page Import - export file - add - csv - sftp')
         cy.get('.general_reindex').find('.admin__actions-switch-label').as('generalReindex')
         cy.get('@generalReindex').click()
 
@@ -30,20 +30,22 @@ context('Import Сustomer Finances', () => {
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
         cy.get('@fieldsetSettings').click()
         cy.get('.settings_entity').find('select').as('settingsEntity')
-        cy.get('@settingsEntity').select('customer_finance');
+        cy.get('@settingsEntity').select('cms_page');
 
         //specify Import Behavior section
         cy.get('.fieldset_behavior').find('.fieldset-wrapper-title').as('fieldsetBehaviour')
         cy.get('.behavior_behavior').find('select').as('behaviorBehavior')
-        cy.get('@behaviorBehavior').select('add_update');
+        cy.get('@behaviorBehavior').select('append');
 
         //specify Import Source section
+        cy.get('.type_file').find('select').as('importSourceType')
+        cy.get('@importSourceType').select('csv');
         cy.get('.import_source').find('select').as('importSource')
         cy.get('@importSource').select('sftp');
         cy.get('.sftp_file_path').find('input').as('sftpFilePath')
         cy.get('@sftpFilePath')
-            .type('/var/www/alex/files/test/customer_finance.csv')
-            .should('have.value', '/var/www/alex/files/test/customer_finance.csv')
+            .type('/var/www/alex/files/test/export_cms_page.csv')
+            .should('have.value', '/var/www/alex/files/test/export_cms_page.csv')
         cy.get('.sftp_host ').find('input').as('sftpHost')
         cy.get('@sftpHost')
             .type('***')
@@ -70,7 +72,7 @@ context('Import Сustomer Finances', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.get('#debug-run').contains('Entity customer_finance',{timeout: 60000})
+        cy.get('#debug-run').contains('Entity сms_page',{timeout: 60000})
         cy.get('#debug-run').contains('The import was successful.',{timeout: 600000})
         cy.get('#debug-run').contains('REINDEX completed',{timeout: 600000})
         cy.get('#debug-run').contains('This file is empty').should('not.exist')

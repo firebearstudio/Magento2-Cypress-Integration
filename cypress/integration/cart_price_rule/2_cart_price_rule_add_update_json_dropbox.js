@@ -1,5 +1,5 @@
-context('Import Сustomer Finances', () => {
-    it('add update - csv - sftp - new job', () => {
+context('Import Cart Price Rules', () => {
+    it('add update - json - dropbox - new job', () => {
         //login
         cy.visit('http://import.com/admin')
         cy.get('#username')
@@ -21,8 +21,8 @@ context('Import Сustomer Finances', () => {
         cy.get('.general_is_active',{timeout: 60000}).find('.admin__actions-switch-label').as('generalIsActive')
         cy.get('@generalIsActive').click()
         cy.get('.general_title ').find('input')
-            .type('Customer Finances Import - add update - csv - sftp')
-            .should('have.value', 'Customer Finances Import - add update - csv - sftp')
+            .type('Cart Price Rules - add update - json - dropbox')
+            .should('have.value', 'Cart Price Rules - add update - json - dropbox')
         cy.get('.general_reindex').find('.admin__actions-switch-label').as('generalReindex')
         cy.get('@generalReindex').click()
 
@@ -30,34 +30,23 @@ context('Import Сustomer Finances', () => {
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
         cy.get('@fieldsetSettings').click()
         cy.get('.settings_entity').find('select').as('settingsEntity')
-        cy.get('@settingsEntity').select('customer_finance');
+        cy.get('@settingsEntity').select('cart_price_rule');
 
         //specify Import Behavior section
         cy.get('.fieldset_behavior').find('.fieldset-wrapper-title').as('fieldsetBehaviour')
         cy.get('.behavior_behavior').find('select').as('behaviorBehavior')
-        cy.get('@behaviorBehavior').select('add_update');
+        cy.get('@behaviorBehavior').select('append');
 
         //specify Import Source section
+        cy.get('.type_file').find('select').as('importSourceType')
+        cy.get('@importSourceType').select('json');
         cy.get('.import_source').find('select').as('importSource')
-        cy.get('@importSource').select('sftp');
-        cy.get('.sftp_file_path').find('input').as('sftpFilePath')
-        cy.get('@sftpFilePath')
-            .type('/var/www/alex/files/test/customer_finance.csv')
-            .should('have.value', '/var/www/alex/files/test/customer_finance.csv')
-        cy.get('.sftp_host ').find('input').as('sftpHost')
-        cy.get('@sftpHost')
-            .type('***')
-            .should('have.value', '***')
-        cy.get('.sftp_port').find('input').as('sftpPort')
-        cy.get('@sftpPort')
-            .type('***')
-            .should('have.value', '***')
-        cy.get('.sftp_username').find('input').as('sftpUserName')
-        cy.get('@sftpUserName')
-            .type('***')
-            .should('have.value', '***')
-        cy.get('.sftp_password ').find('input').as('sftpPassword')
-        cy.get('@sftpPassword')
+        cy.get('@importSource').select('dropbox');
+        cy.get('.dropbox_file_path ').find('input').as('dropboxFilePath')
+        cy.get('@dropboxFilePath')
+            .type('/cart_price_rules.json').should('have.value', '/cart_price_rules.json')
+        cy.get('.dropbox_access_token ').find('input').as('dropboxAccessToken')
+        cy.get('@dropboxAccessToken')
             .type('***')
             .should('have.value', '***')
 
@@ -70,8 +59,8 @@ context('Import Сustomer Finances', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.get('#debug-run').contains('Entity customer_finance',{timeout: 60000})
-        cy.get('#debug-run').contains('The import was successful.',{timeout: 600000})
+        cy.get('#debug-run').contains('Entity cart_price_rule',{timeout: 60000})
+        cy.get('#debug-run').contains('Import data validation is complete.',{timeout: 600000})
         cy.get('#debug-run').contains('REINDEX completed',{timeout: 600000})
         cy.get('#debug-run').contains('This file is empty').should('not.exist')
         cy.get('#debug-run').contains('Data validation failed').should('not.exist')

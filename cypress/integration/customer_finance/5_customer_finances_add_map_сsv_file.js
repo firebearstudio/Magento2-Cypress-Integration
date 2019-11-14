@@ -1,5 +1,5 @@
-context('Import Сustomer Finances', () => {
-    it('delete - csv - url - new job', () => {
+context('Import Сustomer Finance', () => {
+    it('add update - mapping - csv - file - new job', () => {
         //login
         cy.visit('http://import.com/admin')
         cy.get('#username')
@@ -21,8 +21,8 @@ context('Import Сustomer Finances', () => {
         cy.get('.general_is_active',{timeout: 60000}).find('.admin__actions-switch-label').as('generalIsActive')
         cy.get('@generalIsActive').click()
         cy.get('.general_title ').find('input')
-            .type('Customer Finances Import - delete - csv - url')
-            .should('have.value', 'Customer Finances Import - delete - csv - url')
+            .type('Customer Finance Import - add update - mapping - csv - file')
+            .should('have.value', 'Customer Finance Import - add update - mapping - csv - file')
         cy.get('.general_reindex').find('.admin__actions-switch-label').as('generalReindex')
         cy.get('@generalReindex').click()
 
@@ -35,19 +35,32 @@ context('Import Сustomer Finances', () => {
         //specify Import Behavior section
         cy.get('.fieldset_behavior').find('.fieldset-wrapper-title').as('fieldsetBehaviour')
         cy.get('.behavior_behavior').find('select').as('behaviorBehavior')
-        cy.get('@behaviorBehavior').select('delete');
+        cy.get('@behaviorBehavior').select('add_update');
 
         //specify Import Source section
         cy.get('.import_source').find('select').as('importSource')
-        cy.get('@importSource').select('url');
-        cy.get('.url_file_path ').find('input').as('urlFilePath')
-        cy.get('@urlFilePath')
-            .type('http://import.com/media/importexport/test/customer_finance_delete.csv')
-            .should('have.value', 'http://import.com/media/importexport/test/customer_finance_delete.csv')
-
+        cy.get('@importSource').select('file');
+        cy.get('.file_file_path').find('input').as('filePath')
+        cy.get('@filePath')
+            .type('pub/media/importexport//c/u/customer_finance_map.csv')
+            .should('have.value', 'pub/media/importexport//c/u/customer_finance_map.csv')
+       
         //validate Import file
         cy.get('.source_check_button').click()
         cy.get('.fieldset_source').contains('File validated successfully',{timeout: 60000})
+
+        //map attributes
+        cy.get('.source_data_map_container_replace_default_value').find('select').as('replaceDefaultValue')
+        cy.get('@replaceDefaultValue').select('All rows')
+        cy.get('tfoot').find('.addButton').as('tfoot')
+        cy.get('@tfoot').click({force:true})
+        cy.get('.source_data_map_source_data_system').find('select').as('sourceDataSystem')
+        cy.get('@sourceDataSystem').select('reward_points');
+        cy.get('.source_data_map_source_data_import').find('select').as('sourceDataImport')
+        cy.get('@sourceDataImport').select('reward_points_map');
+        cy.get('.source_data_map_source_data_replace').find('input')
+            .type('9000')
+            .should('have.value', '9000')
 
         //save and run process
         cy.get('#save_and_run').click({force:true})
@@ -62,7 +75,7 @@ context('Import Сustomer Finances', () => {
         cy.get('#debug-run').contains('Invalid').should('not.exist')
         cy.get('#debug-run').contains('Exception').should('not.exist')
 
-        //check that customer finances were deleted
+        //check that reward_points were changed
 
         //go to Veronica's Costello Edit
         cy.get('#menu-magento-customer-customer').find('.item-customer-manage').find('a').as('goToCustomersGrid')
@@ -76,11 +89,9 @@ context('Import Сustomer Finances', () => {
         cy.get('.admin__data-grid-wrap').contains('Edit',{timeout: 60000})
         cy.get('.admin__data-grid-wrap').contains('Edit').click({force:true})
 
-        //check that Veronica's Costello finances were deleted 
+        //check that Veronica's Costello reward points were changed 
         cy.get('#rewardPointsBalanceGrid').find('td').as('rewardPointsBalance')
-        cy.get('@rewardPointsBalance').contains('0',{timeout: 60000})
-        cy.get('#balanceGrid').find('td').as('creditBalance')
-        cy.get('@creditBalance').contains('$0.00',{timeout: 60000});
+        cy.get('@rewardPointsBalance').contains('9000',{timeout: 60000})
         
         //go to grid with customers
         cy.get('#back').as('backButton')
@@ -96,10 +107,8 @@ context('Import Сustomer Finances', () => {
         cy.get('.admin__data-grid-wrap').contains('Edit',{timeout: 60000})
         cy.get('.admin__data-grid-wrap').contains('Edit').click({force:true})
 
-        //check that Mrs. Jane R Roe's finances were deleted 
+        //check that Mrs. Jane R Roe's reward points were changed 
         cy.get('#rewardPointsBalanceGrid').find('td').as('rewardPointsBalance')
-        cy.get('@rewardPointsBalance').contains('0',{timeout: 60000})
-        cy.get('#balanceGrid').find('td').as('creditBalance')
-        cy.get('@creditBalance').contains('$0.00',{timeout: 60000});
+        cy.get('@rewardPointsBalance').contains('9000',{timeout: 60000})
     })
 })

@@ -1,5 +1,5 @@
-context('Import Сustomer Finances', () => {
-    it('add update - csv - sftp - new job', () => {
+context('Import Url Rewrites', () => {
+    it(' add update - xml - file - new job', () => {
         //login
         cy.visit('http://import.com/admin')
         cy.get('#username')
@@ -21,8 +21,7 @@ context('Import Сustomer Finances', () => {
         cy.get('.general_is_active',{timeout: 60000}).find('.admin__actions-switch-label').as('generalIsActive')
         cy.get('@generalIsActive').click()
         cy.get('.general_title ').find('input')
-            .type('Customer Finances Import - add update - csv - sftp')
-            .should('have.value', 'Customer Finances Import - add update - csv - sftp')
+            .type('Url Rewrites Import - add update - xml - file').should('have.value', 'Url Rewrites Import - add update - xml - file')
         cy.get('.general_reindex').find('.admin__actions-switch-label').as('generalReindex')
         cy.get('@generalReindex').click()
 
@@ -30,52 +29,58 @@ context('Import Сustomer Finances', () => {
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
         cy.get('@fieldsetSettings').click()
         cy.get('.settings_entity').find('select').as('settingsEntity')
-        cy.get('@settingsEntity').select('customer_finance');
+        cy.get('@settingsEntity').select('url_rewrite');
 
         //specify Import Behavior section
         cy.get('.fieldset_behavior').find('.fieldset-wrapper-title').as('fieldsetBehaviour')
         cy.get('.behavior_behavior').find('select').as('behaviorBehavior')
-        cy.get('@behaviorBehavior').select('add_update');
+        cy.get('@behaviorBehavior').select('append');
 
         //specify Import Source section
+        cy.get('.type_file').find('select').as('importSourceType')
+        cy.get('@importSourceType').select('xml');
         cy.get('.import_source').find('select').as('importSource')
-        cy.get('@importSource').select('sftp');
-        cy.get('.sftp_file_path').find('input').as('sftpFilePath')
-        cy.get('@sftpFilePath')
-            .type('/var/www/alex/files/test/customer_finance.csv')
-            .should('have.value', '/var/www/alex/files/test/customer_finance.csv')
-        cy.get('.sftp_host ').find('input').as('sftpHost')
-        cy.get('@sftpHost')
-            .type('***')
-            .should('have.value', '***')
-        cy.get('.sftp_port').find('input').as('sftpPort')
-        cy.get('@sftpPort')
-            .type('***')
-            .should('have.value', '***')
-        cy.get('.sftp_username').find('input').as('sftpUserName')
-        cy.get('@sftpUserName')
-            .type('***')
-            .should('have.value', '***')
-        cy.get('.sftp_password ').find('input').as('sftpPassword')
-        cy.get('@sftpPassword')
-            .type('***')
-            .should('have.value', '***')
+        cy.get('@importSource').select('file');
+        cy.get('.file_file_path').find('input').as('filePath')
+        cy.get('@filePath')
+            .type('pub/media/importexport//u/r/url_rewrites_map_1.xml')
+            .should('have.value', 'pub/media/importexport//u/r/url_rewrites_map_1.xml')
 
         //validate Import file
         cy.get('.source_check_button').click()
         cy.get('.fieldset_source').contains('File validated successfully',{timeout: 60000})
+
+        //map attributes
+        cy.get('.source_data_map_container_replace_default_value').find('select').as('replaceDefaultValue')
+        cy.get('@replaceDefaultValue').select('All rows')
+        cy.get('tfoot').find('.addButton').as('tfoot')
+        cy.get('@tfoot').click({force:true})
+        cy.get('.source_data_map_source_data_system').find('select').as('sourceDataSystem')
+        cy.get('@sourceDataSystem').select('description');
+        cy.get('.source_data_map_source_data_import').find('select').as('sourceDataImport')
+        cy.get('@sourceDataImport').select('description_map');
+        cy.get('.source_data_map_source_data_replace').find('input')
+            .type('Description Map')
+            .should('have.value', 'Description Map')
 
         //save and run process
         cy.get('#save_and_run').click({force:true})
         cy.get('.run').click()
 
         //check Import results
-        cy.get('#debug-run').contains('Entity customer_finance',{timeout: 60000})
-        cy.get('#debug-run').contains('The import was successful.',{timeout: 600000})
-        cy.get('#debug-run').contains('REINDEX completed',{timeout: 600000})
+        cy.get('#debug-run').contains('Entity url_rewrite',{timeout: 60000})
+        cy.get('#debug-run').contains('The import was successful.',{timeout: 60000})
+        cy.get('#debug-run').contains('REINDEX completed',{timeout: 60000})
         cy.get('#debug-run').contains('This file is empty').should('not.exist')
         cy.get('#debug-run').contains('Data validation failed').should('not.exist')
         cy.get('#debug-run').contains('Invalid').should('not.exist')
         cy.get('#debug-run').contains('Exception').should('not.exist')
+
+        //check that  description's value was changed
+        cy.get('#menu-magento-backend-marketing').find('.item-urlrewrite').find('a').as('goToUrlRewriteGrid')
+        cy.get('@goToUrlRewriteGrid').click({force:true})
+        cy.get('.col-url_rewrite_id').contains('9493').as('urlEdit')
+        cy.get('@urlEdit').click()
+        cy.get('#description').contains('Description Map')
     })
 })
