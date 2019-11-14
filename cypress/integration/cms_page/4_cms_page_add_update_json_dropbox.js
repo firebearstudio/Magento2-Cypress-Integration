@@ -1,5 +1,5 @@
-context('Import Attributes', () => {
-    it('add update - csv - google sheet - new job', () => {
+context('Import Cms Page', () => {
+    it('add - json - dropbox - new job', () => {
         //login
         cy.visit('http://import.com/admin')
         cy.get('#username')
@@ -21,8 +21,8 @@ context('Import Attributes', () => {
         cy.get('.general_is_active',{timeout: 60000}).find('.admin__actions-switch-label').as('generalIsActive')
         cy.get('@generalIsActive').click()
         cy.get('.general_title ').find('input')
-            .type('Reviews Import - add update - csv - google sheet')
-            .should('have.value', 'Reviews Import - add update - csv - google sheet')
+            .type('Cms Page Import - add - json - dropbox')
+            .should('have.value', 'Cms Page Import - add - json - dropbox')
         cy.get('.general_reindex').find('.admin__actions-switch-label').as('generalReindex')
         cy.get('@generalReindex').click()
 
@@ -30,7 +30,7 @@ context('Import Attributes', () => {
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
         cy.get('@fieldsetSettings').click()
         cy.get('.settings_entity').find('select').as('settingsEntity')
-        cy.get('@settingsEntity').select('review');
+        cy.get('@settingsEntity').select('cms_page');
 
         //specify Import Behavior section
         cy.get('.fieldset_behavior').find('.fieldset-wrapper-title').as('fieldsetBehaviour')
@@ -38,12 +38,17 @@ context('Import Attributes', () => {
         cy.get('@behaviorBehavior').select('append');
 
         //specify Import Source section
+        cy.get('.type_file').find('select').as('importSourceType')
+        cy.get('@importSourceType').select('json');
         cy.get('.import_source').find('select').as('importSource')
-        cy.get('@importSource').select('google');
-        cy.get('.google_file_path').find('input').as('googleFilePath')
-        cy.get('@googleFilePath')
-            .invoke('val', 'https://docs.google.com/spreadsheets/d/13FemIzzexF5koAdQYjbcKscqoCfXyknYWkQkbSZGPsk/edit#gid=884145049')
-            .trigger('change')
+        cy.get('@importSource').select('dropbox');
+        cy.get('.dropbox_file_path ').find('input').as('dropboxFilePath')
+        cy.get('@dropboxFilePath')
+            .type('/cms_pages.json').should('have.value', '/cms_pages.json')
+        cy.get('.dropbox_access_token ').find('input').as('dropboxAccessToken')
+        cy.get('@dropboxAccessToken')
+            .type('***')
+            .should('have.value', '***')
 
         //validate Import file
         cy.get('.source_check_button').click()
@@ -54,21 +59,12 @@ context('Import Attributes', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.get('#debug-run').contains('Entity review',{timeout: 60000})
-        cy.get('#debug-run').contains('The import was successful.',{timeout: 60000})
-        cy.get('#debug-run').contains('REINDEX completed',{timeout: 60000})
+        cy.get('#debug-run').contains('Entity cms_page',{timeout: 60000})
+        cy.get('#debug-run').contains('Import data validation is complete.',{timeout: 600000})
+        cy.get('#debug-run').contains('REINDEX completed',{timeout: 600000})
         cy.get('#debug-run').contains('This file is empty').should('not.exist')
         cy.get('#debug-run').contains('Data validation failed').should('not.exist')
         cy.get('#debug-run').contains('Invalid').should('not.exist')
         cy.get('#debug-run').contains('Exception').should('not.exist')
-
-        //check that reviews were added
-        cy.get('#menu-magento-backend-marketing').find('.item-catalog-reviews-ratings-reviews-all').find('a').as('goToReviewsGrid')
-        cy.get('@goToReviewsGrid').click({force:true})
-        cy.get('[data-bind="collapsible: {openClass: false, closeOnOuter: false}"]',{timeout: 60000}).find('button').as('filtersButton')
-        cy.get('@filtersButton').click({force:true})
-        cy.get('[name="sku"]').invoke('val', 'tst').trigger('change',{force:true})
-        cy.get('[data-bind="i18n: \'Apply Filters\'"]',{timeout: 60000}).as('applyFiltersButton')
-        cy.get('@applyFiltersButton').click({force:true})
     })
 })
