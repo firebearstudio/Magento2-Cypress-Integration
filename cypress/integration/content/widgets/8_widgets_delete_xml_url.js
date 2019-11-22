@@ -1,5 +1,5 @@
-context('Import Widgets', () => {
-    it('add update - csv - google sheet - new job', () => {
+context('Import Widgets ', () => {
+    it('delete - csv - url - new job', () => {
         //login
         cy.visit('http://import.com/admin')
         cy.get('#username')
@@ -21,8 +21,8 @@ context('Import Widgets', () => {
         cy.get('.general_is_active',{timeout: 60000}).find('.admin__actions-switch-label').as('generalIsActive')
         cy.get('@generalIsActive').click()
         cy.get('.general_title ').find('input')
-            .type('Widget Import - add update - csv - google sheet')
-            .should('have.value', 'Widget Import - add update - csv - google sheet')
+            .type('Widgets Import - delete - csv - url')
+            .should('have.value', 'Widgets Import - delete - csv - url')
         cy.get('.general_reindex').find('.admin__actions-switch-label').as('generalReindex')
         cy.get('@generalReindex').click()
 
@@ -35,15 +35,17 @@ context('Import Widgets', () => {
         //specify Import Behavior section
         cy.get('.fieldset_behavior').find('.fieldset-wrapper-title').as('fieldsetBehaviour')
         cy.get('.behavior_behavior').find('select').as('behaviorBehavior')
-        cy.get('@behaviorBehavior').select('append');
+        cy.get('@behaviorBehavior').select('delete');
 
         //specify Import Source section
+        cy.get('.type_file').find('select').as('importSourceType')
+        cy.get('@importSourceType').select('xml');
         cy.get('.import_source').find('select').as('importSource')
-        cy.get('@importSource').select('google');
-        cy.get('.google_file_path').find('input').as('googleFilePath')
-        cy.get('@googleFilePath')
-            .invoke('val', 'https://docs.google.com/spreadsheets/d/13FemIzzexF5koAdQYjbcKscqoCfXyknYWkQkbSZGPsk/edit#gid=56570029')
-            .trigger('change')
+        cy.get('@importSource').select('url');
+        cy.get('.url_file_path ').find('input').as('urlFilePath')
+        cy.get('@urlFilePath')
+            .type('http://alex-union.dev.firebearstudio.com/media/importexport/test/widgets.xml')
+            .should('have.value', 'http://alex-union.dev.firebearstudio.com/media/importexport/test/widgets.xml')
 
         //validate Import file
         cy.get('.source_check_button').click()

@@ -1,5 +1,5 @@
-context('Import Widgets', () => {
-    it('delete - export file - csv - sftp - new job', () => {
+context('Import Search Synonyms', () => {
+    it('add - xlsx - ftp - new job', () => {
         //login
         cy.visit('http://import.com/admin')
         cy.get('#username')
@@ -21,8 +21,8 @@ context('Import Widgets', () => {
         cy.get('.general_is_active',{timeout: 60000}).find('.admin__actions-switch-label').as('generalIsActive')
         cy.get('@generalIsActive').click()
         cy.get('.general_title ').find('input')
-            .type('Url Widgets - export file - delete - csv - sftp')
-            .should('have.value', 'Url Widgets - export file - delete - csv - sftp')
+            .type('Search Synonyms Import - add - xlsx - ftp')
+            .should('have.value', 'Search Synonyms Import - add - xlsx - ftp')
         cy.get('.general_reindex').find('.admin__actions-switch-label').as('generalReindex')
         cy.get('@generalReindex').click()
 
@@ -30,36 +30,36 @@ context('Import Widgets', () => {
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
         cy.get('@fieldsetSettings').click()
         cy.get('.settings_entity').find('select').as('settingsEntity')
-        cy.get('@settingsEntity').select('widget');
+        cy.get('@settingsEntity').select('search_synonyms');
 
         //specify Import Behavior section
         cy.get('.fieldset_behavior').find('.fieldset-wrapper-title').as('fieldsetBehaviour')
         cy.get('.behavior_behavior').find('select').as('behaviorBehavior')
-        cy.get('@behaviorBehavior').select('delete');
+        cy.get('@behaviorBehavior').select('append');
 
         //specify Import Source section
         cy.get('.type_file').find('select').as('importSourceType')
-        cy.get('@importSourceType').select('csv');
+        cy.get('@importSourceType').select('xlsx');
         cy.get('.import_source').find('select').as('importSource')
-        cy.get('@importSource').select('sftp');
-        cy.get('.sftp_file_path').find('input').as('sftpFilePath')
-        cy.get('@sftpFilePath')
-            .type('/var/www/alex/files/test/exp_widget.csv')
-            .should('have.value', '/var/www/alex/files/test/exp_widget.csv')
-        cy.get('.sftp_host ').find('input').as('sftpHost')
-        cy.get('@sftpHost')
+        cy.get('@importSource').select('ftp');
+        cy.get('.ftp_file_path').find('input').as('ftpFilePath')
+        cy.get('@ftpFilePath')
+            .type('/files/test/search_synonyms.xlsx')
+            .should('have.value', '/files/test/search_synonyms.xlsx')
+        cy.get('.ftp_host ').find('input').as('ftpHost')
+        cy.get('@ftpHost')
             .type('***')
             .should('have.value', '***')
-        cy.get('.sftp_port').find('input').as('sftpPort')
-        cy.get('@sftpPort')
+        cy.get('.ftp_port').find('input').as('ftpPort')
+        cy.get('@ftpPort')
             .type('***')
             .should('have.value', '***')
-        cy.get('.sftp_username').find('input').as('sftpUserName')
-        cy.get('@sftpUserName')
+        cy.get('.ftp_user').find('input').as('ftpUserName')
+        cy.get('@ftpUserName')
             .type('***')
             .should('have.value', '***')
-        cy.get('.sftp_password ').find('input').as('sftpPassword')
-        cy.get('@sftpPassword')
+        cy.get('.ftp_password ').find('input').as('ftpPassword')
+        cy.get('@ftpPassword')
             .type('***')
             .should('have.value', '***')
 
@@ -72,17 +72,11 @@ context('Import Widgets', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.get('#debug-run').contains('Entity widget',{timeout: 60000})
-        cy.get('#debug-run').contains('The import was successful.',{timeout: 600000})
+        cy.get('#debug-run').contains('Entity search_synonyms',{timeout: 60000})
         cy.get('#debug-run').contains('REINDEX completed',{timeout: 600000})
         cy.get('#debug-run').contains('This file is empty').should('not.exist')
         cy.get('#debug-run').contains('Data validation failed').should('not.exist')
         cy.get('#debug-run').contains('Invalid').should('not.exist')
         cy.get('#debug-run').contains('Exception').should('not.exist')
-
-        //check that  url rewrites were deleted
-        cy.get('#menu-magento-backend-content').find('.item-cms-widget-instance').find('a').as('goToWidgetGrid')
-        cy.get('@goToWidgetGrid').click({force:true})
-        cy.get('#urlrewriteGrid-total-count').contains('0',{timeout: 60000})
     })
 })
