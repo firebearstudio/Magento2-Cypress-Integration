@@ -1,5 +1,5 @@
-context('Import Widgets', () => {
-    it('delete - export file - csv - sftp - new job', () => {
+context('Import Widgets ', () => {
+    it('delete - csv - url - new job', () => {
         //login
         cy.visit('http://import.com/admin')
         cy.get('#username')
@@ -21,8 +21,8 @@ context('Import Widgets', () => {
         cy.get('.general_is_active',{timeout: 60000}).find('.admin__actions-switch-label').as('generalIsActive')
         cy.get('@generalIsActive').click()
         cy.get('.general_title ').find('input')
-            .type('Url Widgets - export file - delete - csv - sftp')
-            .should('have.value', 'Url Widgets - export file - delete - csv - sftp')
+            .type('Widgets Import - delete - csv - url')
+            .should('have.value', 'Widgets Import - delete - csv - url')
         cy.get('.general_reindex').find('.admin__actions-switch-label').as('generalReindex')
         cy.get('@generalReindex').click()
 
@@ -39,29 +39,13 @@ context('Import Widgets', () => {
 
         //specify Import Source section
         cy.get('.type_file').find('select').as('importSourceType')
-        cy.get('@importSourceType').select('csv');
+        cy.get('@importSourceType').select('xml');
         cy.get('.import_source').find('select').as('importSource')
-        cy.get('@importSource').select('sftp');
-        cy.get('.sftp_file_path').find('input').as('sftpFilePath')
-        cy.get('@sftpFilePath')
-            .type('/var/www/alex/files/test/exp_widget.csv')
-            .should('have.value', '/var/www/alex/files/test/exp_widget.csv')
-        cy.get('.sftp_host ').find('input').as('sftpHost')
-        cy.get('@sftpHost')
-            .type('***')
-            .should('have.value', '***')
-        cy.get('.sftp_port').find('input').as('sftpPort')
-        cy.get('@sftpPort')
-            .type('***')
-            .should('have.value', '***')
-        cy.get('.sftp_username').find('input').as('sftpUserName')
-        cy.get('@sftpUserName')
-            .type('***')
-            .should('have.value', '***')
-        cy.get('.sftp_password ').find('input').as('sftpPassword')
-        cy.get('@sftpPassword')
-            .type('***')
-            .should('have.value', '***')
+        cy.get('@importSource').select('url');
+        cy.get('.url_file_path ').find('input').as('urlFilePath')
+        cy.get('@urlFilePath')
+            .type('http://alex-union.dev.firebearstudio.com/media/importexport/test/widgets.xml')
+            .should('have.value', 'http://alex-union.dev.firebearstudio.com/media/importexport/test/widgets.xml')
 
         //validate Import file
         cy.get('.source_check_button').click()
@@ -79,10 +63,5 @@ context('Import Widgets', () => {
         cy.get('#debug-run').contains('Data validation failed').should('not.exist')
         cy.get('#debug-run').contains('Invalid').should('not.exist')
         cy.get('#debug-run').contains('Exception').should('not.exist')
-
-        //check that  url rewrites were deleted
-        cy.get('#menu-magento-backend-content').find('.item-cms-widget-instance').find('a').as('goToWidgetGrid')
-        cy.get('@goToWidgetGrid').click({force:true})
-        cy.get('#urlrewriteGrid-total-count').contains('0',{timeout: 60000})
     })
 })
