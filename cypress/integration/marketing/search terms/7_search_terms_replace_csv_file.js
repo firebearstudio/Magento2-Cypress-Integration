@@ -1,5 +1,5 @@
-context('Import Widgets', () => {
-    it(' add update - csv - file - new job', () => {
+context('Import Search Terms', () => {
+    it('replace - csv - file - new job', () => {
         //login
         cy.visit('http://import.com/admin')
         cy.get('#username')
@@ -21,7 +21,8 @@ context('Import Widgets', () => {
         cy.get('.general_is_active',{timeout: 60000}).find('.admin__actions-switch-label').as('generalIsActive')
         cy.get('@generalIsActive').click()
         cy.get('.general_title ').find('input')
-            .type('Widgets - add update - csv - file').should('have.value', 'Widgets - add update - csv - file')
+            .type('Search Terms Import - replace - csv - file')
+            .should('have.value', 'Search Terms Import - replace - csv - file')
         cy.get('.general_reindex').find('.admin__actions-switch-label').as('generalReindex')
         cy.get('@generalReindex').click()
 
@@ -29,22 +30,20 @@ context('Import Widgets', () => {
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
         cy.get('@fieldsetSettings').click()
         cy.get('.settings_entity').find('select').as('settingsEntity')
-        cy.get('@settingsEntity').select('widget');
+        cy.get('@settingsEntity').select('search_query');
 
         //specify Import Behavior section
         cy.get('.fieldset_behavior').find('.fieldset-wrapper-title').as('fieldsetBehaviour')
         cy.get('.behavior_behavior').find('select').as('behaviorBehavior')
-        cy.get('@behaviorBehavior').select('append');
+        cy.get('@behaviorBehavior').select('replace');
 
         //specify Import Source section
-        cy.get('.type_file').find('select').as('importSourceType')
-        cy.get('@importSourceType').select('csv');
         cy.get('.import_source').find('select').as('importSource')
         cy.get('@importSource').select('file');
         cy.get('.file_file_path').find('input').as('filePath')
         cy.get('@filePath')
-            .type('pub/media/importexport//w/i/widgets_file.csv')
-            .should('have.value', 'pub/media/importexport//w/i/widgets_file.csv')
+            .type('pub/media/importexport//s/e/search_terms_replace.csv')
+            .should('have.value', 'pub/media/importexport//s/e/search_terms_replace.csv')
 
         //validate Import file
         cy.get('.source_check_button').click()
@@ -55,7 +54,7 @@ context('Import Widgets', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.get('#debug-run').contains('Entity write',{timeout: 60000})
+        cy.get('#debug-run').contains('Entity search_query',{timeout: 60000})
         cy.get('#debug-run').contains('The import was successful.',{timeout: 60000})
         cy.get('#debug-run').contains('REINDEX completed',{timeout: 60000})
         cy.get('#debug-run').contains('This file is empty').should('not.exist')
@@ -64,3 +63,4 @@ context('Import Widgets', () => {
         cy.get('#debug-run').contains('Exception').should('not.exist')
     })
 })
+
