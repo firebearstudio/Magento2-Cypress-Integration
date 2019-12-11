@@ -2,13 +2,7 @@
 context('Import Orders', () => {
     it('delete - csv - url - new job', () => {
         //login
-        cy.visit('http://import.com/admin')
-        cy.get('#username')
-            .type('admin').should('have.value', 'admin')
-        cy.get('#login')
-            .type('magento2').should('have.value', 'magento2')
-        cy.get('.actions').find('button').as('loginButton')
-        cy.get('@loginButton').click()
+        cy.loginToAdminPanel('ce')
 
         //go to import page
         cy.get('.item-import-job').find('a').as('goToImportPageLink')
@@ -19,13 +13,7 @@ context('Import Orders', () => {
         cy.get('@addJobButton').click()
 
         //specify general section
-        cy.get('.general_is_active',{timeout: 60000}).find('.admin__actions-switch-label').as('generalIsActive')
-        cy.get('@generalIsActive').click()
-        cy.get('.general_title ').find('input')
-            .type('Orders Import - delete - csv - url')
-            .should('have.value', 'Orders Import - delete - csv - url')
-        cy.get('.general_reindex').find('.admin__actions-switch-label').as('generalReindex')
-        cy.get('@generalReindex').click()
+        cy.generalImportSection('Orders Import - delete - csv - url')
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
@@ -39,13 +27,8 @@ context('Import Orders', () => {
         cy.get('@behaviorBehavior').select('delete');
 
         //specify Import Source section
-        cy.get('.import_source').find('select').as('importSource')
-        cy.get('@importSource').select('url');
-        cy.get('.url_file_path ').find('input').as('urlFilePath')
-        cy.get('@urlFilePath')
-            .type('http://import.com/pub/media/importexport/import_orders_delete.csv')
-            .should('have.value', 'http://import.com/pub/media/importexport/import_orders_delete.csv')
-
+        cy.urlSource('http://import.com/pub/media/importexport/import_orders_delete.csv')
+    
         //validate Import file
         cy.get('.source_check_button').click()
         cy.get('.fieldset_source').contains('File validated successfully',{timeout: 60000})
@@ -55,12 +38,6 @@ context('Import Orders', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.get('#debug-run').contains('Entity order',{timeout: 60000})
-        cy.get('#debug-run').contains('The import was successful.',{timeout: 60000})
-        cy.get('#debug-run').contains('REINDEX completed',{timeout: 60000})
-        cy.get('#debug-run').contains('This file is empty').should('not.exist')
-        cy.get('#debug-run').contains('Data validation failed').should('not.exist')
-        cy.get('#debug-run').contains('Invalid').should('not.exist')
-        cy.get('#debug-run').contains('Exception').should('not.exist')
+        cy.consoleImportResult('Entity order')
     })
 })

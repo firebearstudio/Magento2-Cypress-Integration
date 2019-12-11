@@ -2,13 +2,7 @@
 context('Import Customers and Addresses', () => {
     it('add update - csv - google sheet - new job', () => {
         //login
-        cy.visit('http://import.com/admin')
-        cy.get('#username')
-            .type('admin').should('have.value', 'admin')
-        cy.get('#login')
-            .type('magento2').should('have.value', 'magento2')
-        cy.get('.actions').find('button').as('loginButton')
-        cy.get('@loginButton').click()
+        cy.loginToAdminPanel('ce')
 
         //go to import page
         cy.get('.item-import-job').find('a').as('goToImportPageLink')
@@ -19,13 +13,7 @@ context('Import Customers and Addresses', () => {
         cy.get('@addJobButton').click()
 
         //specify general section
-        cy.get('.general_is_active',{timeout: 60000}).find('.admin__actions-switch-label').as('generalIsActive')
-        cy.get('@generalIsActive').click()
-        cy.get('.general_title ').find('input')
-            .type('Customer and Addresses Import  - add update - csv - google sheet')
-            .should('have.value', 'Customer and Addresses Import  - add update - csv - google sheet')
-        cy.get('.general_reindex').find('.admin__actions-switch-label').as('generalReindex')
-        cy.get('@generalReindex').click()
+        cy.generalImportSection('Customer and Addresses Import  - add update - csv - google sheet')
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
@@ -39,12 +27,7 @@ context('Import Customers and Addresses', () => {
         cy.get('@behaviorBehavior').select('append');
 
         //specify Import Source section
-        cy.get('.import_source').find('select').as('importSource')
-        cy.get('@importSource').select('google');
-        cy.get('.google_file_path').find('input').as('googleFilePath')
-        cy.get('@googleFilePath')
-            .invoke('val', 'https://docs.google.com/spreadsheets/d/13FemIzzexF5koAdQYjbcKscqoCfXyknYWkQkbSZGPsk/edit#gid=1732782711')
-            .trigger('change')
+        cy.googlePathSource('https://docs.google.com/spreadsheets/d/13FemIzzexF5koAdQYjbcKscqoCfXyknYWkQkbSZGPsk/edit#gid=1732782711')
 
         //validate Import file
         cy.get('.source_check_button').click()
@@ -55,12 +38,6 @@ context('Import Customers and Addresses', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.get('#debug-run').contains('Entity customer_composite',{timeout: 60000})
-        cy.get('#debug-run').contains('The import was successful.',{timeout: 60000})
-        cy.get('#debug-run').contains('REINDEX completed',{timeout: 60000})
-        cy.get('#debug-run').contains('This file is empty').should('not.exist')
-        cy.get('#debug-run').contains('Data validation failed').should('not.exist')
-        cy.get('#debug-run').contains('Invalid').should('not.exist')
-        cy.get('#debug-run').contains('Exception').should('not.exist')
+        cy.consoleImportResult('Entity customer_composite')
     })
 })

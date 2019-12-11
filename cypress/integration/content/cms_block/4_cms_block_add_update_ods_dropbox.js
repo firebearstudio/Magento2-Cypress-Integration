@@ -1,13 +1,7 @@
 context('Import Cms Block', () => {
     it('add - ods - dropbox - new job', () => {
         //login
-        cy.visit('http://import.com/admin')
-        cy.get('#username')
-            .type('admin').should('have.value', 'admin')
-        cy.get('#login')
-            .type('magento2').should('have.value', 'magento2')
-        cy.get('.actions').find('button').as('loginButton')
-        cy.get('@loginButton').click()
+        cy.loginToAdminPanel('ce')
 
         //go to import page
         cy.get('.item-import-job').find('a').as('goToImportPageLink')
@@ -18,13 +12,7 @@ context('Import Cms Block', () => {
         cy.get('@addJobButton').click()
 
         //specify general section
-        cy.get('.general_is_active',{timeout: 60000}).find('.admin__actions-switch-label').as('generalIsActive')
-        cy.get('@generalIsActive').click()
-        cy.get('.general_title ').find('input')
-            .type('Cms Block Import - add - ods - dropbox')
-            .should('have.value', 'Cms Block Import - add - ods - dropbox')
-        cy.get('.general_reindex').find('.admin__actions-switch-label').as('generalReindex')
-        cy.get('@generalReindex').click()
+        cy.generalImportSection('Cms Block Import - add - ods - dropbox')
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
@@ -40,15 +28,7 @@ context('Import Cms Block', () => {
         //specify Import Source section
         cy.get('.type_file').find('select').as('importSourceType')
         cy.get('@importSourceType').select('ods');
-        cy.get('.import_source').find('select').as('importSource')
-        cy.get('@importSource').select('dropbox');
-        cy.get('.dropbox_file_path ').find('input').as('dropboxFilePath')
-        cy.get('@dropboxFilePath')
-            .type('/cms_blocks.ods').should('have.value', '/cms_blocks.ods')
-        cy.get('.dropbox_access_token ').find('input').as('dropboxAccessToken')
-        cy.get('@dropboxAccessToken')
-            .type('***')
-            .should('have.value', '***')
+        cy.dropboxSource('/cms_blocks.ods','***')
 
         //validate Import file
         cy.get('.source_check_button').click()
@@ -59,12 +39,6 @@ context('Import Cms Block', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.get('#debug-run').contains('Entity cms_block',{timeout: 60000})
-        cy.get('#debug-run').contains('Import data validation is complete.',{timeout: 600000})
-        cy.get('#debug-run').contains('REINDEX completed',{timeout: 600000})
-        cy.get('#debug-run').contains('This file is empty').should('not.exist')
-        cy.get('#debug-run').contains('Data validation failed').should('not.exist')
-        cy.get('#debug-run').contains('Invalid').should('not.exist')
-        cy.get('#debug-run').contains('Exception').should('not.exist')
+        cy.consoleImportResult('Entity cms_block')
     })
 })
