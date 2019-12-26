@@ -28,7 +28,7 @@ context('Import Page Hierarchy', () => {
         //specify Import Source section
         cy.get('.type_file').find('select').as('importSourceType')
         cy.get('@importSourceType').select('ods');
-        cy.dropboxSource('/page_hierarchy.ods','lOuV6o4bspAAAAAAAAAGGPTF7q7UYpyADa2pLknmU4gTh_yXjAAADOsMndY-TtyE')
+        cy.dropboxSource('/page_hierarchy.ods','***')
 
         //validate Import file
         cy.get('.source_check_button').click()
