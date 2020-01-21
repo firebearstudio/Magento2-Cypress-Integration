@@ -2,7 +2,7 @@
 context('Import Customers and Addresses', () => {
     it('add update - xlsx - ftp - new job', () => {
         //login
-        cy.loginToAdminPanel('ce')
+        cy.loginToAdminPanel('ee')
 
         //go to import page
         cy.get('.item-import-job').find('a').as('goToImportPageLink')
@@ -29,7 +29,7 @@ context('Import Customers and Addresses', () => {
         //specify Import Source section
         cy.get('.type_file').find('select').as('importSourceType')
         cy.get('@importSourceType').select('xlsx');
-        cy.ftpSource('importFtp','/files/import_customers_and_addresses_add_update.xlsx')
+        cy.ftpSource('importFtp','/files/customers_and_addresses.xlsx')
 
         //validate Import file
         cy.get('.source_check_button').click()

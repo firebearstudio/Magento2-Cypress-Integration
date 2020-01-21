@@ -2,7 +2,7 @@
 context('Import Customers and Addresses', () => {
     it('delete - csv - url - new job', () => {
         //login
-        cy.loginToAdminPanel('ce')
+        cy.loginToAdminPanel('ee')
 
         //go to import page
         cy.get('.item-import-job').find('a').as('goToImportPageLink')
@@ -27,7 +27,7 @@ context('Import Customers and Addresses', () => {
         cy.get('@behaviorBehavior').select('delete');
 
         //specify Import Source section
-        cy.urlSource('http://import.com/pub/media/importexport/import_customers_and_addresses_delete.csv')
+        cy.urlSource('http://alex-union.dev.firebearstudio.com/media/importexport/test/customers_and_addresses.csv')
 
         //validate Import file
         cy.get('.source_check_button').click()
