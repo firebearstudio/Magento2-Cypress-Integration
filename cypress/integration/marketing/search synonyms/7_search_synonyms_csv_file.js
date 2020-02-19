@@ -1,13 +1,7 @@
 context('Import Search Synonyms', () => {
     it('replace - csv - file - new job', () => {
         //login
-        cy.visit('http://import.com/admin')
-        cy.get('#username')
-            .type('admin').should('have.value', 'admin')
-        cy.get('#login')
-            .type('magento2').should('have.value', 'magento2')
-        cy.get('.actions').find('button').as('loginButton')
-        cy.get('@loginButton').click()
+        cy.loginToAdminPanel('ce')
 
         //go to import page
         cy.get('.item-import-job').find('a').as('goToImportPageLink')
@@ -18,14 +12,8 @@ context('Import Search Synonyms', () => {
         cy.get('@addJobButton').click()
 
         //specify general section
-        cy.get('.general_is_active',{timeout: 60000}).find('.admin__actions-switch-label').as('generalIsActive')
-        cy.get('@generalIsActive').click()
-        cy.get('.general_title ').find('input')
-            .type('Search Synonyms Import - replace - csv - file')
-            .should('have.value', 'Search Synonyms Import - replace - csv - file')
-        cy.get('.general_reindex').find('.admin__actions-switch-label').as('generalReindex')
-        cy.get('@generalReindex').click()
-
+        cy.generalImportSection('Search Synonyms Import - replace - csv - file')
+    
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
         cy.get('@fieldsetSettings').click()
@@ -38,12 +26,7 @@ context('Import Search Synonyms', () => {
         cy.get('@behaviorBehavior').select('replace');
 
         //specify Import Source section
-        cy.get('.import_source').find('select').as('importSource')
-        cy.get('@importSource').select('file');
-        cy.get('.file_file_path').find('input').as('filePath')
-        cy.get('@filePath')
-            .type('pub/media/importexport//s/e/search_synonyms_replace_1.csv')
-            .should('have.value', 'pub/media/importexport//s/e/search_synonyms_replace_1.csv')
+        cy.fileSource('pub/media/importexport//s/e/search_synonyms_replace_1.csv')
 
         //validate Import file
         cy.get('.source_check_button').click()
@@ -54,13 +37,7 @@ context('Import Search Synonyms', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.get('#debug-run').contains('Entity search_synonyms',{timeout: 60000})
-        cy.get('#debug-run').contains('The import was successful.',{timeout: 60000})
-        cy.get('#debug-run').contains('REINDEX completed',{timeout: 60000})
-        cy.get('#debug-run').contains('This file is empty').should('not.exist')
-        cy.get('#debug-run').contains('Data validation failed').should('not.exist')
-        cy.get('#debug-run').contains('Invalid').should('not.exist')
-        cy.get('#debug-run').contains('Exception').should('not.exist')
+        cy.consoleImportResult('Entity search_synonyms')
     })
 })
 

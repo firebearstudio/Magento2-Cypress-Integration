@@ -1,13 +1,7 @@
 context('Import Cart Price Rules', () => {
     it('add update - json - dropbox - new job', () => {
         //login
-        cy.visit('http://import.com/admin')
-        cy.get('#username')
-            .type('admin').should('have.value', 'admin')
-        cy.get('#login')
-            .type('magento2').should('have.value', 'magento2')
-        cy.get('.actions').find('button').as('loginButton')
-        cy.get('@loginButton').click()
+        cy.loginToAdminPanel('ce')
 
         //go to import page
         cy.get('.item-import-job').find('a').as('goToImportPageLink')
@@ -18,14 +12,8 @@ context('Import Cart Price Rules', () => {
         cy.get('@addJobButton').click()
 
         //specify general section
-        cy.get('.general_is_active',{timeout: 60000}).find('.admin__actions-switch-label').as('generalIsActive')
-        cy.get('@generalIsActive').click()
-        cy.get('.general_title ').find('input')
-            .type('Cart Price Rules - add update - json - dropbox')
-            .should('have.value', 'Cart Price Rules - add update - json - dropbox')
-        cy.get('.general_reindex').find('.admin__actions-switch-label').as('generalReindex')
-        cy.get('@generalReindex').click()
-
+        cy.generalImportSection('Cart Price Rules - add update - json - dropbox')
+    
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
         cy.get('@fieldsetSettings').click()
@@ -40,15 +28,7 @@ context('Import Cart Price Rules', () => {
         //specify Import Source section
         cy.get('.type_file').find('select').as('importSourceType')
         cy.get('@importSourceType').select('json');
-        cy.get('.import_source').find('select').as('importSource')
-        cy.get('@importSource').select('dropbox');
-        cy.get('.dropbox_file_path ').find('input').as('dropboxFilePath')
-        cy.get('@dropboxFilePath')
-            .type('/cart_price_rules.json').should('have.value', '/cart_price_rules.json')
-        cy.get('.dropbox_access_token ').find('input').as('dropboxAccessToken')
-        cy.get('@dropboxAccessToken')
-            .type('***')
-            .should('have.value', '***')
+        cy.dropboxSource('/cart_price_rules.json','***')
 
         //validate Import file
         cy.get('.source_check_button').click()
@@ -59,12 +39,6 @@ context('Import Cart Price Rules', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.get('#debug-run').contains('Entity cart_price_rule',{timeout: 60000})
-        cy.get('#debug-run').contains('Import data validation is complete.',{timeout: 600000})
-        cy.get('#debug-run').contains('REINDEX completed',{timeout: 600000})
-        cy.get('#debug-run').contains('This file is empty').should('not.exist')
-        cy.get('#debug-run').contains('Data validation failed').should('not.exist')
-        cy.get('#debug-run').contains('Invalid').should('not.exist')
-        cy.get('#debug-run').contains('Exception').should('not.exist')
+        cy.consoleImportResult('Entity cart_price_rule')
     })
 })

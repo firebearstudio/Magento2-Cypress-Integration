@@ -1,14 +1,7 @@
-
 context('Import Advanced Pricing', () => {
     it('add update - xlsx - ftp - new job', () => {
         //login
-        cy.visit('http://import.com/admin')
-        cy.get('#username')
-            .type('admin').should('have.value', 'admin')
-        cy.get('#login')
-            .type('magento2').should('have.value', 'magento2')
-        cy.get('.actions').find('button').as('loginButton')
-        cy.get('@loginButton').click()
+        cy.loginToAdminPanel('ce')
 
         //go to import page
         cy.get('.item-import-job').find('a').as('goToImportPageLink')
@@ -19,13 +12,7 @@ context('Import Advanced Pricing', () => {
         cy.get('@addJobButton').click()
 
         //specify general section
-        cy.get('.general_is_active',{timeout: 60000}).find('.admin__actions-switch-label').as('generalIsActive')
-        cy.get('@generalIsActive').click()
-        cy.get('.general_title ').find('input')
-            .type('Advanced Pricing Import - add update - xlsx - ftp')
-            .should('have.value', 'Advanced Pricing Import - add update - xlsx - ftp')
-        cy.get('.general_reindex').find('.admin__actions-switch-label').as('generalReindex')
-        cy.get('@generalReindex').click()
+        сy.generalImportSection('Advanced Pricing Import - add update - xlsx - ftp')
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
@@ -41,29 +28,8 @@ context('Import Advanced Pricing', () => {
         //specify Import Source section
         cy.get('.type_file').find('select').as('importSourceType')
         cy.get('@importSourceType').select('xlsx');
-        cy.get('.import_source').find('select').as('importSource')
-        cy.get('@importSource').select('ftp');
-        cy.get('.ftp_file_path').find('input').as('ftpFilePath')
-        cy.get('@ftpFilePath')
-            .type('/files/import_advanced_pricing_add_update.xlsx')
-            .should('have.value', '/files/import_advanced_pricing_add_update.xlsx')
-        cy.get('.ftp_host ').find('input').as('ftpHost')
-        cy.get('@ftpHost')
-            .type('***')
-            .should('have.value', '***')
-        cy.get('.ftp_port').find('input').as('ftpPort')
-        cy.get('@ftpPort')
-            .type('***')
-            .should('have.value', '21')
-        cy.get('.ftp_user').find('input').as('ftpUserName')
-        cy.get('@ftpUserName')
-            .type('***')
-            .should('have.value', '***')
-        cy.get('.ftp_password ').find('input').as('ftpPassword')
-        cy.get('@ftpPassword')
-            .type('***')
-            .should('have.value', '***')
-
+        cy.ftpSource('importFtp','/files/import_advanced_pricing_add_update.xlsx')
+        
         //validate Import file
         cy.get('.source_check_button').click()
         cy.get('.fieldset_source').contains('File validated successfully',{timeout: 60000})
@@ -73,12 +39,6 @@ context('Import Advanced Pricing', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.get('#debug-run').contains('Entity advanced_pricing',{timeout: 60000})
-        cy.get('#debug-run').contains('The import was successful.',{timeout: 60000})
-        cy.get('#debug-run').contains('REINDEX completed',{timeout: 60000})
-        cy.get('#debug-run').contains('This file is empty').should('not.exist')
-        cy.get('#debug-run').contains('Data validation failed').should('not.exist')
-        cy.get('#debug-run').contains('Invalid').should('not.exist')
-        cy.get('#debug-run').contains('Exception').should('not.exist')
+        cy.consoleImportResult('Entity advanced_pricing')
     })
 })

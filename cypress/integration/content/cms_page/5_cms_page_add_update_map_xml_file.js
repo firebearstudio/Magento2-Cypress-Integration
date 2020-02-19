@@ -1,13 +1,7 @@
 context('Import Cms Page', () => {
     it(' add - xml - file - new job', () => {
         //login
-        cy.visit('http://import.com/admin')
-        cy.get('#username')
-            .type('admin').should('have.value', 'admin')
-        cy.get('#login')
-            .type('magento2').should('have.value', 'magento2')
-        cy.get('.actions').find('button').as('loginButton')
-        cy.get('@loginButton').click()
+        cy.loginToAdminPanel('ce')
 
         //go to import page
         cy.get('.item-import-job').find('a').as('goToImportPageLink')
@@ -18,12 +12,7 @@ context('Import Cms Page', () => {
         cy.get('@addJobButton').click()
 
         //specify general section
-        cy.get('.general_is_active',{timeout: 60000}).find('.admin__actions-switch-label').as('generalIsActive')
-        cy.get('@generalIsActive').click()
-        cy.get('.general_title ').find('input')
-            .type('Cms Page Import - add - xml - file').should('have.value', 'Cms Page Import - add - xml - file')
-        cy.get('.general_reindex').find('.admin__actions-switch-label').as('generalReindex')
-        cy.get('@generalReindex').click()
+        cy.generalImportSection('Cms Page Import - add - xml - file')
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
@@ -39,12 +28,7 @@ context('Import Cms Page', () => {
         //specify Import Source section
         cy.get('.type_file').find('select').as('importSourceType')
         cy.get('@importSourceType').select('xml');
-        cy.get('.import_source').find('select').as('importSource')
-        cy.get('@importSource').select('file');
-        cy.get('.file_file_path').find('input').as('filePath')
-        cy.get('@filePath')
-            .type('pub/media/importexport//c/m/cms_pages_map.xml')
-            .should('have.value', 'pub/media/importexport//c/m/cms_pages_map.xml')
+        cy.fileSource('pub/media/importexport//c/m/cms_pages_map.xml')
 
         //validate Import file
         cy.get('.source_check_button').click()
@@ -68,13 +52,7 @@ context('Import Cms Page', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.get('#debug-run').contains('Entity cms_page',{timeout: 60000})
-        cy.get('#debug-run').contains('The import was successful.',{timeout: 60000})
-        cy.get('#debug-run').contains('REINDEX completed',{timeout: 60000})
-        cy.get('#debug-run').contains('This file is empty').should('not.exist')
-        cy.get('#debug-run').contains('Data validation failed').should('not.exist')
-        cy.get('#debug-run').contains('Invalid').should('not.exist')
-        cy.get('#debug-run').contains('Exception').should('not.exist')
+         cy.consoleImportResult('Entity cms_page')
 
         //check that mapping changed cms page's title
         cy.get('#menu-magento-backend-content').find('.item-versionscms-page-page').find('a').as('goToCmsPageGrid')
