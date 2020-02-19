@@ -1,7 +1,7 @@
 context('Import Cart Price Rules', () => {
     it('add update - csv - google sheet - new job', () => {
         //login
-        cy.loginToAdminPanel('ce')
+        cy.loginToAdminPanel('ee')
 
         //go to import page
         cy.get('.item-import-job').find('a').as('goToImportPageLink')
