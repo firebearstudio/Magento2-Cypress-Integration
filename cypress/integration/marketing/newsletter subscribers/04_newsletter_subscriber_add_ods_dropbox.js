@@ -27,8 +27,8 @@ context('Import Newsletter Subscribers', () => {
 
         //specify Import Source section
         cy.get('.type_file').find('select').as('importSourceType')
-        cy.get('@importSourceType').select('csv');
-        cy.dropboxSource('/newsletter_subscribers.csv','lOuV6o4bspAAAAAAAAAGOQMtMH2Wid9IxkITAAKusEWjT0EMiDsCv0_Z4S1YUsB2')
+        cy.get('@importSourceType').select('ods');
+        cy.dropboxSource('/newsletter.ods')
 
         //validate Import file
         cy.get('.source_check_button').click()
@@ -41,10 +41,10 @@ context('Import Newsletter Subscribers', () => {
         //check Import results
         cy.consoleImportResult('Entity newsletter_subscriber')
 
-        //check that  newsletter sibscribers were added
+        //check that  newsletter sibscribers were deleted
         cy.get('#menu-magento-backend-marketing').find('.item-newsletter-subscriber').find('a').as('goToNewsletterSubscriberGrid')
         cy.get('@goToNewsletterSubscriberGrid').click({force:true})
-        cy.get('.even').find('.col-email').contains('test@mail.com',{timeout: 600000})
+        cy.get('.even').find('.col-email').contains('jentle@test.com',{timeout: 600000})
        
     })
 })

@@ -27,8 +27,8 @@ context('Import Newsletter Subscribers', () => {
 
         //specify Import Source section
         cy.get('.type_file').find('select').as('importSourceType')
-        cy.get('@importSourceType').select('csv');
-        cy.ftpSource('importFtp','/files/newsletter_subscribers.csv')
+        cy.get('@importSourceType').select('xlsx');
+        cy.ftpSource('importFtp','/files/newsletter.xlsx')
 
         //validate Import file
         cy.get('.source_check_button').click()

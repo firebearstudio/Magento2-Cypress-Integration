@@ -1,5 +1,5 @@
 context('Import Newsletter Subscribers', () => {
-    it('delete - csv - url - new job', () => {
+    it('delete - xml - url - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
 
@@ -12,7 +12,7 @@ context('Import Newsletter Subscribers', () => {
         cy.get('@addJobButton').click()
 
         //specify general section
-        cy.generalImportSection('Newsletter Subscribers Import - delete - csv - url')
+        cy.generalImportSection('Newsletter Subscribers Import - delete - xml - url')
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
@@ -26,7 +26,9 @@ context('Import Newsletter Subscribers', () => {
         cy.get('@behaviorBehavior').select('delete');
 
         //specify Import Source section
-        cy.urlSource('http://alex-nancy.dev.firebearstudio.com/media/importexport/test/newsletter_subscribers.csv')
+        cy.get('.type_file').find('select').as('importSourceType')
+        cy.get('@importSourceType').select('xml');
+        cy.urlSource('http://alex-nancy.dev.firebearstudio.com/media/importexport/test/newsletter.xml')
     
         //validate Import file
         cy.get('.source_check_button').click()
