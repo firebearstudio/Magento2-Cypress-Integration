@@ -19,7 +19,7 @@ context('Import Products', () => {
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
         cy.get('@fieldsetSettings').click()
         cy.get('.settings_entity').find('select').as('settingsEntity')
-        cy.get('@settingsEntity').select('catalog_product');
+        cy.get('@settingsEntity').select('catalog_product',{force:true});
 
         //specify Import Behavior section
         cy.get('.fieldset_behavior').find('.fieldset-wrapper-title').as('fieldsetBehaviour')
@@ -72,5 +72,8 @@ context('Import Products', () => {
         cy.get('.admin__data-grid-outer-wrap').contains('Test Configurable product',{timeout: 60000})
         cy.get('.admin__data-grid-outer-wrap').contains('Test Configurable product').click({force:true});
         cy.get('[data-index="configurable-matrix"]',{timeout: 60000}).find('tbody').find('tr').should('have.length', 11)
+
+        //delete 'new' products
+        cy.deleteAllFilterProducts()
     })
 })

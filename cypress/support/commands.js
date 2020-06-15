@@ -33,6 +33,14 @@ Cypress.Commands.add('loginToAdminPanel' , (magentoVersion) => {
     cy.get('@loginButton').click()
 })
 
+//Log out from admin Panel
+Cypress.Commands.add('logoutFromAdminPanel',() => {
+    cy.get('.admin-user').find('.admin__action-dropdown').as('testingButton')
+    cy.get('@testingButton').click({force:true})
+    cy.get('.admin__action-dropdown-menu').find('.account-signout').as('signOutButton')
+    cy.get('@signOutButton').click({force:true})
+})
+
 //General section for import
 Cypress.Commands.add('generalImportSection' , jobName  => {
     cy.get('.general_is_active',{timeout: 60000}).find('.admin__actions-switch-label').as('generalIsActive')
@@ -231,4 +239,20 @@ Cypress.Commands.add('consoleImportResult' , (importEntityResult) => {
     cy.get('#debug-run').contains('Invalid').should('not.exist')
     cy.get('#debug-run').contains('Exception').should('not.exist')
 })
+
+//delete all filter products 
+Cypress.Commands.add('deleteAllFilterProducts' , () => {
+    cy.get('.page-actions-buttons').find('#back').as('returnToProductGrid')
+    cy.get('@returnToProductGrid').click({force:true})
+    cy.get('.data-grid-draggable').find('.action-multicheck-toggle').as('clickMultiselect')
+    cy.get('@clickMultiselect').click({force:true})
+    cy.get('.data-grid-draggable').contains('Select All').as('selectAllProducts')
+    cy.get('@selectAllProducts').click({force:true})
+    cy.get('.admin__data-grid-header-row').contains('Actions').as('actionsWithMultiple')
+    cy.get('@actionsWithMultiple').click({force:true})
+    cy.get('.action-menu-items').contains('Delete',{timeout: 60000})
+    cy.get('.action-menu-items').contains('Delete').click({force:true})
+    cy.get('.modal-footer').find('.action-accept').click()
+})
+
     
