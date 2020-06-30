@@ -2,9 +2,9 @@
 const urlToMagentoLocal = '***'; //admin url
 const usernameForLocal = '***'; //admin username
 const passwordForLocal = '***'; //admin password
-const urlToMagentoCE = 'http://import.com/admin'; //admin url
-const usernameForCE = 'admin'; //admin username
-const passwordForCE = 'magento2'; //admin password
+const urlToMagentoCE = '***'; //admin url
+const usernameForCE = '***'; //admin username
+const passwordForCE = '***'; //admin password
 const urlToMagentoEE = '***'; //admin url
 const usernameForEE = '***'; //admin username
 const passwordForEE = '***'; //admin password
@@ -33,6 +33,23 @@ Cypress.Commands.add('loginToAdminPanel' , (magentoVersion) => {
     cy.get('@loginButton').click()
 })
 
+//const for enter to Front-End panel
+const urlToFrontEndEE= '***'; //front-end page url
+const usernameForFrontEndEE = '***'; //admin username
+const passwordForFrontEndEE = '***'; //admin password
+
+//Enter to front-end Panel
+Cypress.Commands.add('loginToFrontEndPanel' , () => {
+    cy.visit(urlToFrontEndEE)
+    cy.get('.page-header').find('.authorization-link').find('a').click({force:true})
+    cy.get('#email')
+        .type(usernameForFrontEndEE).should('have.value',usernameForFrontEndEE)
+    cy.get('#pass')
+        .type(passwordForFrontEndEE).should('have.value', passwordForFrontEndEE)
+    cy.get('#send2').as('loginButton')
+    cy.get('@loginButton').click()
+})
+
 //Log out from admin Panel
 Cypress.Commands.add('logoutFromAdminPanel',() => {
     cy.get('.admin-user').find('.admin__action-dropdown').as('testingButton')
@@ -44,7 +61,7 @@ Cypress.Commands.add('logoutFromAdminPanel',() => {
 //General section for import
 Cypress.Commands.add('generalImportSection' , jobName  => {
     cy.get('.general_is_active',{timeout: 60000}).find('.admin__actions-switch-label').as('generalIsActive')
-    cy.get('@generalIsActive').click()
+    cy.get('@generalIsActive').click({force:true})
     cy.get('.general_title ').find('input')
         .type(jobName)
         .should('have.value', jobName)
@@ -177,7 +194,7 @@ Cypress.Commands.add('ftpSource',(sourceEntityProcess,filePath) => {
 })
 
 //Choose Dropbox Source
-Cypress.Commands.add('dropboxSource' , (filePath , dropboxAccessToken) => {
+Cypress.Commands.add('dropboxSource' , (filePath) => {
     cy.get('.import_source').find('select').as('importSource')
     cy.get('@importSource').select('dropbox');
     cy.get('.dropbox_file_path ').find('input').as('dropboxFilePath')
@@ -185,8 +202,8 @@ Cypress.Commands.add('dropboxSource' , (filePath , dropboxAccessToken) => {
         .type(filePath).should('have.value', filePath)
     cy.get('.dropbox_access_token ').find('input').as('dropboxAccessToken')
     cy.get('@dropboxAccessToken')
-        .type(dropboxAccessToken)
-        .should('have.value', dropboxAccessToken)
+        .type('***')
+        .should('have.value', '***')
 })
 
 //Choose File Source
@@ -221,19 +238,19 @@ Cypress.Commands.add('urlSource', (filePath) => {
 
 //check Export result
 Cypress.Commands.add('consoleExportResult' , (exportEntityResult) => {
-    cy.get('#debug-run').contains(exportEntityResult,{timeout: 60000})
-    cy.get('#debug-run').contains('The export is finished.',{timeout: 60000})
-    cy.get('#debug-run').contains('There is no data for the export.',{timeout: 60000}).should('not.exist')
-    cy.get('#debug-run').contains('Please provide filter data.',{timeout: 60000}).should('not.exist')
-    cy.get('#debug-run').contains('The header column names are already set.',{timeout: 60000}).should('not.exist')
+    cy.get('#debug-run',{timeout: 120000}).contains(exportEntityResult,{timeout: 120000})
+    cy.get('#debug-run').contains('The export is finished.',{timeout: 120000})
+    cy.get('#debug-run').contains('There is no data for the export.',{timeout: 120000}).should('not.exist')
+    cy.get('#debug-run').contains('Please provide filter data.',{timeout: 120000}).should('not.exist')
+    cy.get('#debug-run').contains('The header column names are already set.',{timeout: 120000}).should('not.exist')
     cy.get('#debug-run').contains('Exception').should('not.exist')
 })
 
 //check Import result
 Cypress.Commands.add('consoleImportResult' , (importEntityResult) => {
-    cy.get('#debug-run').contains(importEntityResult,{timeout: 60000})
-    cy.get('#debug-run').contains('The import was successful.',{timeout: 600000})
-    cy.get('#debug-run').contains('REINDEX completed',{timeout: 600000})
+    cy.get('#debug-run',{timeout: 120000}).contains(importEntityResult,{timeout: 120000})
+    cy.get('#debug-run').contains('The import was successful.',{timeout: 120000})
+    cy.get('#debug-run').contains('REINDEX completed',{timeout: 240000})
     cy.get('#debug-run').contains('This file is empty').should('not.exist')
     cy.get('#debug-run').contains('Data validation failed').should('not.exist')
     cy.get('#debug-run').contains('Invalid').should('not.exist')
@@ -254,5 +271,3 @@ Cypress.Commands.add('deleteAllFilterProducts' , () => {
     cy.get('.action-menu-items').contains('Delete').click({force:true})
     cy.get('.modal-footer').find('.action-accept').click()
 })
-
-    
