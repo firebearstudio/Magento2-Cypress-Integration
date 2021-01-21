@@ -1,5 +1,5 @@
 context('Import Stock Sources', () => {
-    it('add update - csv - sftp - new job', () => {
+    it('delete - csv - url - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
 
@@ -12,7 +12,7 @@ context('Import Stock Sources', () => {
         cy.get('@addJobButton').click()
 
         //specify general section
-        cy.generalImportSection('Stock Sources Import - export file - add update - csv - sftp')
+        cy.generalImportSection('Stock Sources Import - delete - csv - url')
     
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
@@ -23,10 +23,10 @@ context('Import Stock Sources', () => {
         //specify Import Behavior section
         cy.get('.fieldset_behavior').find('.fieldset-wrapper-title').as('fieldsetBehaviour')
         cy.get('.behavior_behavior').find('select').as('behaviorBehavior')
-        cy.get('@behaviorBehavior').select('append');
+        cy.get('@behaviorBehavior').select('delete');
 
         //specify Import Source section
-        cy.specifySftpSource('importSftp','/var/www/alex/files/test/export_stock_sources.csv')
+        cy.urlSource('https://48a8a91726-1275736.nxcli.net/media/importexport/test/msi_stock_source.csv')
 
         //validate Import file
         cy.get('.source_check_button').click()
@@ -40,3 +40,4 @@ context('Import Stock Sources', () => {
         cy.consoleImportResult('Entity stock_sources')
     })
 })
+

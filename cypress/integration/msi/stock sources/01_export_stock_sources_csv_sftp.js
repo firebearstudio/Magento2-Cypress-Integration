@@ -27,7 +27,7 @@ context('Export Stock Sources', () => {
         cy.get('@fileFormat').select('csv');
 
         //specify Import Source section
-        cy.specifySftpSource('exportSftp','/var/www/alex/files/test/export_stock_sources.csv')
+        cy.specifySftpSource('exportSftp','/chroot/home/a0563af8/develop-gold.dev.firebearstudio.com/pub/media/importexport/test/var/msi_stock_sources.csv')
 
         //check ftp connection
         cy.get('.source_check_button').click()

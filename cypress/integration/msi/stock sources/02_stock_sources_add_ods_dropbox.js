@@ -28,7 +28,7 @@ context('Import Stock Sources', () => {
         //specify Import Source section
         cy.get('.type_file').find('select').as('importSourceType')
         cy.get('@importSourceType').select('ods');
-        cy.dropboxSource('/msi_stock_source.ods','***')
+        cy.dropboxSource('/msi_stock_source.ods')
 
         //validate Import file
         cy.get('.source_check_button').click()
