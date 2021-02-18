@@ -61,15 +61,6 @@
                 </item>
             </argument>
         </field>
-        <field name="generate_url">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="additionalClasses" xsi:type="array">
-                        <item name="general_generate_url" xsi:type="boolean">true</item>
-                    </item>
-                </item>
-            </argument>
-        </field>
         <field name="reindex">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
@@ -138,6 +129,15 @@
                 <item name="config" xsi:type="array">
                     <item name="additionalClasses" xsi:type="array">
                         <item name="settings_remove_product_categories" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="generate_url">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="additionalClasses" xsi:type="array">
+                        <item name="general_generate_url" xsi:type="boolean">true</item>
                     </item>
                 </item>
             </argument>
