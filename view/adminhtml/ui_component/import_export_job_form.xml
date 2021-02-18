@@ -259,7 +259,7 @@
                         </item>
                     </argument>
                 </field>
-                <field name="source_data_position">
+                <field name="position">
                     <argument name="data" xsi:type="array">
                         <item name="config" xsi:type="array">
                             <item name="additionalClasses" xsi:type="array">
