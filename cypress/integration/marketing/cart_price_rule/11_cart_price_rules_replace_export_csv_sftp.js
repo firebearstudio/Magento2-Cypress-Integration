@@ -1,7 +1,7 @@
 context('Import Cart Price Rules', () => {
-    it('add update - xml - sftp - new job', () => {
+    it('replace - export file - csv - sftp - new job', () => {
         //login
-        cy.loginToAdminPanel('ee')
+        cy.loginToAdminPanel('ce')
 
         //go to import page
         cy.get('.item-import-job').find('a').as('goToImportPageLink')
@@ -12,23 +12,21 @@ context('Import Cart Price Rules', () => {
         cy.get('@addJobButton').click()
 
         //specify general section
-        cy.generalImportSection('Cart Price Rules Import - add update - xml - sftp')
+        cy.generalImportSection('Cart Price Rules Import - replace - export file - csv - sftp')
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
         cy.get('@fieldsetSettings').click()
         cy.get('.settings_entity').find('select').as('settingsEntity')
-        cy.get('@settingsEntity').select('cart_price_rule');
+        cy.get('@settingsEntity').select('sales_rule');
 
         //specify Import Behavior section
         cy.get('.fieldset_behavior').find('.fieldset-wrapper-title').as('fieldsetBehaviour')
         cy.get('.behavior_behavior').find('select').as('behaviorBehavior')
-        cy.get('@behaviorBehavior').select('append');
+        cy.get('@behaviorBehavior').select('replace');
 
         //specify Import Source section
-        cy.get('.type_file').find('select').as('importSourceType')
-        cy.get('@importSourceType').select('xml');
-        cy.specifySftpSource('importSftp','/var/www/alex/files/test/cart_price_rules.xml')
+        cy.specifySftpSource('importSftp','/var/www/alex/files/test/export_cart_price_rule.csv')
 
         //validate Import file
         cy.get('.source_check_button').click()

@@ -1,7 +1,7 @@
-context('Import Cart Price Rules', () => {
-    it(' add update - xml - file - new job', () => {
+context('Import Cart price rule', () => {
+    it('add - xlsx - ftp - new job', () => {
         //login
-        cy.loginToAdminPanel('ee')
+        cy.loginToAdminPanel('ce')
 
         //go to import page
         cy.get('.item-import-job').find('a').as('goToImportPageLink')
@@ -12,13 +12,13 @@ context('Import Cart Price Rules', () => {
         cy.get('@addJobButton').click()
 
         //specify general section
-        cy.generalImportSection('Cart Price Rules - add update - xml - file')
-    
+        cy.generalImportSection('Cart Price Rule Import - add - xlsx - ftp')
+
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
         cy.get('@fieldsetSettings').click()
         cy.get('.settings_entity').find('select').as('settingsEntity')
-        cy.get('@settingsEntity').select('cart_price_rule');
+        cy.get('@settingsEntity').select('sales_rule');
 
         //specify Import Behavior section
         cy.get('.fieldset_behavior').find('.fieldset-wrapper-title').as('fieldsetBehaviour')
@@ -27,8 +27,8 @@ context('Import Cart Price Rules', () => {
 
         //specify Import Source section
         cy.get('.type_file').find('select').as('importSourceType')
-        cy.get('@importSourceType').select('xml');
-        cy.fileSource('pub/media/importexport//c/a/cart_price_rules.xml')
+        cy.get('@importSourceType').select('xlsx');
+        cy.ftpSource('importFtp','/files/cart_price_rule.xlsx')
 
         //validate Import file
         cy.get('.source_check_button').click()

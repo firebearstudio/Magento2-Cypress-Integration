@@ -1,7 +1,7 @@
 context('Import Cart Price Rules', () => {
     it('add update - json - dropbox - new job', () => {
         //login
-        cy.loginToAdminPanel('ee')
+        cy.loginToAdminPanel('ce')
 
         //go to import page
         cy.get('.item-import-job').find('a').as('goToImportPageLink')
@@ -18,7 +18,7 @@ context('Import Cart Price Rules', () => {
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
         cy.get('@fieldsetSettings').click()
         cy.get('.settings_entity').find('select').as('settingsEntity')
-        cy.get('@settingsEntity').select('cart_price_rule');
+        cy.get('@settingsEntity').select('sales_rule');
 
         //specify Import Behavior section
         cy.get('.fieldset_behavior').find('.fieldset-wrapper-title').as('fieldsetBehaviour')
@@ -28,7 +28,7 @@ context('Import Cart Price Rules', () => {
         //specify Import Source section
         cy.get('.type_file').find('select').as('importSourceType')
         cy.get('@importSourceType').select('json');
-        cy.dropboxSource('/cart_price_rules.json','***')
+        cy.dropboxSource('/cart_price_rules.json')
 
         //validate Import file
         cy.get('.source_check_button').click()
