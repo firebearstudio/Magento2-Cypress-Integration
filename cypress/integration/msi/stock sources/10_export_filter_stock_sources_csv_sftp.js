@@ -27,14 +27,14 @@ context('Export Stock Sources', () => {
         cy.get('@fileFormat').select('csv');
 
         //specify Import Source section
-        cy.specifySftpSource('exportSftp','/var/www/alex/files/test/export_stock_sources.csv')
+        cy.specifySftpSource('exportSftp','/chroot/home/a0563af8/develop-gold.dev.firebearstudio.com/pub/media/importexport/test/var/msi_stock_sources.csv')
 
         //check ftp connection
         cy.get('.source_check_button').click()
         cy.get('.fieldset_source').contains('Success! Your connection is ready!',{timeout: 60000})
 
         //filter
-        cy.get('@tfoot').find('.addButton').click({force:true})
+        cy.get('.fieldset_source_data_filter_container').find('.addButton').click({force:true})
         cy.get('.record-1').find('.source_filter_map_source_filter_field').find('select').as('sourceDataExport')
         cy.get('@sourceDataExport').select('enabled')
         cy.get('.record-1').find('.source_filter_map_source_filter_filter').find('select').as('sourceDataExport')

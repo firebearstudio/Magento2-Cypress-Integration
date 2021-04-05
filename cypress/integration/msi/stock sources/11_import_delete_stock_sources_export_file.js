@@ -1,5 +1,5 @@
 context('Import Stock Sources', () => {
-    it('delete - csv - url - new job', () => {
+    it('delete - export file - csv - sftp - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
 
@@ -12,8 +12,8 @@ context('Import Stock Sources', () => {
         cy.get('@addJobButton').click()
 
         //specify general section
-        cy.generalImportSection('Stock Sources Import - delete - csv - url')
-    
+        cy.generalImportSection('Stock Sources Import - export file - delete - csv - sftp')
+
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
         cy.get('@fieldsetSettings').click()
@@ -26,7 +26,7 @@ context('Import Stock Sources', () => {
         cy.get('@behaviorBehavior').select('delete');
 
         //specify Import Source section
-        cy.urlSource('http://alex-union.dev.firebearstudio.com/media/importexport/test/msi_stock_source.csv')
+        cy.specifySftpSource('importSftp','/chroot/home/a0563af8/develop-gold.dev.firebearstudio.com/pub/media/importexport/test/var/msi_stock_sources.csv')
 
         //validate Import file
         cy.get('.source_check_button').click()
@@ -38,6 +38,11 @@ context('Import Stock Sources', () => {
 
         //check Import results
         cy.consoleImportResult('Entity stock_sources')
+
+        //go to stock sources page
+        cy.get('#menu-magento-backend-stores').find('.item-source').find('a').click({force:true})
+        cy.get('table',{timeout: 10000}).contains('Default',{timeout: 10000})
+        cy.get('table').should('not.contain','MSI-new-warehouse')
+        cy.get('table').should('not.contain','new-warehouse')
     })
 })
-
