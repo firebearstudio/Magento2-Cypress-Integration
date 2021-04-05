@@ -19,12 +19,12 @@ context('Import Products', () => {
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
         cy.get('@fieldsetSettings').click()
         cy.get('.settings_entity').find('select').as('settingsEntity')
-        cy.get('@settingsEntity').select('catalog_product');
+        cy.get('@settingsEntity').select('catalog_product',{force:true});
 
         //specify Import Behavior section
         cy.get('.fieldset_behavior').find('.fieldset-wrapper-title').as('fieldsetBehaviour')
         cy.get('.behavior_behavior').find('select').as('behaviorBehavior')
-        cy.get('@behaviorBehavior').select('append');
+        cy.get('@behaviorBehavior').select('append',{force:true});
 
         //specify Import Source section
         cy.googlePathSource('https://docs.google.com/spreadsheets/d/1dTZUJ96Y9TpKCYpNpqa2gvQ_55TPtaj7rI-dRXXqw_A/edit#gid=802580759')
@@ -60,5 +60,23 @@ context('Import Products', () => {
 
         //check Import results
         cy.consoleImportResult('Entity products')
+
+        //check that products were created
+        cy.get('#menu-magento-catalog-catalog').find('.item-catalog-products').find('a').as('goToProductsGrid')
+        cy.get('@goToProductsGrid').click({force:true})
+        cy.get('[data-bind="collapsible: {openClass: false, closeOnOuter: false}"]',{timeout: 60000}).find('button').as('filtersButton')
+        cy.get('@filtersButton').click({force:true})
+        cy.get('[name="sku"]').invoke('val', 'new').trigger('change',{force:true})
+        cy.get('[data-bind="i18n: \'Apply Filters\'"]',{timeout: 60000}).as('applyFiltersButton')
+        cy.get('@applyFiltersButton').click({force:true})
+        cy.get('.admin__data-grid-outer-wrap').contains('12 records found',{timeout: 60000})
+
+        //check that configurable product has a child's products
+        cy.get('.admin__data-grid-outer-wrap').contains('Test Configurable product',{timeout: 60000})
+        cy.get('.admin__data-grid-outer-wrap').contains('Test Configurable product').click({force:true});
+        cy.get('[data-index="configurable-matrix"]',{timeout: 60000}).find('tbody').find('tr').should('have.length', 6)
+
+        //delete 'new' products
+        cy.deleteAllFilterProducts()
     })
 })
