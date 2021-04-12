@@ -27,7 +27,7 @@ context('Import Advanced Pricing', () => {
         cy.get('@behaviorBehavior').select('append',{force:true});
 
         //specify Import Source section
-        cy.googlePathSource('https://docs.google.com/spreadsheets/d/13FemIzzexF5koAdQYjbcKscqoCfXyknYWkQkbSZGPsk/edit#gid=61507826')
+        cy.fileSource('pub/media/importexport/test/advanced_pricing_find&replace.csv')
 
         //validate Import file
         cy.get('.source_check_button').click()
@@ -45,11 +45,11 @@ context('Import Advanced Pricing', () => {
         //Yes - 1 , No - 0
         cy.get('[name="source_data_replacing[0][data_source_replacing_is_case_sensitive]"]').select('1',{force:true});
         cy.get('[name="source_data_replacing[0][data_source_replacing_find]"]')
-            .type('TST-Conf-Simp-S-Gray',{force: true})
-            .should('have.value', 'TST-Conf-Simp-S-Gray')
+            .type('adv_product',{force: true})
+            .should('have.value', 'adv_product')
         cy.get('[name="source_data_replacing[0][data_source_replacing_replace]"]')
-            .type('TST-GrpBnd-Simple-1',{force: true})
-            .should('have.value', 'TST-GrpBnd-Simple-1')
+            .type('adv_product1',{force: true})
+            .should('have.value', 'adv_product1')
         
         //Second row
         cy.get('@addNewRow').click()
@@ -87,16 +87,16 @@ context('Import Advanced Pricing', () => {
         cy.get('@goToProductsGrid').click({force:true})
         cy.get('[data-bind="collapsible: {openClass: false, closeOnOuter: false}"]',{timeout: 60000}).find('button').as('filtersButton')
         cy.get('@filtersButton').click({force:true})
-        cy.get('[name="sku"]').invoke('val', 'tst').trigger('change',{force:true})
+        cy.get('[name="sku"]').invoke('val', 'adv_product1').trigger('change',{force:true})
         cy.get('[name="store_id"]').select('1',{force:true})
         cy.get('[data-bind="i18n: \'Apply Filters\'"]',{timeout: 60000}).as('applyFiltersButton')
         cy.get('@applyFiltersButton').click({force:true})
   
         //check that values were replaced
-        cy.get('.admin__data-grid-outer-wrap').contains('TST-GrpBnd-Simple-1',{timeout: 60000})
-        cy.get('.admin__data-grid-outer-wrap').contains('TST-GrpBnd-Simple-1').click({force:true});
+        cy.get('.admin__data-grid-outer-wrap').contains('Adv Product',{timeout: 60000})
+        cy.get('.admin__data-grid-outer-wrap').contains('Adv Product').click({force:true});
         cy.get('[data-index="advanced_pricing_button"]',{timeout: 60000}).click({force:true})
-        cy.get('[name="product[tier_price][1][price]"]',{timeout: 60000}).should('have.value','77.00')
-        cy.get('[name="product[tier_price][1][price_qty]"]',{timeout: 60000}).should('have.value','17')
+        cy.get('[name="product[tier_price][0][price]"]',{timeout: 60000}).should('have.value','77.00')
+        cy.get('[name="product[tier_price][0][price_qty]"]',{timeout: 60000}).should('have.value','17')
     })
 })
