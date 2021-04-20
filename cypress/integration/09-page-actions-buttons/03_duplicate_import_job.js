@@ -3,10 +3,6 @@ context('Duplicate Import Job', () => {
         //login
         cy.loginToAdminPanel('ee')
 
-        //go to import page
-        cy.get('.item-import-job').find('a').as('goToImportPageLink')
-        cy.get('@goToImportPageLink').click({force:true})
-
         //go to import jobs page
         cy.get('.item-import-job').find('a').as('goToImportPageLink')
         cy.get('@goToImportPageLink').click({force:true})
