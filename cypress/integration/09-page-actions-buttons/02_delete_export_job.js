@@ -3,10 +3,6 @@ context('Delete Export Job', () => {
         //login
         cy.loginToAdminPanel('ee')
 
-        //go to export page
-        cy.get('.item-export-job').find('a').as('goToExportPageLink')
-        cy.get('@goToExportPageLink').click({force:true})
-
         //go to Export Jobs page
         cy.get('.item-export-job').find('a').as('goToExportPageLink')
         cy.get('@goToExportPageLink').click({force:true})
