@@ -1,5 +1,5 @@
 
-context('Import Сustomers', () => {
+context('Import Сustomers Mapping All rows Csv File', () => {
     it('add update - csv - file - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -10,27 +10,29 @@ context('Import Сustomers', () => {
 
         //go to new job page
         cy.get('#add').as('addJobButton')
-        cy.get('@addJobButton').click()
+        cy.get('@addJobButton').click({force:true})
 
         //specify general section
-        cy.generalImportSection('Сustomer Import - add update - xml - file')
+        cy.generalImportSection('Сustomer Import - mapping - all rows - add update - csv - file')
+        cy.get('[data-index="indexers"]').find('.admin__control-multiselect').as('indexManagement')
+        cy.get('@indexManagement').select('customer_grid',{force:true})
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
-        cy.get('@fieldsetSettings').click()
+        cy.get('@fieldsetSettings').click({force:true})
         cy.get('.settings_entity').find('select').as('settingsEntity')
-        cy.get('@settingsEntity').select('customer');
+        cy.get('@settingsEntity').select('customer',{force:true});
 
         //specify Import Behavior section
         cy.get('.fieldset_behavior').find('.fieldset-wrapper-title').as('fieldsetBehaviour')
         cy.get('.behavior_behavior').find('select').as('behaviorBehavior')
-        cy.get('@behaviorBehavior').select('add_update');
+        cy.get('@behaviorBehavior').select('add_update',{force:true});
 
         //specify Import Source section
-        cy.fileSource('pub/media/importexport//c/u/customer_main_map.csv')
+        cy.fileSource('pub/media/importexport/test/customer_main_map.csv')
     
         //validate Import file
-        cy.get('.source_check_button').click()
+        cy.get('.source_check_button').click({force:true})
         cy.get('.fieldset_source').contains('File validated successfully',{timeout: 60000})
 
         //map attributes
@@ -62,6 +64,9 @@ context('Import Сustomers', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResult('Entity customer')
+        cy.consoleImportResult('Entity customer_main')
+        cy.get('#debug-run').contains('customer with email: roni_cost@example.com')
+        cy.get('#debug-run').contains('customer with email: doe@test.com')
+        cy.get('#debug-run').contains('customer with email: roe@test.com')
     })
 })

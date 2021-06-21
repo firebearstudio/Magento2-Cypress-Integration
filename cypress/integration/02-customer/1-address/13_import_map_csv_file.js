@@ -1,6 +1,6 @@
 
-context('Import Сustomer Addresses', () => {
-    it('add update - xml - file - new job', () => {
+context('Import Сustomer Addresses Mapping Empty Rows', () => {
+    it('add update - mapping - empty rows - csv - file - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
 
@@ -10,30 +10,34 @@ context('Import Сustomer Addresses', () => {
 
         //go to new job page
         cy.get('#add').as('addJobButton')
-        cy.get('@addJobButton').click()
+        cy.get('@addJobButton').click({force:true})
 
         //specify general section
-        cy.generalImportSection('Customer Address Import - add update - xml - file')
+        cy.generalImportSection('Customer Address Import - mapping - empty rows - file')
+        cy.get('[data-index="indexers"]').find('.admin__control-multiselect').as('indexManagement')
+        cy.get('@indexManagement').select('customer_grid',{force:true})
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
-        cy.get('@fieldsetSettings').click()
+        cy.get('@fieldsetSettings').click({force:true})
         cy.get('.settings_entity').find('select').as('settingsEntity')
-        cy.get('@settingsEntity').select('customer_address');
+        cy.get('@settingsEntity').select('customer_address',{force:true});
 
         //specify Import Behavior section
         cy.get('.fieldset_behavior').find('.fieldset-wrapper-title').as('fieldsetBehaviour')
         cy.get('.behavior_behavior').find('select').as('behaviorBehavior')
-        cy.get('@behaviorBehavior').select('add_update');
+        cy.get('@behaviorBehavior').select('add_update',{force:true});
 
         //specify Import Source section
-        cy.fileSource('pub/media/importexport//c/u/customer_addresses_map.csv')
+        cy.fileSource('pub/media/importexport/test/customer_addresses_map.csv')
 
         //validate Import file
-        cy.get('.source_check_button').click()
+        cy.get('.source_check_button').click({force:true})
         cy.get('.fieldset_source').contains('File validated successfully',{timeout: 60000})
 
         //map attributes
+        cy.get('.source_data_map_container_replace_default_value').find('select').as('replaceDefaultValue')
+        cy.get('@replaceDefaultValue').select('Empty rows')
         cy.get('tfoot').find('.addButton').as('tfoot')
         cy.get('@tfoot').click({force:true})
         cy.get('.record-1').find('.source_data_map_source_data_system').find('select').as('sourceDataSystem')

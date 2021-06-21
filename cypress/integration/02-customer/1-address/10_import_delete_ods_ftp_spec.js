@@ -1,6 +1,6 @@
 
-context('Import Сustomer Addresses', () => {
-    it('delete - ods - ftp - new job', () => {
+context('Import Сustomer Addresses Delete Ods Sftp', () => {
+    it('delete - ods - sftp - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
 
@@ -10,29 +10,31 @@ context('Import Сustomer Addresses', () => {
 
         //go to new job page
         cy.get('#add').as('addJobButton')
-        cy.get('@addJobButton').click()
+        cy.get('@addJobButton').click({force:true})
 
         //specify general section
-        cy.generalImportSection('Customer Address Import - delete - ods - ftp')
+        cy.generalImportSection('Customer Address Import - delete - ods - sftp')
+        cy.get('[data-index="indexers"]').find('.admin__control-multiselect').as('indexManagement')
+        cy.get('@indexManagement').select('customer_grid',{force:true})
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
-        cy.get('@fieldsetSettings').click()
+        cy.get('@fieldsetSettings').click({force:true})
         cy.get('.settings_entity').find('select').as('settingsEntity')
-        cy.get('@settingsEntity').select('customer_address');
+        cy.get('@settingsEntity').select('customer_address',{force:true});
 
         //specify Import Behavior section
         cy.get('.fieldset_behavior').find('.fieldset-wrapper-title').as('fieldsetBehaviour')
         cy.get('.behavior_behavior').find('select').as('behaviorBehavior')
-        cy.get('@behaviorBehavior').select('delete');
+        cy.get('@behaviorBehavior').select('delete',{force:true});
 
         //specify Import Source section
         cy.get('.type_file').find('select').as('importSourceType')
-        cy.get('@importSourceType').select('ods');
-        cy.ftpSource('importFtp','/files/customer_addresses.ods')
+        cy.get('@importSourceType').select('ods',{force:true});
+        cy.specifySftpSource('importSftp','/chroot/home/a0563af8/develop-gold.dev.firebearstudio.com/pub/media/importexport/test/customer_addresses.ods')
 
         //validate Import file
-        cy.get('.source_check_button').click()
+        cy.get('.source_check_button').click({force:true})
         cy.get('.fieldset_source').contains('File validated successfully',{timeout: 60000})
 
         //save and run process
@@ -41,5 +43,8 @@ context('Import Сustomer Addresses', () => {
 
         //check Import results
         cy.consoleImportResult('Entity customer_address')
+        cy.get('#debug-run').contains('address with email: roni_cost@example.com')
+        cy.get('#debug-run').contains('address with email: doe@test.com')
+        cy.get('#debug-run').contains('address with email: roe@test.com')
     })
 })

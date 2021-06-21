@@ -1,6 +1,6 @@
 
-context('Import Сustomers Add Update Xlsx Sftp', () => {
-    it('add update - xlsx - ftp - new job', () => {
+context('Import Customers and Addresses Xlsx Sftp', () => {
+    it('add update - xlsx - sftp - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
 
@@ -13,7 +13,7 @@ context('Import Сustomers Add Update Xlsx Sftp', () => {
         cy.get('@addJobButton').click({force:true})
 
         //specify general section
-        cy.generalImportSection('Сustomer Import - add update - xlsx - sftp')
+        cy.generalImportSection('Customer and Addresses Import - add update - xlsx - sftp')
         cy.get('[data-index="indexers"]').find('.admin__control-multiselect').as('indexManagement')
         cy.get('@indexManagement').select('customer_grid',{force:true})
 
@@ -21,17 +21,17 @@ context('Import Сustomers Add Update Xlsx Sftp', () => {
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
         cy.get('@fieldsetSettings').click({force:true})
         cy.get('.settings_entity').find('select').as('settingsEntity')
-        cy.get('@settingsEntity').select('customer',{force:true});
+        cy.get('@settingsEntity').select('customer_composite',{force:true});
 
         //specify Import Behavior section
         cy.get('.fieldset_behavior').find('.fieldset-wrapper-title').as('fieldsetBehaviour')
         cy.get('.behavior_behavior').find('select').as('behaviorBehavior')
-        cy.get('@behaviorBehavior').select('add_update',{force:true});
+        cy.get('@behaviorBehavior').select('append',{force:true});
 
         //specify Import Source section
         cy.get('.type_file').find('select').as('importSourceType')
         cy.get('@importSourceType').select('xlsx',{force:true});
-        cy.specifySftpSource('importSftp','/chroot/home/a0563af8/develop-gold.dev.firebearstudio.com/pub/media/importexport/test/customers_main.xlsx')
+        cy.specifySftpSource('importSftp','/chroot/home/a0563af8/develop-gold.dev.firebearstudio.com/pub/media/importexport/test/customers_and_addresses.xlsx')
 
         //validate Import file
         cy.get('.source_check_button').click({force:true})
@@ -42,10 +42,13 @@ context('Import Сustomers Add Update Xlsx Sftp', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResult('Entity customer_main')
+        cy.consoleImportResult('Entity customers_and_addresses')
         cy.get('#debug-run').contains('customer with email: roni_cost@example.com')
         cy.get('#debug-run').contains('customer with email: doe@test.com')
         cy.get('#debug-run').contains('customer with email: roe@test.com')
+        cy.get('#debug-run').contains('address with email: roni_cost@example.com')
+        cy.get('#debug-run').contains('address with email: doe@test.com')
+        cy.get('#debug-run').contains('address with email: roe@test.com')
 
         //check that customer's values were imported
         cy.get('#menu-magento-customer-customer').find('.item-customer-manage').find('a').as('goToCustomerMainGrid')
@@ -62,11 +65,18 @@ context('Import Сustomers Add Update Xlsx Sftp', () => {
         cy.get('table').contains('May 10, 1986')
         cy.get('table').contains('Default Store View')
         cy.get('table').contains('Male')
+        cy.get('table').contains('5555555555')
+        cy.get('table').contains('12345')
+        cy.get('table').contains('Germany')
+        cy.get('table').contains('EU555555555')
         //check that the data for Jane Roe has been imported.
         cy.get('table',{timeout: 60000}).contains('roe@test.com',{timeout: 60000})
         cy.get('table').contains('Mrs. Jane R Roe Sr.')
         cy.get('table').contains('Jul 5, 1991')
         cy.get('table').contains('Default Store View')
         cy.get('table').contains('Female') 
+        cy.get('table').contains('5555555556')
+        cy.get('table').contains('12345')
+        cy.get('table').contains('Germany')
     })
 })
