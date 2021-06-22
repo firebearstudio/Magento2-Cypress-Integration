@@ -1,6 +1,6 @@
 
-context('Import Сustomers Add Update Xlsx Sftp', () => {
-    it('add update - xlsx - ftp - new job', () => {
+context('Import Customers and Addresses Delete Csv Url', () => {
+    it('delete - csv - url - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
 
@@ -13,7 +13,7 @@ context('Import Сustomers Add Update Xlsx Sftp', () => {
         cy.get('@addJobButton').click({force:true})
 
         //specify general section
-        cy.generalImportSection('Сustomer Import - add update - xlsx - sftp')
+        cy.generalImportSection('Customer and Addresses Import - delete - csv - url')
         cy.get('[data-index="indexers"]').find('.admin__control-multiselect').as('indexManagement')
         cy.get('@indexManagement').select('customer_grid',{force:true})
 
@@ -21,17 +21,15 @@ context('Import Сustomers Add Update Xlsx Sftp', () => {
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
         cy.get('@fieldsetSettings').click({force:true})
         cy.get('.settings_entity').find('select').as('settingsEntity')
-        cy.get('@settingsEntity').select('customer',{force:true});
+        cy.get('@settingsEntity').select('customer_composite',{force:true});
 
         //specify Import Behavior section
         cy.get('.fieldset_behavior').find('.fieldset-wrapper-title').as('fieldsetBehaviour')
         cy.get('.behavior_behavior').find('select').as('behaviorBehavior')
-        cy.get('@behaviorBehavior').select('add_update',{force:true});
+        cy.get('@behaviorBehavior').select('delete',{force:true});
 
         //specify Import Source section
-        cy.get('.type_file').find('select').as('importSourceType')
-        cy.get('@importSourceType').select('xlsx',{force:true});
-        cy.specifySftpSource('importSftp','/chroot/home/a0563af8/develop-gold.dev.firebearstudio.com/pub/media/importexport/test/customers_main.xlsx')
+        cy.urlSource('https://4af610548f-253334.nxcli.net/media/importexport/test/customers_and_addresses.csv')
 
         //validate Import file
         cy.get('.source_check_button').click({force:true})
@@ -42,31 +40,21 @@ context('Import Сustomers Add Update Xlsx Sftp', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResult('Entity customer_main')
+        cy.consoleImportResult('Entity customers_and_addresses')
         cy.get('#debug-run').contains('customer with email: roni_cost@example.com')
         cy.get('#debug-run').contains('customer with email: doe@test.com')
         cy.get('#debug-run').contains('customer with email: roe@test.com')
 
-        //check that customer's values were imported
+        //check that customer's were deleted
         cy.get('#menu-magento-customer-customer').find('.item-customer-manage').find('a').as('goToCustomerMainGrid')
         cy.get('@goToCustomerMainGrid').click({force:true})
-        //check that the data for Veronica Costello has been imported.
-        cy.get('table',{timeout: 60000}).contains('roni_cost@example.com',{timeout: 60000})
-        cy.get('table').contains('Veronica Costello')
-        cy.get('table').contains('Dec 15, 1973')
-        cy.get('table').contains('Default Store View')
-        cy.get('table').contains('Female')
-        //check that the data for John Doe has been imported.
-        cy.get('table',{timeout: 60000}).contains('doe@test.com',{timeout: 60000})
-        cy.get('table').contains('Mr. John D Doe Jr.')
-        cy.get('table').contains('May 10, 1986')
-        cy.get('table').contains('Default Store View')
-        cy.get('table').contains('Male')
-        //check that the data for Jane Roe has been imported.
-        cy.get('table',{timeout: 60000}).contains('roe@test.com',{timeout: 60000})
-        cy.get('table').contains('Mrs. Jane R Roe Sr.')
-        cy.get('table').contains('Jul 5, 1991')
-        cy.get('table').contains('Default Store View')
-        cy.get('table').contains('Female') 
+        //check that the data for Veronica Costello has been deleted.
+        cy.get('table',{timeout: 60000}).contains('roni_cost@example.com',{timeout: 60000}).should('not.exist')
+          
+        //check that the data for John Doe has been deleted.
+        cy.get('table',{timeout: 60000}).contains('doe@test.com',{timeout: 60000}).should('not.exist')
+         
+        //check that the data for Jane Roe has been deleted.
+        cy.get('table',{timeout: 60000}).contains('roe@test.com',{timeout: 60000}).should('not.exist')
     })
 })

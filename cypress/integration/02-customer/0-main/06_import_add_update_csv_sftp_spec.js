@@ -1,5 +1,5 @@
 
-context('Import Сustomers', () => {
+context('Import Сustomers Add/Update Csv Sftp', () => {
     it('add update - csv - sftp - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -10,14 +10,16 @@ context('Import Сustomers', () => {
 
         //go to new job page
         cy.get('#add').as('addJobButton')
-        cy.get('@addJobButton').click()
+        cy.get('@addJobButton').click({force:true})
 
         //specify general section
         cy.generalImportSection('Сustomer Import - add update - csv - sftp')
+        cy.get('[data-index="indexers"]').find('.admin__control-multiselect').as('indexManagement')
+        cy.get('@indexManagement').select('customer_grid',{force:true})
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
-        cy.get('@fieldsetSettings').click()
+        cy.get('@fieldsetSettings').click({force:true})
         cy.get('.settings_entity').find('select').as('settingsEntity')
         cy.get('@settingsEntity').select('customer');
 
@@ -27,10 +29,10 @@ context('Import Сustomers', () => {
         cy.get('@behaviorBehavior').select('add_update');
 
         //specify Import Source section
-        cy.specifySftpSource('importSftp','/var/www/alex/files/import_customers_add_update.csv')
+        cy.specifySftpSource('importSftp','/chroot/home/a0563af8/develop-gold.dev.firebearstudio.com/pub/media/importexport/test/customers_main.csv')
 
         //validate Import file
-        cy.get('.source_check_button').click()
+        cy.get('.source_check_button').click({force:true})
         cy.get('.fieldset_source').contains('File validated successfully',{timeout: 60000})
 
         //save and run process
@@ -38,6 +40,31 @@ context('Import Сustomers', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResult('Entity customer')
+        cy.consoleImportResult('Entity customer_main')
+        cy.get('#debug-run').contains('customer with email: roni_cost@example.com')
+        cy.get('#debug-run').contains('customer with email: doe@test.com')
+        cy.get('#debug-run').contains('customer with email: roe@test.com')
+
+        //check that customer's values were imported
+        cy.get('#menu-magento-customer-customer').find('.item-customer-manage').find('a').as('goToCustomerMainGrid')
+        cy.get('@goToCustomerMainGrid').click({force:true})
+        //check that the data for Veronica Costello has been imported.
+        cy.get('table',{timeout: 60000}).contains('roni_cost@example.com',{timeout: 60000})
+        cy.get('table').contains('Veronica Costello')
+        cy.get('table').contains('Dec 15, 1973')
+        cy.get('table').contains('Default Store View')
+        cy.get('table').contains('Female')
+        //check that the data for John Doe has been imported.
+        cy.get('table',{timeout: 60000}).contains('doe@test.com',{timeout: 60000})
+        cy.get('table').contains('Mr. John D Doe Jr.')
+        cy.get('table').contains('May 10, 1986')
+        cy.get('table').contains('Default Store View')
+        cy.get('table').contains('Male')
+        //check that the data for Jane Roe has been imported.
+        cy.get('table',{timeout: 60000}).contains('roe@test.com',{timeout: 60000})
+        cy.get('table').contains('Mrs. Jane R Roe Sr.')
+        cy.get('table').contains('Jul 5, 1991')
+        cy.get('table').contains('Default Store View')
+        cy.get('table').contains('Female') 
     })
 })

@@ -1,5 +1,5 @@
 
-context('Import Customers and Addresses', () => {
+context('Import Customers and Addresses Mapping Empty Rows', () => {
     it('add update - csv - file - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -10,32 +10,34 @@ context('Import Customers and Addresses', () => {
 
         //go to new job page
         cy.get('#add').as('addJobButton')
-        cy.get('@addJobButton').click()
+        cy.get('@addJobButton').click({force:true})
 
         //specify general section
-        cy.generalImportSection('Сustomers and Addresses Import - add update - xml - file')
+        cy.generalImportSection('Сustomers and Addresses Import - mapping - empty rows - csv - file')
+        cy.get('[data-index="indexers"]').find('.admin__control-multiselect').as('indexManagement')
+        cy.get('@indexManagement').select('customer_grid',{force:true})
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
-        cy.get('@fieldsetSettings').click()
+        cy.get('@fieldsetSettings').click({force:true})
         cy.get('.settings_entity').find('select').as('settingsEntity')
-        cy.get('@settingsEntity').select('customer_composite');
+        cy.get('@settingsEntity').select('customer_composite',{force:true});
 
         //specify Import Behavior section
         cy.get('.fieldset_behavior').find('.fieldset-wrapper-title').as('fieldsetBehaviour')
         cy.get('.behavior_behavior').find('select').as('behaviorBehavior')
-        cy.get('@behaviorBehavior').select('append');
+        cy.get('@behaviorBehavior').select('append',{force:true});
 
         //specify Import Source section
-        cy.fileSource('pub/media/importexport//c/u/customers_and_addresses_map.csv')
+        cy.fileSource('pub/media/importexport/test/customers_and_addresses_map.csv')
 
         //validate Import file
-        cy.get('.source_check_button').click()
+        cy.get('.source_check_button').click({force:true})
         cy.get('.fieldset_source').contains('File validated successfully',{timeout: 60000})
 
         //map attributes
         cy.get('.source_data_map_container_replace_default_value').find('select').as('replaceDefaultValue')
-        cy.get('@replaceDefaultValue').select('All rows')
+        cy.get('@replaceDefaultValue').select('Empty rows')
         cy.get('tfoot').find('.addButton').as('tfoot')
         cy.get('@tfoot').click({force:true})
         cy.get('.record-1').find('.source_data_map_source_data_system').find('select').as('sourceDataSystem')
@@ -65,6 +67,12 @@ context('Import Customers and Addresses', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResult('Entity customer_composite')
+        cy.consoleImportResult('Entity customers_and_addresses')
+        cy.get('#debug-run').contains('customer with email: roni_cost@example.com')
+        cy.get('#debug-run').contains('customer with email: doe@test.com')
+        cy.get('#debug-run').contains('customer with email: roe@test.com')
+        cy.get('#debug-run').contains('address with email: roni_cost@example.com')
+        cy.get('#debug-run').contains('address with email: doe@test.com')
+        cy.get('#debug-run').contains('address with email: roe@test.com')
     })
 })

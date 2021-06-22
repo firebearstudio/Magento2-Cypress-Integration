@@ -1,6 +1,6 @@
 
-context('Import Сustomer Addresses Xlsx Sftp', () => {
-    it('add update - xlsx - sftp - new job', () => {
+context('Import Сustomer Addresses Add/Update Xlsx Sftp Using Export File', () => {
+    it('add update - export file - xlsx - sftp - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
 
@@ -13,7 +13,7 @@ context('Import Сustomer Addresses Xlsx Sftp', () => {
         cy.get('@addJobButton').click({force:true})
 
         //specify general section
-        cy.generalImportSection('Customer Address Import - add update - xlsx - sftp')
+        cy.generalImportSection('Customer Address Import - export file - add update - xlsx - sftp')
         cy.get('[data-index="indexers"]').find('.admin__control-multiselect').as('indexManagement')
         cy.get('@indexManagement').select('customer_grid',{force:true})
 
@@ -31,7 +31,7 @@ context('Import Сustomer Addresses Xlsx Sftp', () => {
         //specify Import Source section
         cy.get('.type_file').find('select').as('importSourceType')
         cy.get('@importSourceType').select('xlsx',{force:true});
-        cy.specifySftpSource('importSftp','/chroot/home/a0563af8/develop-gold.dev.firebearstudio.com/pub/media/importexport/test/customer_addresses.xlsx')
+        cy.specifySftpSource('importSftp','/chroot/home/a0563af8/develop-gold.dev.firebearstudio.com/pub/media/importexport/test/var/customer_addresses.xlsx')
 
         //validate Import file
         cy.get('.source_check_button').click({force:true})
@@ -46,5 +46,26 @@ context('Import Сustomer Addresses Xlsx Sftp', () => {
         cy.get('#debug-run').contains('address with email: roni_cost@example.com')
         cy.get('#debug-run').contains('address with email: doe@test.com')
         cy.get('#debug-run').contains('address with email: roe@test.com')
+
+        //check that customer addresses' values were imported
+        cy.get('#menu-magento-customer-customer').find('.item-customer-manage').find('a').as('goToCustomerMainGrid')
+        cy.get('@goToCustomerMainGrid').click({force:true})
+        //check that the data for Veronica Costello has been imported.
+        cy.get('table',{timeout: 60000}).contains('roni_cost@example.com',{timeout: 60000})
+        cy.get('table').contains('(555) 229-3326')
+        cy.get('table').contains('49628-7978')
+        cy.get('table').contains('United States')
+        cy.get('table').contains('Michigan')
+        //check that the data for John Doe has been imported.
+        cy.get('table',{timeout: 60000}).contains('doe@test.com',{timeout: 60000})
+        cy.get('table').contains('5555555555')
+        cy.get('table').contains('12345')
+        cy.get('table').contains('Germany')
+        cy.get('table').contains('EU555555555')
+        //check that the data for Jane Roe has been imported.
+        cy.get('table',{timeout: 60000}).contains('roe@test.com',{timeout: 60000})
+        cy.get('table').contains('5555555556')
+        cy.get('table').contains('12345')
+        cy.get('table').contains('Germany')
     })
 })

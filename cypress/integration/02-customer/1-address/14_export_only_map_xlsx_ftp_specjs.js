@@ -1,6 +1,6 @@
 
-context('Export Customer Addresses', () => {
-    it('xlsx - ftp - new job', () => {
+context('Export Customer Addresses Only Fields From Mapping', () => {
+    it('xlsx - sftp - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
 
@@ -10,28 +10,28 @@ context('Export Customer Addresses', () => {
 
         //go to new job page
         cy.get('#add').as('addJobButton')
-        cy.get('@addJobButton').click()
+        cy.get('@addJobButton').click({force:true})
 
         //specify general section
         cy.get('.general_is_active',{timeout: 60000}).find('.admin__actions-switch-label').as('generalIsActive')
-        cy.get('@generalIsActive').click()
+        cy.get('@generalIsActive').click({force:true})
         cy.get('.general_title ').find('input')
-            .type('Customers Addresses Export - xlsx - ftp')
-            .should('have.value', 'Customers Addresses Export - xlsx - ftp')
+            .type('Customers Addresses Export - only fields from mapping - xlsx - sftp')
+            .should('have.value', 'Customers Addresses Export - only fields from mapping - xlsx - sftp')
 
         //specify Export Settings section
         cy.get('.settings_entity').find('select').as('settingsEntity')
-        cy.get('@settingsEntity').select('customer_address')
+        cy.get('@settingsEntity').select('customer_address',{force:true})
 
         //specify Export Behavior section
         cy.get('.behavior_behavior_field_file_format').find('select').as('fileFormat')
-        cy.get('@fileFormat').select('xlsx');
+        cy.get('@fileFormat').select('xlsx',{force:true});
 
         //specify Import Source section
-        cy.ftpSource('exportFtp','/files/import_customer_addresses_add_update_sample_data.xlsx')
+        cy.specifySftpSource('exportSftp' , '/chroot/home/a0563af8/develop-gold.dev.firebearstudio.com/pub/media/importexport/test/var/customer_addresses_only_map.xlsx')
 
         //check ftp connection
-        cy.get('.source_check_button').click()
+        cy.get('.source_check_button').click({force:true})
         cy.get('.fieldset_source').contains('Success! Your connection is ready!',{timeout: 60000})
 
         //mapping
