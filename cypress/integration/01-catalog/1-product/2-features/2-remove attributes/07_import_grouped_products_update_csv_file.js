@@ -1,5 +1,5 @@
 
-context('Import Products', () => {
+context('Import Products Grouped Products 7', () => {
     it('grouped products - add update -  csv - file - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -13,7 +13,7 @@ context('Import Products', () => {
         cy.get('@addJobButton').click()
 
         //specify general section
-        cy.generalImportSection('Product Import - grouped products - add update - csv - file')
+        cy.generalImportSectionWithoutReIndex('Product Import - grouped products - add update - csv - file')
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
@@ -40,7 +40,7 @@ context('Import Products', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResult('Entity products')
+        cy.consoleImportResultWithoutReIndex('Entity catalog_product')
 
         //check that products were created
         cy.get('#menu-magento-catalog-catalog').find('.item-catalog-products').find('a').as('goToProductsGrid')
@@ -58,5 +58,9 @@ context('Import Products', () => {
              .contains('Training Kit',{timeout: 60000});
          cy.get('.admin__data-grid-outer-wrap').contains('Training Kit').click({force:true});
          cy.get('[data-index="associated"]',{timeout: 60000}).find('tbody').find('tr').should('have.length', 3)
+
+        //reset active filters in the product grid
+        cy.get('#back').click()
+        cy.resetActiveFilters()
     })
 })

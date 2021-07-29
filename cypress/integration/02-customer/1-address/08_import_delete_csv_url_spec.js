@@ -1,5 +1,5 @@
 
-context('Import Сustomer Addresses Delete Csv Url', () => {
+context('Import Сustomer Addresses Delete Csv Url 8', () => {
     it('delete - csv - url - new job', () => {
         //login
         cy.loginToAdminPanel('ee')

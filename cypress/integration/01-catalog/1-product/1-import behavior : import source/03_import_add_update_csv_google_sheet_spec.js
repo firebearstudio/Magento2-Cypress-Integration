@@ -1,5 +1,5 @@
 
-context('Import Products', () => {
+context('Import Products Csv GoogleSheet 3', () => {
     it('add update - csv - google sheet - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -38,7 +38,7 @@ context('Import Products', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResult('Entity products')
+        cy.consoleImportResult('Entity catalog_product')
 
         //check that products were created
         cy.get('#menu-magento-catalog-catalog').find('.item-catalog-products').find('a').as('goToProductsGrid')
@@ -73,5 +73,9 @@ context('Import Products', () => {
             .contains('Test Bundle and Grouped - simple product 1').click({force:true});
         cy.get('[data-index="custom_options"]',{timeout: 60000}).find('.fieldset-wrapper-title').click({force:true});
         cy.get('[data-index="options"]').find('[data-index="values"]').find('tbody').find('tr').should('have.length', 3)
+
+        //reset active filters in the product grid
+        cy.get('#back').click()
+        cy.resetActiveFilters()
     })
 })

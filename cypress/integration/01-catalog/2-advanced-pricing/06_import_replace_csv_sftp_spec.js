@@ -1,4 +1,4 @@
-context('Import Advanced Pricing', () => {
+context('Import Advanced Pricing Replace Csv Sftp 6', () => {
     it('replace - csv - sftp - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -12,7 +12,7 @@ context('Import Advanced Pricing', () => {
         cy.get('@addJobButton').click()
 
         //specify general section
-        cy.generalImportSection('Advanced Pricing Import - replace - csv - sftp')
+        cy.generalImportSectionWithoutReIndex('Advanced Pricing Import - replace - csv - sftp')
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
@@ -37,6 +37,6 @@ context('Import Advanced Pricing', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResult('Entity advanced_pricing')
+        cy.consoleImportResultWithoutReIndex('Entity advanced_pricing')
     })
 })

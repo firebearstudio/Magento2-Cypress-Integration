@@ -1,5 +1,5 @@
 
-context('Import Orders', () => {
+context('Import Orders Add Update Xml 4', () => {
     it('add update - xml - file - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -13,7 +13,7 @@ context('Import Orders', () => {
         cy.get('@addJobButton').click()
 
         //specify general section
-        cy.generalImportSection('Orders Import - add update - xml - file')
+        cy.generalImportSectionWithoutReIndex('Orders Import - add update - xml - file')
     
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
@@ -40,6 +40,6 @@ context('Import Orders', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResult('Entity order')
+        cy.consoleImportResultWithoutReIndex('Entity order')
     })
 })

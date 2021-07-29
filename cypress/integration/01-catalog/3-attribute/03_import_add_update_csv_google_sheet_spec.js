@@ -1,4 +1,4 @@
-context('Import Attributes', () => {
+context('Import Attributes Add Update Csv Googlesheet 3', () => {
     it('add update - csv - google sheet - new job', () => {
         //login
         cy.loginToAdminPanel('ee')

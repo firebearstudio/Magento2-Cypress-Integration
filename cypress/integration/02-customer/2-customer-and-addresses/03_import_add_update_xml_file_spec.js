@@ -1,5 +1,5 @@
 
-context('Import Customers and Addresses Add/Update Xml File', () => {
+context('Import Customers and Addresses Add/Update Xml File 3', () => {
     it('add update - xml - file - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -42,7 +42,7 @@ context('Import Customers and Addresses Add/Update Xml File', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResult('Entity customers_and_addresses')
+        cy.consoleImportResult('Entity customer_composite')
         cy.get('#debug-run').contains('customer with email: roni_cost@example.com')
         cy.get('#debug-run').contains('customer with email: doe@test.com')
         cy.get('#debug-run').contains('customer with email: roe@test.com')

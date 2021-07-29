@@ -1,5 +1,5 @@
-context('Import Review', () => {
-    it('only add - ods - dropbox - new job', () => {
+context('Import Review Ods Dropbox 10', () => {
+    it('add/update - ods - dropbox - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
 
@@ -12,7 +12,7 @@ context('Import Review', () => {
         cy.get('@addJobButton').click()
 
         //specify general section
-        cy.generalImportSection('Review Import - add update - ods - dropbox')
+        cy.generalImportSectionWithoutReIndex('Review Import - add update - ods - dropbox')
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
@@ -28,7 +28,7 @@ context('Import Review', () => {
         //specify Import Source section
         cy.get('.type_file').find('select').as('importSourceType')
         cy.get('@importSourceType').select('ods');
-        cy.dropboxSource('/reviews.ods','***')
+        cy.dropboxSource('/reviews.ods')
 
         //validate Import file
         cy.get('.source_check_button').click()
@@ -39,6 +39,6 @@ context('Import Review', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResult('Entity review')
+        cy.consoleImportResultWithoutReIndex('Entity review')
     })
 })

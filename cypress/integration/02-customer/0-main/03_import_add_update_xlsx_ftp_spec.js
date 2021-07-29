@@ -1,5 +1,5 @@
 
-context('Import Сustomers Using Export File', () => {
+context('Import Сustomers Using Export File 3', () => {
     it('add update - xlsx - sftp - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -42,6 +42,6 @@ context('Import Сustomers Using Export File', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResult('Entity customer_main')
+        cy.consoleImportResult('Entity customer')
     })
 })

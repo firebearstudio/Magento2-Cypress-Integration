@@ -1,5 +1,5 @@
-context('Import Attributes', () => {
-    it(' only update - xml - file - new job', () => {
+context('Import Attributes Add Update Xml File 5', () => {
+    it(' add update - xml - file - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
 
@@ -12,7 +12,7 @@ context('Import Attributes', () => {
         cy.get('@addJobButton').click({force:true})
 
         //specify general section
-        cy.generalImportSection('Attributes Import - add update - xml - file')
+        cy.generalImportSectionWithoutReIndex('Attributes Import - add update - xml - file')
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
@@ -28,6 +28,7 @@ context('Import Attributes', () => {
         //specify Import Source section
         cy.get('.type_file').find('select').as('importSourceType')
         cy.get('@importSourceType').select('xml',{force:true});
+        cy.get('[data-index="import_source"]').find('select').select('file',{force:true})
         cy.fileSource('pub/media/importexport/test/attributes.xml',{force:true})
 
         //validate Import file
@@ -39,6 +40,6 @@ context('Import Attributes', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResult('Entity attribute')
+        cy.consoleImportResultWithoutReIndex('Entity attribute')
     })
 })

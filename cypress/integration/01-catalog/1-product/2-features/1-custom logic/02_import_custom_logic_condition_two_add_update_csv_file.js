@@ -1,6 +1,6 @@
 
-context('Import Products', () => {
-    it('custom logic - condition five - add update -  csv - google sheet - new job', () => {
+context('Import Products Custom logic Condition two 2', () => {
+    it('custom logic - condition two - add update -  csv - google sheet - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
 
@@ -13,21 +13,21 @@ context('Import Products', () => {
         cy.get('@addJobButton').click()
 
         //specify general section
-        cy.generalImportSection('Product Import - custom logic - condition five - add update - csv - google sheet')
+        cy.generalImportSectionWithoutReIndex('Product Import - custom logic - condition two - add update - csv - google sheet')
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
         cy.get('@fieldsetSettings').click()
         cy.get('.settings_entity').find('select').as('settingsEntity')
-        cy.get('@settingsEntity').select('catalog_product',{force:true});
+        cy.get('@settingsEntity').select('catalog_product');
 
         //specify Import Behavior section
         cy.get('.fieldset_behavior').find('.fieldset-wrapper-title').as('fieldsetBehaviour')
         cy.get('.behavior_behavior').find('select').as('behaviorBehavior')
-        cy.get('@behaviorBehavior').select('append',{force:true});
+        cy.get('@behaviorBehavior').select('append');
 
         //specify Import Source section
-        cy.fileSource('pub/media/importexport/test/products_custom_logic_sub_down.csv')
+        cy.fileSource('pub/media/importexport/test/products_cutom_logic_part_up.csv')
 
         //validate Import file
         cy.get('.source_check_button').click()
@@ -39,12 +39,12 @@ context('Import Products', () => {
         cy.get('.configurable_configurable_create').find('.admin__actions-switch-label').as('configProductEnabled')
         cy.get('@configProductEnabled').click()
         cy.get('.configurable_configurable_type').find('select').as('configType')
-        cy.get('@configType').select('sub_down');
+        cy.get('@configType').select('part_up');
         cy.get('.configurable_configurable_field').find('select').as('configField')
         cy.get('@configField').select('sku');
-        cy.get('.configurable_configurable_symbols').find('input')
-           .type('5')
-           .should('have.value', '5')
+        cy.get('.configurable_configurable_part').find('input')
+           .type('-')
+           .should('have.value', '-')
         cy.get('.configurable_variations_rows').find('.addButton').as('configVariation')
         cy.get('@configVariation').click()
         cy.get('.configurable_variations_configurable_variations_attributes').find('select').as('configVariationAttributeFirst')
@@ -59,22 +59,27 @@ context('Import Products', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResult('Entity products')
+        cy.consoleImportResultWithoutReIndex('Entity catalog_product')
 
         //check that products were created
         cy.get('#menu-magento-catalog-catalog').find('.item-catalog-products').find('a').as('goToProductsGrid')
         cy.get('@goToProductsGrid').click({force:true})
         cy.get('[data-bind="collapsible: {openClass: false, closeOnOuter: false}"]',{timeout: 60000}).find('button').as('filtersButton')
         cy.get('@filtersButton').click({force:true})
-        cy.get('[name="sku"]').invoke('val', 'Melon').trigger('change',{force:true})
+        cy.get('[name="sku"]').invoke('val', 'Cherry').trigger('change',{force:true})
         cy.get('[data-bind="i18n: \'Apply Filters\'"]',{timeout: 60000}).as('applyFiltersButton')
         cy.get('@applyFiltersButton').click({force:true})
         cy.get('.admin__data-grid-outer-wrap').contains('7 records found',{timeout: 60000})
 
         //check that configurable product has a child's products
-        cy.get('body').contains('Test Configurable product',{timeout: 60000})
-        cy.get('body').contains('Test Configurable product').click({force:true});
+        cy.get('body').contains('Cherry-config',{timeout: 60000})
+        cy.get('body').contains('Cherry-config').click({force:true});
         cy.get('[data-index="configurable-matrix"]',{timeout: 60000}).find('tbody').find('tr').should('have.length', 6)
 
+        //delete 'cherry' products
+        cy.deleteAllFilterProducts()
+
+        //reset active filters in the product grid
+        cy.resetActiveFilters()
     })
 })

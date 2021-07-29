@@ -1,4 +1,4 @@
-context('Export Reviews', () => {
+context('Export Reviews Only Mapping 11', () => {
     it('csv - sftp - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -15,8 +15,8 @@ context('Export Reviews', () => {
         cy.get('.general_is_active',{timeout: 60000}).find('.admin__actions-switch-label').as('generalIsActive')
         cy.get('@generalIsActive').click()
         cy.get('.general_title ').find('input')
-            .type('Review Export - csv - sftp')
-            .should('have.value', 'Review Export - csv - sftp')
+            .type('Review Export - only mapping - csv - sftp')
+            .should('have.value', 'Review Export - only mapping - csv - sftp')
 
         //specify Export Settings section
         cy.get('.settings_entity').find('select').as('settingsEntity')
@@ -27,7 +27,7 @@ context('Export Reviews', () => {
         cy.get('@fileFormat').select('csv');
 
         //specify Import Source section
-        cy.specifySftpSource('exportSftp','/var/www/alex/files/test/export_reviews_add_update.csv')
+        cy.specifySftpSource('exportSftp' , '/chroot/home/a0563af8/develop-gold.dev.firebearstudio.com/pub/media/importexport/test/export_reviews_add_update_only_map.csv')
         
         //check ftp connection
         cy.get('.source_check_button').click()

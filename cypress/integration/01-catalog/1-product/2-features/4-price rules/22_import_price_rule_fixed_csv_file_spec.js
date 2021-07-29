@@ -1,5 +1,5 @@
 
-context('Import Products', () => {
+context('Import Products Round Price Fixed 22', () => {
     it('round price - fixed - csv - file - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -13,7 +13,7 @@ context('Import Products', () => {
         cy.get('@addJobButton').click()
 
         //specify general section
-        cy.generalImportSection('Product Import - round price - fixed - csv - file')
+        cy.generalImportSectionWithoutReIndex('Product Import - round price - fixed - csv - file')
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
@@ -42,10 +42,10 @@ context('Import Products', () => {
 
         //save and run process
         cy.get('#save_and_run').click({force:true})
-        cy.get('.run').click({force:true})
+        cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResult('Entity products')
+        cy.consoleImportResultWithoutReIndex('Entity catalog_product')
 
         //check that products were created
         cy.get('#menu-magento-catalog-catalog').find('.item-catalog-products').find('a').as('goToProductsGrid')
@@ -65,5 +65,8 @@ context('Import Products', () => {
         cy.get('.admin__data-grid-wrap').contains('11',{timeout: 2000})
         cy.get('.admin__data-grid-wrap').contains('4',{timeout: 2000})
         cy.get('.admin__data-grid-wrap').contains('113',{timeout: 2000})
+
+        //reset active filters in the product grid
+        cy.resetActiveFilters({force:true})
     })
 })

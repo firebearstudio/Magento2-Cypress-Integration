@@ -13,7 +13,7 @@ context('Import Products', () => {
         cy.get('@addJobButton').click({force:true})
 
         //specify general section
-        cy.generalImportSection('Physical Gift Card Import - changed values')
+        cy.generalImportSectionWithoutReIndex('Physical Gift Card Import - changed values')
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
@@ -38,7 +38,7 @@ context('Import Products', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResult('Entity products')
+        cy.consoleImportResultWithoutReIndex('Entity catalog_product')
 
         //check that products were created
         cy.get('#menu-magento-catalog-catalog').find('.item-catalog-products').find('a').as('goToProductsGrid')
@@ -57,7 +57,7 @@ context('Import Products', () => {
         cy.get('[data-index="giftcard_amounts"]').find('[name="product[giftcard_amounts][1][value]"]').should('have.value', '9.00')
         cy.get('[data-index="giftcard_amounts"]').find('[name="product[giftcard_amounts][2][value]"]').should('have.value', '11.00')
 
-        //check Open Amount is enabled
+        //check Open Amount is disabled
         cy.get('[data-index="allow_open_amount"]').find('[value="0"]')
 
         //check that gift type is 'Virtual'

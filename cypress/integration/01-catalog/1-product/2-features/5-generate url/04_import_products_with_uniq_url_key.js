@@ -40,7 +40,7 @@ context('Import Products', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResultWithoutReIndex('Entity products')
+        cy.consoleImportResultWithoutReIndex('Entity catalog_product')
 
         //check that products were created
         cy.get('#menu-magento-catalog-catalog').find('.item-catalog-products').find('a').as('goToProductsGrid')
@@ -67,5 +67,9 @@ context('Import Products', () => {
         cy.get('body').contains('uniq-url3').click({force:true});
         cy.get('[data-index="search-engine-optimization"]',{timeout: 10000}).find('.fieldset-wrapper-title').click();
         cy.get('[data-index="url_key"]').find('input').should('have.value', 'uniq-url3');
+
+        //reset active filters 
+        cy.get('#back').click()
+        cy.resetActiveFilters()
     })
 })

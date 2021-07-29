@@ -40,7 +40,7 @@ context('Import Products Skip Errors', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResultWithoutReIndex('Entity products')
+        cy.consoleImportResultWithoutReIndex('Entity catalog_product')
         cy.get('#debug-run').contains('Please make sure attribute "sku" is not empty.',{timeout: 120000})
         
         //check that products were created

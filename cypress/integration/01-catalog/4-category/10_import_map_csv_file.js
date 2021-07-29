@@ -1,4 +1,4 @@
-context('Import Сategories', () => {
+context('Import Сategories Mapping All Rows 10', () => {
     it('add update - csv - file - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -14,11 +14,9 @@ context('Import Сategories', () => {
         //specify general section
         cy.get('.general_is_active',{timeout: 60000}).find('.admin__actions-switch-label').as('generalIsActive')
         cy.get('@generalIsActive').click({force:true})
-        cy.get('.general_title ').find('input')
-           .type('Category Import - add update - csv - google sheet')
-           .should('have.value', 'Category Import - add update - csv - google sheet')
-        cy.get('.general_reindex').find('.admin__actions-switch-label').as('generalReindex')
-        cy.get('@generalReindex').click({force:true})
+        cy.get('.general_title').find('input')
+           .type('Category Import - mapping - all rows')
+           .should('have.value', 'Category Import - mapping - all rows')
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
@@ -72,6 +70,6 @@ context('Import Сategories', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResult('Entity categories')
+        cy.consoleImportResultWithoutReIndex('Entity catalog_category')
     })
 })

@@ -1,5 +1,5 @@
 
-context('Import Сategories', () => {
+context('Import Сategories Csv GoogleSheet 3', () => {
     it('add update - csv - google sheet - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -46,7 +46,7 @@ context('Import Сategories', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResult('Entity categories')
+        cy.consoleImportResult('Entity catalog_category')
 
         //check that categories were created
         cy.get('#menu-magento-catalog-catalog').find('.item-catalog-categories').find('a').as('goToCategories')

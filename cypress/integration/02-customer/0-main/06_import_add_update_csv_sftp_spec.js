@@ -1,5 +1,5 @@
 
-context('Import Сustomers Add/Update Csv Sftp', () => {
+context('Import Сustomers Add/Update Csv Sftp 6', () => {
     it('add update - csv - sftp - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -40,7 +40,7 @@ context('Import Сustomers Add/Update Csv Sftp', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResult('Entity customer_main')
+        cy.consoleImportResult('Entity customer')
         cy.get('#debug-run').contains('customer with email: roni_cost@example.com')
         cy.get('#debug-run').contains('customer with email: doe@test.com')
         cy.get('#debug-run').contains('customer with email: roe@test.com')

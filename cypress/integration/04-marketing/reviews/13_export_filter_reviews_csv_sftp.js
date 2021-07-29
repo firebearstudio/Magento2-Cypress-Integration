@@ -1,4 +1,4 @@
-context('Export Reviews', () => {
+context('Export Reviews Filter 13', () => {
     it('csv - sftp - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -15,8 +15,8 @@ context('Export Reviews', () => {
         cy.get('.general_is_active',{timeout: 60000}).find('.admin__actions-switch-label').as('generalIsActive')
         cy.get('@generalIsActive').click()
         cy.get('.general_title ').find('input')
-            .type('Review Export - csv - sftp')
-            .should('have.value', 'Review Export - csv - sftp')
+            .type('Review Export - csv - filter - sftp')
+            .should('have.value', 'Review Export - csv - filter - sftp')
 
         //specify Export Settings section
         cy.get('.settings_entity').find('select').as('settingsEntity')
@@ -27,7 +27,7 @@ context('Export Reviews', () => {
         cy.get('@fileFormat').select('csv');
 
         //specify Import Source section
-        cy.specifySftpSource('exportSftp','/var/www/alex/files/test/export_reviews_add_update.csv')
+        cy.specifySftpSource('exportSftp' , '/chroot/home/a0563af8/develop-gold.dev.firebearstudio.com/pub/media/importexport/test/export_reviews_add_update_filter.csv')
         
         //check ftp connection
         cy.get('.source_check_button').click()
@@ -37,7 +37,7 @@ context('Export Reviews', () => {
         cy.get('.source_filter_map_rows').find('tfoot').as('tfoot')
         cy.get('@tfoot').find('.addButton').click({force:true})
         cy.get('.record-1').find('.source_filter_map_source_filter_field').find('select').as('sourceDataExport')
-        cy.get('@sourceDataExport').select('status_id')
+        cy.get('@sourceDataExport').select('status')
         cy.get('.record-1').find('.source_filter_map_source_filter_filter').find('select').as('sourceDataExport')
         cy.get('@sourceDataExport').select('Approved')
 
@@ -51,15 +51,7 @@ context('Export Reviews', () => {
         cy.get('.record-2').find('.source_filter_map_source_filter_filter').find('[name="source_filter_map[to][source_filter_filter]"]')
             .type('5')
             .should('have.value', '5')
-
-        cy.get('.source_filter_map_rows').find('tfoot').as('tfoot')
-        cy.get('@tfoot').find('.addButton').click({force:true})
-        cy.get('.record-3').find('.source_filter_map_source_filter_field').find('select').as('sourceDataExport')
-        cy.get('@sourceDataExport').select('sku')
-        cy.get('.record-3').find('.source_filter_map_source_filter_filter').find('[name="source_filter_map[text][source_filter_filter]"]')
-            .type('mb')
-            .should('have.value', 'mb')
-
+            
         //save and run process
         cy.get('#save_and_run').click({force:true})
         cy.get('.run').click()

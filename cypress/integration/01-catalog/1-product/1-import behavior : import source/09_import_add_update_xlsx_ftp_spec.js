@@ -1,6 +1,6 @@
 
-context('Import Products', () => {
-    it('add update - xlsx - ftp - new job', () => {
+context('Import Products Add Update Xlsx Sftp 9', () => {
+    it('add update - xlsx - sftp - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
 
@@ -13,7 +13,7 @@ context('Import Products', () => {
         cy.get('@addJobButton').click({force:true})
 
         //specify general section
-        cy.generalImportSection('Product Import - add update - xlsx - ftp')
+        cy.generalImportSectionWithoutReIndex('Product Import - add update - xlsx - sftp')
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
@@ -40,7 +40,7 @@ context('Import Products', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResult('Entity products')
+        cy.consoleImportResultWithoutReIndex('Entity catalog_product')
 
         //check that products were created
         cy.get('#menu-magento-catalog-catalog').find('.item-catalog-products').find('a').as('goToProductsGrid')
@@ -65,5 +65,9 @@ context('Import Products', () => {
             .contains('Test Bundle product with dynamic price',{timeout: 60000});
         cy.get('.admin__data-grid-outer-wrap').contains('Test Bundle product with dynamic price').click({force:true});
         cy.get('[data-index="bundle_selections"]',{timeout: 60000}).find('tbody').find('tr').should('have.length', 2)
+
+        //reset active filters in the product grid
+        cy.get('#back').click()
+        cy.resetActiveFilters()
     })
 })

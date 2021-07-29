@@ -1,4 +1,4 @@
-context('Import Reviews', () => {
+context('Import Reviews Replace Csv Sftp 8', () => {
     it('replace - csv - sftp - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -12,7 +12,7 @@ context('Import Reviews', () => {
         cy.get('@addJobButton').click()
 
         //specify general section
-        cy.generalImportSection('Review Import - replace - csv - sftp')
+        cy.generalImportSectionWithoutReIndex('Review Import - replace - csv - sftp')
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
@@ -26,7 +26,7 @@ context('Import Reviews', () => {
         cy.get('@behaviorBehavior').select('replace');
 
         //specify Import Source section
-        cy.specifySftpSource('importSftp','/var/www/alex/files/reviews_replace_csv_sftp.csv')
+        cy.specifySftpSource('importSftp','/chroot/home/a0563af8/develop-gold.dev.firebearstudio.com/pub/media/importexport/test/reviews.csv')
 
         //validate Import file
         cy.get('.source_check_button').click()
@@ -37,6 +37,6 @@ context('Import Reviews', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResult('Entity review')
+        cy.consoleImportResultWithoutReIndex('Entity review')
     })
 })

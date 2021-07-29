@@ -1,5 +1,5 @@
 
-context('Import Сustomers Add Update Xlsx Sftp', () => {
+context('Import Сustomers Add Update Xlsx Sftp 8', () => {
     it('add update - xlsx - ftp - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -42,7 +42,7 @@ context('Import Сustomers Add Update Xlsx Sftp', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResult('Entity customer_main')
+        cy.consoleImportResult('Entity customer')
         cy.get('#debug-run').contains('customer with email: roni_cost@example.com')
         cy.get('#debug-run').contains('customer with email: doe@test.com')
         cy.get('#debug-run').contains('customer with email: roe@test.com')

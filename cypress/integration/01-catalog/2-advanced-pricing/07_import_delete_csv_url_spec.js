@@ -1,4 +1,4 @@
-context('Import Advanced Pricing', () => {
+context('Import Advanced Pricing Delete Csv Url 7', () => {
     it('delete - csv - url - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -12,7 +12,7 @@ context('Import Advanced Pricing', () => {
         cy.get('@addJobButton').click()
 
         //specify general section
-        cy.generalImportSection('Advanced Pricing Import - delete - csv - url')
+        cy.generalImportSectionWithoutReIndex('Advanced Pricing Import - delete - csv - url')
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
@@ -37,6 +37,6 @@ context('Import Advanced Pricing', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResult('Entity advanced_pricing')
+        cy.consoleImportResultWithoutReIndex('Entity advanced_pricing')
     })
 })

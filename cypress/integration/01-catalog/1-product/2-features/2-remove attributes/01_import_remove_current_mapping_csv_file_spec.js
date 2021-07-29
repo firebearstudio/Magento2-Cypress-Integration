@@ -1,5 +1,5 @@
 
-context('Import Products', () => {
+context('Import Products Remove Current Mapping 1', () => {
     it('remove - current - mapping - csv - file - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -13,7 +13,7 @@ context('Import Products', () => {
         cy.get('@addJobButton').click()
 
         //specify general section
-        cy.generalImportSection('Product Import - remove - current - mapping - csv - file')
+        cy.generalImportSectionWithoutReIndex('Product Import - remove - current - mapping - csv - file')
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')

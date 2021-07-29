@@ -1,5 +1,5 @@
-context('Import Attributes', () => {
-    it('add update - xlsx - ftp - new job', () => {
+context('Import Attributes Add Update Xlsx Sftp 8', () => {
+    it('add update - xlsx - sftp - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
 
@@ -12,7 +12,7 @@ context('Import Attributes', () => {
         cy.get('@addJobButton').click({force:true})
 
         //specify general section
-        cy.generalImportSection('Attributes Import - add update - xlsx - ftp')
+        cy.generalImportSectionWithoutReIndex('Attributes Import - add update - xlsx - sftp')
         
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
@@ -39,6 +39,6 @@ context('Import Attributes', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResult('Entity attribute')
+        cy.consoleImportResultWithoutReIndex('Entity attribute')
     })
 })

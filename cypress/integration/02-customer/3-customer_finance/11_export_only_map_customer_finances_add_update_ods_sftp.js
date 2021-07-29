@@ -1,4 +1,4 @@
-context('Export Customer Finances', () => {
+context('Export Customer Finances Only Mapping 11', () => {
     it('ods - sftp - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -9,28 +9,28 @@ context('Export Customer Finances', () => {
 
         //go to new job page
         cy.get('#add').as('addJobButton')
-        cy.get('@addJobButton').click()
+        cy.get('@addJobButton').click({force:true})
 
         //specify general section
         cy.get('.general_is_active',{timeout: 60000}).find('.admin__actions-switch-label').as('generalIsActive')
-        cy.get('@generalIsActive').click()
+        cy.get('@generalIsActive').click({force:true})
         cy.get('.general_title ').find('input')
-            .type('Customers Finances Export - ods - sftp')
-            .should('have.value', 'Customers Finances Export - ods - sftp')
+            .type('Customers Finances Export - only mapping - ods - sftp')
+            .should('have.value', 'Customers Finances Export - only mapping - ods - sftp')
 
         //specify Export Settings section
         cy.get('.settings_entity').find('select').as('settingsEntity')
-        cy.get('@settingsEntity').select('customer_finance')
+        cy.get('@settingsEntity').select('customer_finance',{force:true})
 
         //specify Export Behavior section
         cy.get('.behavior_behavior_field_file_format').find('select').as('fileFormat')
-        cy.get('@fileFormat').select('ods');
+        cy.get('@fileFormat').select('ods',{force:true});
 
-        //specify Import Source section
-        cy.specifySftpSource('exportSftp','/var/www/alex/files/test/export_customer_finances_add_update.ods')
+        //specify Export Source section
+        cy.specifySftpSource('exportSftp' , '/chroot/home/a0563af8/develop-gold.dev.firebearstudio.com/pub/media/importexport/test/var/export_customer_finances_add_update_only_map.ods')
         
         //check ftp connection
-        cy.get('.source_check_button').click()
+        cy.get('.source_check_button').click({force:true})
         cy.get('.fieldset_source').contains('Success! Your connection is ready!',{timeout: 60000})
 
         //mapping

@@ -1,5 +1,5 @@
 
-context('Import Products', () => {
+context('Import Products Map Attributes 3', () => {
     it(' map attributes - csv - file - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -13,7 +13,7 @@ context('Import Products', () => {
         cy.get('@addJobButton').click()
 
         //specify general section
-        cy.generalImportSection('Product Import - map attributes - csv - file')
+        cy.generalImportSectionWithoutReIndex('Product Import - map attributes - csv - file')
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
@@ -56,7 +56,7 @@ context('Import Products', () => {
         cy.get('@sourceDataSystem').select('weight');
         cy.get('.record-3').find('.source_data_map_source_data_import').find('select').as('sourceDataImport')
         cy.get('@sourceDataImport').select('weight_map');
-        cy.get('.record-3').find('.admin__field-control').find('input')
+        cy.get('.record-3').find('[name="source_data_map[2][source_data_replace]"]')
             .type('7')
             .should('have.value', '7')
 
@@ -66,7 +66,7 @@ context('Import Products', () => {
         cy.get('@sourceDataSystem').select('price');
         cy.get('.record-4').find('.source_data_map_source_data_import').find('select').as('sourceDataImport')
         cy.get('@sourceDataImport').select('price_map');
-        cy.get('.record-4').find('.admin__field-control').find('input')
+        cy.get('.record-4').find('[name="source_data_map[3][source_data_replace]"]')
             .type('4')
             .should('have.value', '4')
 
@@ -75,7 +75,7 @@ context('Import Products', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResult('Entity products')
+        cy.consoleImportResultWithoutReIndex('Entity catalog_product')
   
         //check that products were created
         cy.get('#menu-magento-catalog-catalog').find('.item-catalog-products').find('a').as('goToProductsGrid')
@@ -87,16 +87,14 @@ context('Import Products', () => {
         cy.get('@applyFiltersButton').click({force:true})
         cy.get('.admin__data-grid-outer-wrap').contains('18 records found',{timeout: 60000})
 
-         //check that mapping chenged weight value
-        cy.get('[data-bind="afterRender: $data.setToolbarNode"]').find('[data-bind="i18n: \'Columns\'"]',{timeout: 60000}).as('columnsButton')
-        cy.get('@columnsButton').click({force:true})
-        cy.get('.admin__action-dropdown-menu-content').find('label').contains('Weight').as('visibleWeightCheckBox')
-        cy.get('@visibleWeightCheckBox').click({force:true})
-        cy.get('.admin__data-grid-wrap').contains('7.000000',{timeout: 7000})
-        cy.get('.admin__data-grid-wrap').contains('4.00',{timeout: 2000})
-        cy.get('[data-bind="afterRender: $data.setToolbarNode"]').find('[data-bind="i18n: \'Columns\'"]',{timeout: 60000}).as('columnsButton')
-        cy.get('@columnsButton').click({force:true})
-        cy.get('.admin__action-dropdown-menu-content').find('label').contains('Weight').as('visibleWeightCheckBox')
-        cy.get('@visibleWeightCheckBox').click({force:true})
+        //check that mapping chenged weight value
+        cy.get('.admin__data-grid-outer-wrap').contains('Test Configurable-simple product-S-Gray',{timeout: 60000})
+        cy.get('.admin__data-grid-outer-wrap').contains('Test Configurable-simple product-S-Gray').click({force:true});
+        cy.get('[data-index="price"]').find('[name="product[price]"]').should('have.value','4.00')
+        cy.get('[data-index="weight"]').find('[name="product[weight]"]').should('have.value','7')
+
+        //reset active filters in the product grid
+        cy.get('#back').click()
+        cy.resetActiveFilters({timeout: 10000})
     })
 })

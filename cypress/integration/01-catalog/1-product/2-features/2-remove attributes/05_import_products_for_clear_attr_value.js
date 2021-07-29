@@ -1,6 +1,6 @@
 
-context('Import Products', () => {
-    it('replace - csv - sftp - new job', () => {
+context('Import Products For Clear Attr Value 5', () => {
+    it('add update - csv - sftp - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
 
@@ -13,7 +13,7 @@ context('Import Products', () => {
         cy.get('@addJobButton').click()
 
         //specify general section
-        cy.generalImportSection('Product Import - replace - csv - sftp')
+        cy.generalImportSectionWithoutReIndex('Product Import For Clear Attr Value')
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
@@ -34,7 +34,7 @@ context('Import Products', () => {
         cy.get('@behaviorBehavior').select('append');
 
         //specify Import Source section
-        cy.fileSource('pub/media/importexport/test/products_clear_attr_feature.csv')
+        cy.fileSource('pub/media/importexport/test/products_with_values_for_clear_attr.csv')
 
         //validate Import file
         cy.get('.source_check_button').click()
@@ -45,23 +45,24 @@ context('Import Products', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResult('Entity products')
+        cy.consoleImportResultWithoutReIndex('Entity catalog_product')
 
-
-        //weight,description,short-description
-         //check that values were cleared and deleted
+        //check that color and size attribute have values
         cy.get('#menu-magento-catalog-catalog').find('.item-catalog-products').find('a').as('goToProductsGrid')
         cy.get('@goToProductsGrid').click({force:true})
-        cy.get('.admin__data-grid-outer-wrap').contains('Test Configurable product',{timeout: 60000})
-        cy.get('.admin__data-grid-outer-wrap').contains('Test Configurable product').click({force:true});
-        cy.get('[data-index="content"]',{timeout: 60000}).find('.fieldset-wrapper-title').click({force:true});
-        cy.get('#document').find('p').should('be.empty')
-        // cy.get('[data-index="container_description"]').find('.admin__field-control').find('button').click()
-        // cy.get('.pagebuilder-content-type-wrapper').children('.pagebuilder-content-type').should('not.exist')
-        // .should('not.have.pagebuilder-canvas')
-        cy.get('#editorproduct_form_short_description').find('#mceu_19').find('#mceu_19-body').find('#mceu_32').find('iframe#product_form_short_description_ifr').should('not.have.value','This is a test simple product that belongs to the test configurable product named Test Configurable Product with SKU: TST-Conf.')
-        // cy.get('#product_form_short_description_ifr').click({force:true});
-        // cy.get('[data-index="container_short_description"]').find('.product_form_short_description').find('textarea').contains('This is a test simple product that belongs to the test configurable product named Test Configurable Product with SKU: TST-Conf.').should('not.exist')
+        cy.get('[data-bind="collapsible: {openClass: false, closeOnOuter: false}"]',{timeout: 60000}).find('button').as('filtersButton')
+        cy.get('@filtersButton').click({force:true})
+        cy.get('[name="sku"]').invoke('val', 'test-clear').trigger('change',{force:true})
+        cy.get('[data-bind="i18n: \'Apply Filters\'"]',{timeout: 60000}).as('applyFiltersButton')
+        cy.get('@applyFiltersButton').click({force:true})
+        cy.get('.admin__data-grid-outer-wrap').contains('test-clear-attribute1',{timeout: 60000})
+        cy.get('.admin__data-grid-outer-wrap').contains('test-clear-attribute1').click({force:true});
+        cy.get('[data-index="color"]',{timeout: 10000}).find('[data-title="Gray"]').should('be.selected')
+        cy.get('[data-index="size"]').find('[data-title="S"]').should('be.selected')
 
+        //reset active filters in the product grid
+        cy.get('#back').click()
+        cy.resetActiveFilters()
+       
     })
 })

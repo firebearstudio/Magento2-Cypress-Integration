@@ -1,5 +1,5 @@
 
-context('Import Products/Advanced Prcing', () => {
+context('Import Products/Advanced Prcing Find and Replace 4', () => {
     it(' find and replace - csv - file - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -38,6 +38,6 @@ context('Import Products/Advanced Prcing', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResultWithoutReIndex('Entity products')
+        cy.consoleImportResultWithoutReIndex('Entity catalog_product')
     })
 })

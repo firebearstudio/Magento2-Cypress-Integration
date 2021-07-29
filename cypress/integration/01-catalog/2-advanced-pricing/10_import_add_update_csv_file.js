@@ -1,5 +1,5 @@
-context('Import Advanced Pricing', () => {
-    it('add update - xml - file - new job', () => {
+context('Import Advanced Pricing Mapping All rows 10', () => {
+    it('add update - csv - file - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
 
@@ -12,7 +12,7 @@ context('Import Advanced Pricing', () => {
         cy.get('@addJobButton').click()
 
         //specify general section
-        cy.generalImportSection('Advanced Pricing Import - add update - xml - file')
+        cy.generalImportSectionWithoutReIndex('Advanced Pricing Import - mapping - all rows')
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
@@ -64,6 +64,6 @@ context('Import Advanced Pricing', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResult('Entity advanced_pricing')
+        cy.consoleImportResultWithoutReIndex('Entity advanced_pricing')
     })
 })

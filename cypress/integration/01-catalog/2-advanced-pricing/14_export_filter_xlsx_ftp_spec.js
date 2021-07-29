@@ -1,5 +1,5 @@
-context('Export Advanced Pricing', () => {
-    it('xlsx - ftp - new job', () => {
+context('Export Advanced Pricing Filter Xlsx Sftp 14', () => {
+    it('xlsx - sftp - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
 
@@ -15,8 +15,8 @@ context('Export Advanced Pricing', () => {
         cy.get('.general_is_active',{timeout: 60000}).find('.admin__actions-switch-label').as('generalIsActive')
         cy.get('@generalIsActive').click()
         cy.get('.general_title ').find('input')
-            .type('Advanced Pricing Export - xlsx - ftp')
-            .should('have.value', 'Advanced Pricing Export - xlsx - ftp')
+            .type('Advanced Pricing Export - filter - xlsx - sftp')
+            .should('have.value', 'Advanced Pricing Export - filter - xlsx - sftp')
 
         //specify Export Settings section
         cy.get('.settings_entity').find('select').as('settingsEntity')
@@ -39,7 +39,7 @@ context('Export Advanced Pricing', () => {
         cy.get('.record-1').find('.source_filter_map_source_filter_entity').find('select').as('sourceDataSystem')
         cy.get('@sourceDataSystem').select('Advanced Pricing');
         cy.get('.record-1').find('.source_filter_map_source_filter_field').find('select').as('sourceDataImport')
-        cy.get('@sourceDataImport').select('SKU')
+        cy.get('@sourceDataImport').select('sku')
         cy.get('.record-1').find('.source_filter_map_source_filter_filter').find('[name="source_filter_map[text][source_filter_filter]"]')
             .type('tst')
             .should('have.value', 'tst')
@@ -49,7 +49,7 @@ context('Export Advanced Pricing', () => {
         cy.get('.record-2').find('.source_filter_map_source_filter_entity').find('select').as('sourceDataSystem')
         cy.get('@sourceDataSystem').select('Advanced Pricing');
         cy.get('.record-2').find('.source_filter_map_source_filter_field').find('select').as('sourceDataImport')
-        cy.get('@sourceDataImport').select('Tier Price')
+        cy.get('@sourceDataImport').select('tier_price')
         cy.get('.record-2').find('.source_filter_map_source_filter_filter').find('[name="source_filter_map[text][source_filter_filter]"]')
             .type('10')
             .should('have.value', '10')
@@ -59,9 +59,10 @@ context('Export Advanced Pricing', () => {
         cy.get('.record-3').find('.source_filter_map_source_filter_entity').find('select').as('sourceDataSystem')
         cy.get('@sourceDataSystem').select('Advanced Pricing');
         cy.get('.record-3').find('.source_filter_map_source_filter_field').find('select').as('sourceDataImport')
-        cy.get('@sourceDataImport').select('Type')
-        cy.get('.record-3').find('.source_filter_map_source_filter_filter').find('select').as('sourceDataImport')
-        cy.get('@sourceDataImport').select('Simple Product')
+        cy.get('@sourceDataImport').select('tier_price_value_type')
+        cy.get('.record-3').find('.source_filter_map_source_filter_filter').find('[name="source_filter_map[text][source_filter_filter]"]')
+            .type('Fixed')
+            .should('have.value', 'Fixed')
 
         //save and run process
         cy.get('#save_and_run').click({force:true})

@@ -40,7 +40,7 @@ context('Import Products - Enabled cache products', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResultWithoutReIndex('Entity products')
+        cy.consoleImportResultWithoutReIndex('Entity catalog_product')
 
         //run process again
         cy.get('.run').click()

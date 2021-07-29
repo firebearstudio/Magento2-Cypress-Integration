@@ -1,4 +1,4 @@
-context('Import Attributes', () => {
+context('Import Attributes Delete Csv Url 7', () => {
     it('delete - csv - url - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -12,7 +12,7 @@ context('Import Attributes', () => {
         cy.get('@addJobButton').click({force:true})
 
         //specify general section
-        cy.generalImportSection('Attributes Import - delete - csv - url')
+        cy.generalImportSectionWithoutReIndex('Attributes Import - delete - csv - url')
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
@@ -37,6 +37,6 @@ context('Import Attributes', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResult('Entity attribute')
+        cy.consoleImportResultWithoutReIndex('Entity attribute')
     })
 })

@@ -1,4 +1,4 @@
-context('Import Сustomer Finance', () => {
+context('Import Сustomer Finance Mapping Empty Rows 5', () => {
     it('add update - mapping - csv - file - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -9,27 +9,29 @@ context('Import Сustomer Finance', () => {
 
         //go to new job page
         cy.get('#add').as('addJobButton')
-        cy.get('@addJobButton').click()
+        cy.get('@addJobButton').click({force:true})
 
         //specify general section
-        cy.generalImportSection('Customer Finance Import - add update - mapping - csv - file')
+        cy.generalImportSection('Customer Finance Import - add update - mapping empty rows - csv - file')
+        cy.get('[data-index="indexers"]').find('.admin__control-multiselect').as('indexManagement')
+        cy.get('@indexManagement').select('customer_grid',{force:true})
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
-        cy.get('@fieldsetSettings').click()
+        cy.get('@fieldsetSettings').click({force:true})
         cy.get('.settings_entity').find('select').as('settingsEntity')
-        cy.get('@settingsEntity').select('customer_finance');
+        cy.get('@settingsEntity').select('customer_finance',{force:true});
 
         //specify Import Behavior section
         cy.get('.fieldset_behavior').find('.fieldset-wrapper-title').as('fieldsetBehaviour')
         cy.get('.behavior_behavior').find('select').as('behaviorBehavior')
-        cy.get('@behaviorBehavior').select('add_update');
+        cy.get('@behaviorBehavior').select('add_update',{force:true});
 
         //specify Import Source section
-        cy.fileSource('pub/media/importexport//c/u/customer_finance_map.csv')
+        cy.fileSource('pub/media/importexport/test/customer_finance_map.csv')
        
         //validate Import file
-        cy.get('.source_check_button').click()
+        cy.get('.source_check_button').click({force:true})
         cy.get('.fieldset_source').contains('File validated successfully',{timeout: 60000})
 
         //map attributes
@@ -67,7 +69,7 @@ context('Import Сustomer Finance', () => {
         cy.get('.admin__data-grid-wrap').contains('Edit').click({force:true})
 
         //check that Veronica's Costello reward points were changed 
-        cy.get('#rewardPointsBalanceGrid').find('td').as('rewardPointsBalance')
+        cy.get('#rewardPointsBalanceGrid',{timeout: 10000}).find('td').as('rewardPointsBalance')
         cy.get('@rewardPointsBalance').contains('9000',{timeout: 60000})
         
         //go to grid with customers
@@ -85,7 +87,7 @@ context('Import Сustomer Finance', () => {
         cy.get('.admin__data-grid-wrap').contains('Edit').click({force:true})
 
         //check that Mrs. Jane R Roe's reward points were changed 
-        cy.get('#rewardPointsBalanceGrid').find('td').as('rewardPointsBalance')
+        cy.get('#rewardPointsBalanceGrid',{timeout: 10000}).find('td').as('rewardPointsBalance')
         cy.get('@rewardPointsBalance').contains('9000',{timeout: 60000})
     })
 })

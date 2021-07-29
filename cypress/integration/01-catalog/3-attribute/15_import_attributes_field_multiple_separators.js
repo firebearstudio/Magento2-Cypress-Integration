@@ -1,6 +1,5 @@
-
-context('Import Orders', () => {
-    it(' delete - not - shipment - invoice - new job', () => {
+context('Import Attributes Field Multiple Separators 15', () => {
+    it(' add update - field - multiple - separators', () => {
         //login
         cy.loginToAdminPanel('ee')
 
@@ -13,21 +12,26 @@ context('Import Orders', () => {
         cy.get('@addJobButton').click({force:true})
 
         //specify general section
-        cy.generalImportSection('Orders Import - delete - not - shipment - invoice')
+        cy.generalImportSectionWithoutReIndex('Attributes Import - add update - field - multiple - separators')
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
-        cy.get('@fieldsetSettings').click()
+        cy.get('@fieldsetSettings').click({force:true})
         cy.get('.settings_entity').find('select').as('settingsEntity')
-        cy.get('@settingsEntity').select('order',{force:true});
+        cy.get('@settingsEntity').select('attribute',{force:true});
 
         //specify Import Behavior section
         cy.get('.fieldset_behavior').find('.fieldset-wrapper-title').as('fieldsetBehaviour')
         cy.get('.behavior_behavior').find('select').as('behaviorBehavior')
-        cy.get('@behaviorBehavior').select('delete',{force:true});
+        cy.get('@behaviorBehavior').select('append',{force:true});
+        cy.get('[data-index="_import_field_separator"]').find('input').as('fieldSeparator')
+        cy.get('@fieldSeparator').invoke('val', '|').trigger('change',{force:true})
+        cy.get('[data-index="_import_multiple_value_separator"]').find('input').as('multipleSeparator')
+        cy.get('@multipleSeparator').invoke('val', ';').trigger('change',{force:true})
 
         //specify Import Source section
-        cy.googlePathSource('https://docs.google.com/spreadsheets/d/1wapIes6Rwh91SxZfAHQy9YnTOD7JZNU87yGi3Yf_4LA/edit#gid=1663907144')
+        cy.get('[data-index="import_source"]').find('select').select('file',{force:true})
+        cy.fileSource('pub/media/importexport/test/attributes_separators.csv',{force:true})
 
         //validate Import file
         cy.get('.source_check_button').click({force:true})
@@ -35,9 +39,9 @@ context('Import Orders', () => {
 
         //save and run process
         cy.get('#save_and_run').click({force:true})
-        cy.get('.run').click({force:true})
+        cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResult('Entity order')
+        cy.consoleImportResultWithoutReIndex('Entity attribute')
     })
 })

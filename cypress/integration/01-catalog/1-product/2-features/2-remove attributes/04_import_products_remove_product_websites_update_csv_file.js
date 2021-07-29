@@ -1,5 +1,5 @@
 
-context('Import Products', () => {
+context('Import Products Remove Product Websites 4', () => {
     it('remove product websites - add update -  csv - file - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -13,7 +13,7 @@ context('Import Products', () => {
         cy.get('@addJobButton').click()
 
         //specify general section
-        cy.generalImportSection('Product Import - remove product websites - add update - csv - file')
+        cy.generalImportSectionWithoutReIndex('Product Import - remove product websites - add update - csv - file')
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
@@ -42,7 +42,7 @@ context('Import Products', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResult('Entity products')
+        cy.consoleImportResultWithoutReIndex('Entity catalog_product')
 
         //check that products were created
         cy.get('#menu-magento-catalog-catalog').find('.item-catalog-products').find('a').as('goToProductsGrid')
@@ -55,5 +55,8 @@ context('Import Products', () => {
 
        //check that website was removed
        cy.get('.admin__data-grid-outer-wrap').should('not.contain', 'Main Website')
+
+       //reset active filters in the product grid
+       cy.resetActiveFilters()
     })
 })

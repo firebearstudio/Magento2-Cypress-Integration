@@ -1,5 +1,5 @@
 
-context('Import Products', () => {
+context('Import Products Custom logic Condition one 1', () => {
     it('custom logic - condition one - add update -  csv - google sheet - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -13,13 +13,15 @@ context('Import Products', () => {
         cy.get('@addJobButton').click()
 
         //specify general section
-        cy.generalImportSection('Product Import - custom logic - condition one - add update - csv - google sheet')
+        cy.generalImportSectionWithoutReIndex('Product Import - custom logic - condition one - add update - csv - google sheet')
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
         cy.get('@fieldsetSettings').click()
         cy.get('.settings_entity').find('select').as('settingsEntity')
         cy.get('@settingsEntity').select('catalog_product',{force:true});
+        cy.get('.general_generate_url').find('.admin__actions-switch-label').as('generateUrl')
+        cy.get('@generateUrl').click({force:true})
 
         //specify Import Behavior section
         cy.get('.fieldset_behavior').find('.fieldset-wrapper-title').as('fieldsetBehaviour')
@@ -56,7 +58,7 @@ context('Import Products', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResult('Entity products')
+        cy.consoleImportResultWithoutReIndex('Entity catalog_product')
 
         //check that products were created
         cy.get('#menu-magento-catalog-catalog').find('.item-catalog-products').find('a').as('goToProductsGrid')
@@ -75,5 +77,8 @@ context('Import Products', () => {
 
         //delete 'new' products
         cy.deleteAllFilterProducts()
+
+        //reset active filters in the product grid
+        cy.resetActiveFilters()
     })
 })

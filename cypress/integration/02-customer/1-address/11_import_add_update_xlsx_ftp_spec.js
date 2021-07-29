@@ -1,5 +1,5 @@
 
-context('Import Сustomer Addresses Xlsx Sftp', () => {
+context('Import Сustomer Addresses Xlsx Sftp 11', () => {
     it('add update - xlsx - sftp - new job', () => {
         //login
         cy.loginToAdminPanel('ee')

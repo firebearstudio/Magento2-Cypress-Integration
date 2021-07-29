@@ -1,5 +1,5 @@
 
-context('Import Products', () => {
+context('Import Products Map Categories 2', () => {
     it('map categories - csv - file - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -13,7 +13,7 @@ context('Import Products', () => {
         cy.get('@addJobButton').click()
 
         //specify general section
-        cy.generalImportSection('Product Import - map categories - csv - file')
+        cy.generalImportSectionWithoutReIndex('Product Import - map categories - csv - file')
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
