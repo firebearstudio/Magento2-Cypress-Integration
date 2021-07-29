@@ -40,7 +40,7 @@ context('Import Products Images Url Source', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResultWithoutReIndex('Entity products')
+        cy.consoleImportResultWithoutReIndex('Entity catalog_product')
         cy.get('#debug-run').contains('Wrong URL/path used for attribute image in rows in rows').should('not.exist')
         cy.get('#debug-run').contains('Wrong URL/path used for attribute small_image in rows in rows').should('not.exist')
         cy.get('#debug-run').contains('Wrong URL/path used for attribute thumbnail in rows in rows').should('not.exist')

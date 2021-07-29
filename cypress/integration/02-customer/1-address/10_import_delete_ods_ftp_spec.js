@@ -1,5 +1,5 @@
 
-context('Import Сustomer Addresses Delete Ods Sftp', () => {
+context('Import Сustomer Addresses Delete Ods Sftp 10', () => {
     it('delete - ods - sftp - new job', () => {
         //login
         cy.loginToAdminPanel('ee')

@@ -257,17 +257,32 @@ Cypress.Commands.add('consoleImportResult' , (importEntityResult) => {
     cy.get('#debug-run').contains('Exception').should('not.exist')
 })
 
+//check Import result wihout Re-index checking
+Cypress.Commands.add('consoleImportResultWithoutReIndex' , (importEntityResult) => {
+    cy.get('#debug-run',{timeout: 120000}).contains(importEntityResult,{timeout: 120000})
+    cy.get('#debug-run').contains('The import was successful.',{timeout: 120000})
+    cy.get('#debug-run').contains('This file is empty').should('not.exist')
+    cy.get('#debug-run').contains('Data validation failed').should('not.exist')
+    cy.get('#debug-run').contains('Invalid').should('not.exist')
+    cy.get('#debug-run').contains('Exception').should('not.exist')
+    cy.get('#debug-run').should('not.have.class', 'grid-severity-critical')
+    cy.get('#debug-run').contains('Issue on create').should('not.exist')
+    cy.get('#debug-run').contains('Issue on update').should('not.exist')
+})
+
 //delete all filter products 
 Cypress.Commands.add('deleteAllFilterProducts' , () => {
     cy.get('.page-actions-buttons').find('#back').as('returnToProductGrid')
     cy.get('@returnToProductGrid').click({force:true})
-    cy.get('.data-grid-draggable').find('.action-multicheck-toggle').as('clickMultiselect')
-    cy.get('@clickMultiselect').click({force:true})
-    cy.get('.data-grid-draggable').contains('Select All').as('selectAllProducts')
-    cy.get('@selectAllProducts').click({force:true})
+    cy.get('table').find('.data-grid-checkbox-cell-inner',{timeout: 60000}).click({multiple:true})
     cy.get('.admin__data-grid-header-row').contains('Actions').as('actionsWithMultiple')
     cy.get('@actionsWithMultiple').click({force:true})
     cy.get('.action-menu-items').contains('Delete',{timeout: 60000})
     cy.get('.action-menu-items').contains('Delete').click({force:true})
-    cy.get('.modal-footer').find('.action-accept').click()
+    cy.get('.modal-footer').find('.action-accept').click({force:true})
+})
+
+//reset active filters 
+Cypress.Commands.add('resetActiveFilters' , () => {
+    cy.get('.admin__current-filters-actions-wrap').find('button').contains('Clear all').click()
 })

@@ -1,5 +1,5 @@
 
-context('Import Orders', () => {
+context('Import Orders Replace Csv Sftp 5', () => {
     it('replace - csv - sftp - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -13,7 +13,7 @@ context('Import Orders', () => {
         cy.get('@addJobButton').click()
 
         //specify general section
-        cy.generalImportSection('Orders Import - replace - csv - sftp')
+        cy.generalImportSectionWithoutReIndex('Orders Import - replace - csv - sftp')
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
@@ -27,7 +27,7 @@ context('Import Orders', () => {
         cy.get('@behaviorBehavior').select('replace');
 
         //specify Import Source section
-        cy.specifySftpSource('importSftp','/var/www/alex/files/import_orders_replace.csv')
+        cy.specifySftpSource('importSftp','/chroot/home/a0563af8/develop-gold.dev.firebearstudio.com/pub/media/importexport/test/orders.csv')
 
         //validate Import file
         cy.get('.source_check_button').click()
@@ -38,6 +38,6 @@ context('Import Orders', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResult('Entity order')
+        cy.consoleImportResultWithoutReIndex('Entity order')
     })
 })

@@ -1,5 +1,5 @@
 
-context('Import Attributes', () => {
+context('Import Attributes Find and Replace Csv File 3', () => {
     it(' find and replace - csv - file - new job', () => {
         //login
         cy.loginToAdminPanel('ee')

@@ -1,5 +1,5 @@
 
-context('Import Products', () => {
+context('Import Products Map Attr Value 1', () => {
     it('map attr value - csv - file - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -13,7 +13,7 @@ context('Import Products', () => {
         cy.get('@addJobButton').click()
 
         //specify general section
-        cy.generalImportSection('Product Import - map attr value - csv - file')
+        cy.generalImportSectionWithoutReIndex('Product Import - map attr value - csv - file')
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
@@ -45,23 +45,29 @@ context('Import Products', () => {
 
         //save and run process
         cy.get('#save_and_run').click({force:true})
-        cy.get('.run').click({force:true})
+        cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResult('Entity products')
+        cy.consoleImportResultWithoutReIndex('Entity catalog_product')
 
         //check that products were created
-        cy.get('#menu-magento-catalog-catalog').find('.item-catalog-products').find('a').as('goToProductsGrid')
-        cy.get('@goToProductsGrid').click({force:true})
-        cy.get('[data-bind="collapsible: {openClass: false, closeOnOuter: false}"]',{timeout: 60000}).find('button').as('filtersButton')
-        cy.get('@filtersButton').click({force:true})
-        cy.get('[name="sku"]').invoke('val', 'tst').trigger('change',{force:true})
-        cy.get('[data-bind="i18n: \'Apply Filters\'"]',{timeout: 60000}).as('applyFiltersButton')
-        cy.get('@applyFiltersButton').click({force:true})
-        cy.get('.admin__data-grid-outer-wrap').contains('18 records found',{timeout: 60000})
+       //check that color and size attribute have values
+       cy.get('#menu-magento-catalog-catalog').find('.item-catalog-products').find('a').as('goToProductsGrid')
+       cy.get('@goToProductsGrid').click({force:true})
+       cy.get('[data-bind="collapsible: {openClass: false, closeOnOuter: false}"]',{timeout: 60000}).find('button').as('filtersButton')
+       cy.get('@filtersButton').click({force:true})
+       cy.get('[name="sku"]').invoke('val', 'tst').trigger('change',{force:true})
+       cy.get('[name="store_id"]').select('1',{force:true})
+       cy.get('[data-bind="i18n: \'Apply Filters\'"]',{timeout: 60000}).as('applyFiltersButton')
+       cy.get('@applyFiltersButton').click({force:true})
+       cy.get('.admin__data-grid-outer-wrap').contains('18 records found',{timeout: 60000})
 
-        //check that map value was changed
-        cy.get('.admin__data-grid-wrap').contains('888',{timeout: 2000})
-        cy.get('.admin__data-grid-wrap').contains('Product Map Value',{timeout: 2000})
+       //check that map value was changed
+       cy.get('.admin__data-grid-wrap').contains('888',{timeout: 2000})
+       cy.get('.admin__data-grid-wrap').contains('Product Map Value',{timeout: 2000})
+       
+       //reset active filters in the product grid
+       cy.resetActiveFilters()
+       
     })
 })

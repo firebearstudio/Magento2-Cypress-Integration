@@ -1,5 +1,5 @@
-context('Import Attributes', () => {
-    it('delete - ods - ftp - new job', () => {
+context('Import Attributes Delete Ods Sftp 9', () => {
+    it('delete - ods - sftp - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
 
@@ -12,7 +12,7 @@ context('Import Attributes', () => {
         cy.get('@addJobButton').click({force:true})
 
         //specify general section
-        cy.generalImportSection('Attributes Import - delete - ods - ftp')
+        cy.generalImportSectionWithoutReIndex('Attributes Import - delete - ods - sftp')
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
@@ -39,6 +39,6 @@ context('Import Attributes', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResult('Entity attribute')
+        cy.consoleImportResultWithoutReIndex('Entity attribute')
     })
 })

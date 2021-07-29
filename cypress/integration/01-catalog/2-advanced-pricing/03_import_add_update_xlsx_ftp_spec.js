@@ -1,5 +1,5 @@
-context('Import Advanced Pricing', () => {
-    it('add update - xlsx - ftp - new job', () => {
+context('Import Advanced Pricing Using Export File 3', () => {
+    it('add update - xlsx - sftp - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
 
@@ -12,7 +12,7 @@ context('Import Advanced Pricing', () => {
         cy.get('@addJobButton').click()
 
         //specify general section
-        cy.generalImportSection('Advanced Pricing Import - add update - xlsx - ftp')
+        cy.generalImportSectionWithoutReIndex('Advanced Pricing Import - using export file - xlsx - sftp')
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
@@ -39,6 +39,6 @@ context('Import Advanced Pricing', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResult('Entity advanced_pricing')
+        cy.consoleImportResultWithoutReIndex('Entity advanced_pricing')
     })
 })

@@ -1,5 +1,5 @@
 
-context('Import Customers and Addresses Csv GoogleSheet', () => {
+context('Import Customers and Addresses Csv GoogleSheet 1', () => {
     it('add update - csv - google sheet - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -40,7 +40,7 @@ context('Import Customers and Addresses Csv GoogleSheet', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResult('Entity customers_and_addresses')
+        cy.consoleImportResult('Entity customer_composite')
         cy.get('#debug-run').contains('customer with email: roni_cost@example.com')
         cy.get('#debug-run').contains('customer with email: doe@test.com')
         cy.get('#debug-run').contains('customer with email: roe@test.com')

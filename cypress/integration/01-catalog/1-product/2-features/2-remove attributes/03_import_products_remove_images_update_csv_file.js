@@ -1,5 +1,5 @@
 
-context('Import Products', () => {
+context('Import Products Remove Images 3', () => {
     it('remove images - add update -  csv - file - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -13,7 +13,7 @@ context('Import Products', () => {
         cy.get('@addJobButton').click()
 
         //specify general section
-        cy.generalImportSection('Product Import - remove images - add update - csv - file')
+        cy.generalImportSectionWithoutReIndex('Product Import - remove images - add update - csv - file')
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
@@ -44,7 +44,7 @@ context('Import Products', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResult('Entity products')
+        cy.consoleImportResultWithoutReIndex('Entity catalog_product')
 
         //check that products were created
         cy.get('#menu-magento-catalog-catalog').find('.item-catalog-products').find('a').as('goToProductsGrid')
@@ -60,5 +60,9 @@ context('Import Products', () => {
         cy.get('.admin__data-grid-outer-wrap').contains('Test Configurable product').click({force:true});
         cy.get('[data-index="gallery"]').find('.fieldset-wrapper-title').click({force:true})
         cy.get('.product-image-wrapper').find('img').should('not.exist')
+
+        //reset active filters in the product grid
+        cy.get('#back').click()
+        cy.resetActiveFilters()
     })
 })

@@ -1,5 +1,5 @@
 
-context('Import Сustomer Addresses Mapping All rows', () => {
+context('Import Сustomer Addresses Mapping All rows 12', () => {
     it('add update - mapping - csv - file - new job', () => {
         //login
         cy.loginToAdminPanel('ee')

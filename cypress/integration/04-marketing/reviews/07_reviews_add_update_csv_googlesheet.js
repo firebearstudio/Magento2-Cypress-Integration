@@ -1,4 +1,4 @@
-context('Import Review', () => {
+context('Import Review Add Update Csv GoogleSheet 7', () => {
     it('add update - csv - google sheet - new job', () => {
         //login
         cy.loginToAdminPanel('ee')

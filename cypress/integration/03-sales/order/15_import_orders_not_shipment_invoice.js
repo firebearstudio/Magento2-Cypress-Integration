@@ -1,5 +1,5 @@
 
-context('Import Orders', () => {
+context('Import Orders Not Shipment Invoice 15', () => {
     it(' add update - not - shipment - invoice - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -13,7 +13,7 @@ context('Import Orders', () => {
         cy.get('@addJobButton').click({force:true})
 
         //specify general section
-        cy.generalImportSection('Orders Import - add update - not - shipment - invoice')
+        cy.generalImportSectionWithoutReIndex('Orders Import - add update - not - shipment - invoice')
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
@@ -35,9 +35,9 @@ context('Import Orders', () => {
 
         //save and run process
         cy.get('#save_and_run').click({force:true})
-        cy.get('.run').click({force:true})
+        cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResult('Entity order')
+        cy.consoleImportResultWithoutReIndex('Entity order')
     })
 })

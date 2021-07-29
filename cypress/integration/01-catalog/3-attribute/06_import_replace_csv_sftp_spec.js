@@ -1,4 +1,4 @@
-context('Import Attributes', () => {
+context('Import Attributes Replace Csv Sftp 6', () => {
     it('replace - csv - sftp - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -12,7 +12,7 @@ context('Import Attributes', () => {
         cy.get('@addJobButton').click({force:true})
 
         //specify general section
-        cy.generalImportSection('Attributes Import - replace - csv - sftp')
+        cy.generalImportSectionWithoutReIndex('Attributes Import - replace - csv - sftp')
     
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
@@ -37,7 +37,7 @@ context('Import Attributes', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResult('Entity attribute')
+        cy.consoleImportResultWithoutReIndex('Entity attribute')
 
         
     })

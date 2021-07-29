@@ -1,5 +1,5 @@
 
-context('Import Orders', () => {
+context('Import Orders Delete Csv Url 6', () => {
     it('delete - csv - url - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -13,7 +13,7 @@ context('Import Orders', () => {
         cy.get('@addJobButton').click()
 
         //specify general section
-        cy.generalImportSection('Orders Import - delete - csv - url')
+        cy.generalImportSectionWithoutReIndex('Orders Import - delete - csv - url')
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
@@ -27,7 +27,7 @@ context('Import Orders', () => {
         cy.get('@behaviorBehavior').select('delete');
 
         //specify Import Source section
-        cy.urlSource('http://alex-union.dev.firebearstudio.com/media/importexport/test/orders.csv')
+        cy.urlSource('https://4af610548f-253334.nxcli.net/media/importexport/test/orders.csv')
     
         //validate Import file
         cy.get('.source_check_button').click()
@@ -38,6 +38,6 @@ context('Import Orders', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResult('Entity order')
+        cy.consoleImportResultWithoutReIndex('Entity order')
     })
 })

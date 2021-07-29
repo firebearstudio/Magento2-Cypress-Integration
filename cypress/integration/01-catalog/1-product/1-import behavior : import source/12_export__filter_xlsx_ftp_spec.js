@@ -1,6 +1,6 @@
 
-context('Export Products', () => {
-    it('xlsx - ftp - new job', () => {
+context('Export Products Filter 12', () => {
+    it('filter - xlsx - sftp - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
 
@@ -16,8 +16,8 @@ context('Export Products', () => {
         cy.get('.general_is_active',{timeout: 60000}).find('.admin__actions-switch-label').as('generalIsActive')
         cy.get('@generalIsActive').click({force:true})
         cy.get('.general_title ').find('input')
-            .type('Product Export - xlsx - ftp')
-            .should('have.value', 'Product Export - xlsx - ftp')
+            .type('Product Export - filter - xlsx - sftp')
+            .should('have.value', 'Product Export - filter - xlsx - sftp')
 
         //specify Export Settings section
         cy.get('.settings_entity').find('select').as('settingsEntity')
@@ -38,15 +38,15 @@ context('Export Products', () => {
         cy.get('.source_filter_map_rows').find('tfoot').as('tfoot')
         cy.get('@tfoot').find('.addButton').click({force:true})
         cy.get('.record-1').find('.source_filter_map_source_filter_field').find('select').as('sourceDataImport')
-        cy.get('@sourceDataImport').select('SKU')
-        cy.get('.record-1').find('.source_filter_map_source_filter_filter').find('[name="source_filter_map[text][source_filter_filter]"]')
-            .type('tst')
-            .should('have.value', 'tst')
+        cy.get('@sourceDataImport').select('Type')
+        cy.get('.record-1').find('.source_filter_map_source_filter_filter').find('select').as('sourceDataImport')
+        cy.get('@sourceDataImport').select('Simple Product')
 
         cy.get('.source_filter_map_rows').find('tfoot').as('tfoot')
         cy.get('@tfoot').find('.addButton').click({force:true})
         cy.get('.record-2').find('.source_filter_map_source_filter_field').find('select').as('sourceDataImport')
-        cy.get('@sourceDataImport').select('URL Key')
+        cy.get('@sourceDataImport').select('SKU')
+        cy.get('.record-2').find('.source_filter_map_source_filter_filter').find('[name="source_filter_map[text][source_filter_filter]"]').clear()
         cy.get('.record-2').find('.source_filter_map_source_filter_filter').find('[name="source_filter_map[text][source_filter_filter]"]')
             .type('tst')
             .should('have.value', 'tst')
@@ -54,9 +54,11 @@ context('Export Products', () => {
         cy.get('.source_filter_map_rows').find('tfoot').as('tfoot')
         cy.get('@tfoot').find('.addButton').click({force:true})
         cy.get('.record-3').find('.source_filter_map_source_filter_field').find('select').as('sourceDataImport')
-        cy.get('@sourceDataImport').select('Type')
-        cy.get('.record-3').find('.source_filter_map_source_filter_filter').find('select').as('sourceDataImport')
-        cy.get('@sourceDataImport').select('Simple Product')
+        cy.get('@sourceDataImport').select('URL Key')
+        cy.get('.record-3').find('.source_filter_map_source_filter_filter').find('[name="source_filter_map[text][source_filter_filter]"]').clear()
+        cy.get('.record-3').find('.source_filter_map_source_filter_filter').find('[name="source_filter_map[text][source_filter_filter]"]')
+            .type('tst')
+            .should('have.value', 'tst')
 
         //save and run process
         cy.get('#save_and_run').click({force:true})

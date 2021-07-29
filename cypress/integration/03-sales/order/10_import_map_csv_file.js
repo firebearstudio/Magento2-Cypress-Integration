@@ -1,5 +1,5 @@
 
-context('Import Orders', () => {
+context('Import Orders Mapping Empty Rows Xml 10', () => {
     it('add update - xml - file - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -13,7 +13,7 @@ context('Import Orders', () => {
         cy.get('@addJobButton').click()
 
         //specify general section
-        cy.generalImportSection('Orders Import - add update - xml - file')
+        cy.generalImportSectionWithoutReIndex('Orders Import - mapping - empty rows - xml - file')
     
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
@@ -27,7 +27,7 @@ context('Import Orders', () => {
         cy.get('@behaviorBehavior').select('add_update');
 
         //specify Import Source section
-        cy.fileSource('pub/media/importexport//o/r/orders_map.csv')
+        cy.fileSource('pub/media/importexport/test/orders_map.csv')
 
         //validate Import file
         cy.get('.source_check_button').click()
@@ -61,6 +61,6 @@ context('Import Orders', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResult('Entity order')
+        cy.consoleImportResultWithoutReIndex('Entity order')
     })
 })

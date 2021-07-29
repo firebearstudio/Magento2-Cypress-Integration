@@ -1,4 +1,4 @@
-context('Export Categories', () => {
+context('Export Categories Filter 14', () => {
     it('xlsx - ftp - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -15,8 +15,8 @@ context('Export Categories', () => {
         cy.get('.general_is_active',{timeout: 60000}).find('.admin__actions-switch-label').as('generalIsActive')
         cy.get('@generalIsActive').click({force:true})
         cy.get('.general_title ').find('input')
-            .type('Categories Export - xlsx - ftp')
-            .should('have.value', 'Categories Export - xlsx - ftp')
+            .type('Categories Export - filter - xlsx - sftp')
+            .should('have.value', 'Categories Export - filter - xlsx - sftp')
 
         //specify Export Settings section
         cy.get('.settings_entity').find('select').as('settingsEntity')

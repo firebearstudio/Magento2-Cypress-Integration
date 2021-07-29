@@ -1,4 +1,4 @@
-context('Import Сategories', () => {
+context('Import Сategories Replace Csv Sftp 6', () => {
     it('replace - csv - sftp - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -15,10 +15,8 @@ context('Import Сategories', () => {
         cy.get('.general_is_active',{timeout: 60000}).find('.admin__actions-switch-label').as('generalIsActive')
         cy.get('@generalIsActive').click()
         cy.get('.general_title ').find('input')
-           .type('Category Import - add update - csv - google sheet')
-           .should('have.value', 'Category Import - add update - csv - google sheet')
-        cy.get('.general_reindex').find('.admin__actions-switch-label').as('generalReindex')
-        cy.get('@generalReindex').click({force:true})
+           .type('Category Import - replace - csv - sftp')
+           .should('have.value', 'Category Import - replace - csv - sftp')
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
@@ -45,6 +43,6 @@ context('Import Сategories', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResult('Entity categories')
+        cy.consoleImportResultWithoutReIndex('Entity catalog_category')
     })
 })

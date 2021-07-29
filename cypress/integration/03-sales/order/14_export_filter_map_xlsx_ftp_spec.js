@@ -1,6 +1,6 @@
 
-context('Export Orders', () => {
-    it('xlsx - ftp - new job', () => {
+context('Export Orders Filter 14', () => {
+    it('xlsx - sftp - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
 
@@ -16,8 +16,8 @@ context('Export Orders', () => {
         cy.get('.general_is_active',{timeout: 60000}).find('.admin__actions-switch-label').as('generalIsActive')
         cy.get('@generalIsActive').click()
         cy.get('.general_title ').find('input')
-            .type('Orders Export - xlsx - ftp')
-            .should('have.value', 'Orders Export - xlsx - ftp')
+            .type('Orders Export - filter - xlsx - sftp')
+            .should('have.value', 'Orders Export - filter - xlsx - sftp')
 
         //specify Export Settings section
         cy.get('.settings_entity').find('select').as('settingsEntity')
@@ -30,10 +30,10 @@ context('Export Orders', () => {
         //select the Order Entities: Order, Order Items, Addresses
         cy.get('#18').click()
         cy.get('#19').click()
-        cy.get('#20').click()
+        cy.get('#21').click()
 
         //specify Import Source section
-        cy.ftpSource('exportFtp','/files/import_orders_add_update_sample_data.xlsx')
+        cy.specifySftpSource('exportSftp' , '/chroot/home/a0563af8/develop-gold.dev.firebearstudio.com/pub/media/importexport/test/var/import_orders_filter_add_update_sample_data.xlsx')
         
         //check ftp connection
         cy.get('.source_check_button').click()

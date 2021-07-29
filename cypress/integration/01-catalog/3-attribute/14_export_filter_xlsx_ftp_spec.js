@@ -1,5 +1,5 @@
-context('Export Attributes', () => {
-    it('xlsx - ftp - new job', () => {
+context('Export Attributes Filter 14', () => {
+    it('xlsx - sftp - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
 
@@ -15,8 +15,8 @@ context('Export Attributes', () => {
         cy.get('.general_is_active',{timeout: 60000}).find('.admin__actions-switch-label').as('generalIsActive')
         cy.get('@generalIsActive').click({force:true})
         cy.get('.general_title ').find('input')
-            .type('Attributes Export - xlsx - ftp')
-            .should('have.value', 'Attributes Export - xlsx - ftp')
+            .type('Attributes Export - filter')
+            .should('have.value', 'Attributes Export - filter')
 
         //specify Export Settings section
         cy.get('.settings_entity').find('select').as('settingsEntity')

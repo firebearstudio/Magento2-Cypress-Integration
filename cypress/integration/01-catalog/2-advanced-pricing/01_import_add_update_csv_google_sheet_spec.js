@@ -1,4 +1,4 @@
-context('Import Advanced Pricing', () => {
+context('Import Advanced Pricing Csv Googlesheet 1', () => {
     it('add update - csv - google sheet - new job', () => {
         //login
         cy.loginToAdminPanel('ee')

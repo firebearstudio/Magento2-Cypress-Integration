@@ -1,4 +1,4 @@
-context('Export Reviews', () => {
+context('Export Reviews Xlsx Sftp 2', () => {
     it('xlsx - sftp - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -27,7 +27,7 @@ context('Export Reviews', () => {
         cy.get('@fileFormat').select('xlsx');
 
         //specify Import Source section
-        cy.specifySftpSource('exportSftp','/var/www/alex/files/test/export_reviews_add_update.xlsx')
+        cy.specifySftpSource('exportSftp' , '/chroot/home/a0563af8/develop-gold.dev.firebearstudio.com/pub/media/importexport/test/export_reviews_add_update.xlsx')
       
         //check ftp connection
         cy.get('.source_check_button').click()

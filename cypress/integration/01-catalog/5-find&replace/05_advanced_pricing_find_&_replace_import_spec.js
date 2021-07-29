@@ -1,5 +1,5 @@
 
-context('Import Advanced Pricing', () => {
+context('Import Advanced Pricing Find and Replace 5', () => {
     it(' find and replace - csv - file - new job', () => {
         //login
         cy.loginToAdminPanel('ee')

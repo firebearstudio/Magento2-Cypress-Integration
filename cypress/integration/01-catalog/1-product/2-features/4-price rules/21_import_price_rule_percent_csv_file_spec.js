@@ -1,5 +1,5 @@
 
-context('Import Products', () => {
+context('Import Products Round Price Percent 21', () => {
     it('round price - percent - csv - file  - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -13,7 +13,7 @@ context('Import Products', () => {
         cy.get('@addJobButton').click()
 
         //specify general section
-        cy.generalImportSection('Product Import - round price - percent - csv - file ')
+        cy.generalImportSectionWithoutReIndex('Product Import - round price - percent - csv - file ')
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
@@ -48,7 +48,7 @@ context('Import Products', () => {
         cy.get('.run').click({force:true})
 
         //check Import results
-        cy.consoleImportResult('Entity products')
+        cy.consoleImportResultWithoutReIndex('Entity catalog_product')
 
         //check that products were created
         cy.get('#menu-magento-catalog-catalog').find('.item-catalog-products').find('a').as('goToProductsGrid')
@@ -64,5 +64,8 @@ context('Import Products', () => {
         //check that price was changed
         cy.get('.admin__data-grid-wrap').contains('74.80',{timeout: 2000})
         cy.get('.admin__data-grid-wrap').contains('68',{timeout: 2000})
+
+        //reset active filters in the product grid
+        cy.resetActiveFilters({force:true})
     })
 })

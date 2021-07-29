@@ -1,6 +1,6 @@
 
-context('Import Products', () => {
-    it('add update - xlsx - ftp - new job', () => {
+context('Import Products Using Export File Xlsx Sftp 2', () => {
+    it('add update - xlsx - sftp - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
 
@@ -13,7 +13,7 @@ context('Import Products', () => {
         cy.get('@addJobButton').click({force:true})
 
         //specify general section
-        cy.generalImportSection('Product Import - add update - xlsx - ftp')
+        cy.generalImportSectionWithoutReIndex('Product Import - using export file - xlsx - sftp')
     
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
@@ -25,6 +25,8 @@ context('Import Products', () => {
         cy.get('.fieldset_behavior').find('.fieldset-wrapper-title').as('fieldsetBehaviour')
         cy.get('.behavior_behavior').find('select').as('behaviorBehavior')
         cy.get('@behaviorBehavior').select('append',{force:true});
+        cy.get('[data-index="validation_strategy"]').find('select').as('validationStrategy')
+        cy.get('@validationStrategy').select('validation-skip-errors',{force:true})
 
         //specify Import Source section
         cy.get('.type_file').find('select').as('importSourceType')
@@ -40,6 +42,6 @@ context('Import Products', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResult('Entity products')
+        cy.consoleImportResultWithoutReIndex('Entity catalog_product')
     })
 })

@@ -1,5 +1,5 @@
 
-context('Import Customer Main', () => {
+context('Import Customer Main Find and Replace 1', () => {
     it(' find and replace - csv - file - new job', () => {
         //login
         cy.loginToAdminPanel('ee')

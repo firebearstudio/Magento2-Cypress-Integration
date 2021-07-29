@@ -1,6 +1,6 @@
 
-context('Export Products', () => {
-    it('xlsx - ftp - new job', () => {
+context('Export Products Only Mapping 10', () => {
+    it('only mapping - xlsx - sftp - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
 
@@ -16,8 +16,8 @@ context('Export Products', () => {
         cy.get('.general_is_active',{timeout: 60000}).find('.admin__actions-switch-label').as('generalIsActive')
         cy.get('@generalIsActive').click({force:true})
         cy.get('.general_title ').find('input')
-            .type('Product Export - xlsx - ftp')
-            .should('have.value', 'Product Export - xlsx - ftp')
+            .type('Product Export - only mapping - xlsx - sftp')
+            .should('have.value', 'Product Export - only mapping - xlsx - sftp')
 
         //specify Export Settings section
         cy.get('.settings_entity').find('select').as('settingsEntity')

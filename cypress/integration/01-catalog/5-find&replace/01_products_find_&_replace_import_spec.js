@@ -1,5 +1,5 @@
 
-context('Import Products', () => {
+context('Import Products Find and Replace Csv File 1', () => {
     it(' find and replace - csv - file - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -104,7 +104,7 @@ context('Import Products', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResultWithoutReIndex('Entity products')
+        cy.consoleImportResultWithoutReIndex('Entity catalog_product')
 
         //check that products were created
         cy.get('#menu-magento-catalog-catalog').find('.item-catalog-products').find('a').as('goToProductsGrid')

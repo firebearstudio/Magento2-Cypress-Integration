@@ -1,4 +1,4 @@
-context('Import Advanced Pricing', () => {
+context('Import Advanced Pricing Add Update Json Dropbox 4', () => {
     it('add update - json - dropbox - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -12,7 +12,7 @@ context('Import Advanced Pricing', () => {
         cy.get('@addJobButton').click()
 
         //specify general section
-        cy.generalImportSection('Advanced Pricing Import - add update - json - dropbox')
+        cy.generalImportSectionWithoutReIndex('Advanced Pricing Import - add update - json - dropbox')
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
@@ -39,6 +39,6 @@ context('Import Advanced Pricing', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResult('Entity advanced_pricing')
+        cy.consoleImportResultWithoutReIndex('Entity advanced_pricing')
     })
 })

@@ -1,5 +1,5 @@
-context('Export Advanced Pricing', () => {
-    it('xlsx - ftp - new job', () => {
+context('Export Advanced Pricing Xlsx Sftp 2', () => {
+    it('xlsx - sftp - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
 
@@ -15,8 +15,8 @@ context('Export Advanced Pricing', () => {
         cy.get('.general_is_active',{timeout: 60000}).find('.admin__actions-switch-label').as('generalIsActive')
         cy.get('@generalIsActive').click()
         cy.get('.general_title ').find('input')
-            .type('Advanced Pricing Export - xlsx - ftp')
-            .should('have.value', 'Advanced Pricing Export - xlsx - ftp')
+            .type('Advanced Pricing Export - xlsx - sftp')
+            .should('have.value', 'Advanced Pricing Export - xlsx - sftp')
 
         //specify Export Settings section
         cy.get('.settings_entity').find('select').as('settingsEntity')

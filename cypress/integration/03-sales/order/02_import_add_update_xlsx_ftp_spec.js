@@ -1,5 +1,5 @@
 
-context('Import Orders', () => {
+context('Import Orders Using Export File 2', () => {
     it('add update - xlsx - ftp - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -13,7 +13,7 @@ context('Import Orders', () => {
         cy.get('@addJobButton').click()
 
         //specify general section
-        cy.generalImportSection('Orders Import - add update - xlsx - ftp')
+        cy.generalImportSectionWithoutReIndex('Orders Import - using export file - add update - xlsx - ftp')
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
@@ -29,7 +29,7 @@ context('Import Orders', () => {
         //specify Import Source section
         cy.get('.type_file').find('select').as('importSourceType')
         cy.get('@importSourceType').select('xlsx');
-        cy.ftpSource('importFtp','/files/import_orders_add_update_sample_data.xlsx')
+        cy.specifySftpSource('importSftp','/chroot/home/a0563af8/develop-gold.dev.firebearstudio.com/pub/media/importexport/test/var/import_orders_add_update_sample_data.xlsx')
 
         //validate Import file
         cy.get('.source_check_button').click()
@@ -40,6 +40,6 @@ context('Import Orders', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResult('Entity order')
+        cy.consoleImportResultWithoutReIndex('Entity order')
     })
 })

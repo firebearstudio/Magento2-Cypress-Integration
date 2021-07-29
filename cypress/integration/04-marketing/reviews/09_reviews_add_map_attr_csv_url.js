@@ -1,4 +1,4 @@
-context('Import Reviews', () => {
+context('Import Reviews Mapping All rows 9', () => {
     it('add - csv - url - map - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -12,7 +12,7 @@ context('Import Reviews', () => {
         cy.get('@addJobButton').click()
 
         //specify general section
-        cy.generalImportSection('Review Import - add - map - csv - url')
+        cy.generalImportSectionWithoutReIndex('Review Import - add - map - all rows - csv - url')
     
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
@@ -26,7 +26,7 @@ context('Import Reviews', () => {
         cy.get('@behaviorBehavior').select('append');
 
         //specify Import Source section
-        cy.urlSource('http://alex-union.dev.firebearstudio.com/media/importexport/test/reviews_add_map_csv_url.csv')
+        cy.urlSource('https://48a8a91726-1275736.nxcli.net/media/importexport/test/reviews_add_map_csv_url.csv')
 
         //validate Import file
         cy.get('.source_check_button').click()
@@ -50,6 +50,6 @@ context('Import Reviews', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResult('Entity review')
+        cy.consoleImportResultWithoutReIndex('Entity review')
     })
 })

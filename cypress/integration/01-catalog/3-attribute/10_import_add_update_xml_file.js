@@ -1,4 +1,4 @@
-context('Import Attributes', () => {
+context('Import Attributes Mapping All rows 10', () => {
     it(' only update - csv - file - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -12,7 +12,7 @@ context('Import Attributes', () => {
         cy.get('@addJobButton').click({force:true})
 
         //specify general section
-        cy.generalImportSection('Attributes Import - add update - xml - file')
+        cy.generalImportSectionWithoutReIndex('Attributes Import - mapping - all rows')
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
@@ -26,6 +26,7 @@ context('Import Attributes', () => {
         cy.get('@behaviorBehavior').select('append',{force:true});
 
         //specify Import Source section
+        cy.get('[data-index="import_source"]').find('select').select('file',{force:true})
         cy.fileSource('pub/media/importexport/test/attributes_map.csv',{force:true})
 
         //validate Import file
@@ -58,9 +59,9 @@ context('Import Attributes', () => {
 
         //save and run process
         cy.get('#save_and_run').click({force:true})
-        cy.get('.run').click()
+        cy.get('.run',{timeout: 9000}).click()
 
         //check Import results
-        cy.consoleImportResult('Entity attribute')
+        cy.consoleImportResultWithoutReIndex('Entity attribute')
     })
 })

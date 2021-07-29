@@ -1,5 +1,5 @@
 
-context('Import Orders', () => {
+context('Import Orders Generate Shipment Invoice 16', () => {
     it('add update - generate - shipment - invoice - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -13,7 +13,7 @@ context('Import Orders', () => {
         cy.get('@addJobButton').click({force:true})
 
         //specify general section
-        cy.generalImportSection('Orders Import - add update - generate - shipment - invoice')
+        cy.generalImportSectionWithoutReIndex('Orders Import - add update - generate - shipment - invoice')
 
         //enable generate shipment and invoice
         cy.get('[data-index="generate_shipment_by_track"]',{timeout: 60000}).find('.admin__actions-switch-label').as('generateShipment')
@@ -43,17 +43,23 @@ context('Import Orders', () => {
 
         //save and run process
         cy.get('#save_and_run').click({force:true})
-        cy.get('.run').click({force:true})
+        cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResult('Entity order')
+        cy.consoleImportResultWithoutReIndex('Entity order')
 
-        //check that invoice and shipment were generated
+        // cy.get('#menu-magento-sales-sales').find('.item-sales-order').find('a').as('goToOrdersGrid')
+        // cy.get('@goToOrdersGrid').click({force:true})
         cy.get('#menu-magento-sales-sales').find('.item-sales-invoice').find('a').as('goToOrdersInvoice')
         cy.get('@goToOrdersInvoice').click({force:true})
         cy.get('.admin__data-grid-outer-wrap').contains('U0000002',{timeout: 60000})
         cy.get('#menu-magento-sales-sales').find('.item-sales-shipment').find('a').as('goToOrdersShipment')
         cy.get('@goToOrdersShipment').click({force:true})
         cy.get('.admin__data-grid-outer-wrap').contains('U0000002',{timeout: 60000})
+        // cy.get('.admin__data-grid-outer-wrap').contains('U0000002').click({force:true});
+        // cy.get('#sales_order_view_tabs_order_invoices').find('a').click({force:true})
+        // cy.get('body').contains('$7.98')
+        // cy.get('#sales_order_view_tabs_order_shipments').find('a').click({force:true})
+        // cy.get('body').contains('2.0000')
     })
 })

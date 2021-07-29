@@ -1,5 +1,5 @@
 
-context('Import Categories', () => {
+context('Import Categories Find and Replace Csv File 2', () => {
     it(' find and replace - csv - file - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -104,7 +104,7 @@ context('Import Categories', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResultWithoutReIndex('Entity categories')
+        cy.consoleImportResultWithoutReIndex('Entity catalog_category')
 
         //check that values were replaced
         cy.get('#menu-magento-catalog-catalog').find('.item-catalog-categories').find('a').as('goToCategories')

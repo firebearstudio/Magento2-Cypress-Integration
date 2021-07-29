@@ -1,5 +1,5 @@
 
-context('Import Сustomer Addresses Add Update Csv Url', () => {
+context('Import Сustomer Addresses Add Update Csv Url 7', () => {
     it('add update - csv - url - new job', () => {
         //login
         cy.loginToAdminPanel('ee')

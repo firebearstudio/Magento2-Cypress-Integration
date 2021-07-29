@@ -1,4 +1,4 @@
-context('Import Review', () => {
+context('Import Review Add Update Xml File 5', () => {
     it(' add update - xml - file - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -12,7 +12,7 @@ context('Import Review', () => {
         cy.get('@addJobButton').click()
 
         //specify general section
-        cy.generalImportSection('Review Import - add update - xml - file')
+        cy.generalImportSectionWithoutReIndex('Review Import - add update - xml - file')
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
@@ -28,7 +28,7 @@ context('Import Review', () => {
         //specify Import Source section
         cy.get('.type_file').find('select').as('importSourceType')
         cy.get('@importSourceType').select('xml');
-        cy.fileSource('pub/media/importexport//r/e/reviews.xml')
+        cy.fileSource('pub/media/importexport/test/reviews.xml')
         
         //validate Import file
         cy.get('.source_check_button').click()
@@ -39,6 +39,6 @@ context('Import Review', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResult('Entity review')
+        cy.consoleImportResultWithoutReIndex('Entity review')
     })
 })

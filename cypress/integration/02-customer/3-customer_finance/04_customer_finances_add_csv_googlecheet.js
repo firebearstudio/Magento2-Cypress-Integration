@@ -1,4 +1,4 @@
-context('Import Сustomer Finances', () => {
+context('Import Сustomer Finances Add Update Csv GoogleSheet 4', () => {
     it('add update - csv - google sheet - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -9,27 +9,29 @@ context('Import Сustomer Finances', () => {
 
         //go to new job page
         cy.get('#add').as('addJobButton')
-        cy.get('@addJobButton').click()
+        cy.get('@addJobButton').click({force:true})
 
         //specify general section
         cy.generalImportSection('Customer Finances Import - add update - csv - google sheet')
+        cy.get('[data-index="indexers"]').find('.admin__control-multiselect').as('indexManagement')
+        cy.get('@indexManagement').select('customer_grid',{force:true})
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
-        cy.get('@fieldsetSettings').click()
+        cy.get('@fieldsetSettings').click({force:true})
         cy.get('.settings_entity').find('select').as('settingsEntity')
-        cy.get('@settingsEntity').select('customer_finance');
+        cy.get('@settingsEntity').select('customer_finance',{force:true});
 
         //specify Import Behavior section
         cy.get('.fieldset_behavior').find('.fieldset-wrapper-title').as('fieldsetBehaviour')
         cy.get('.behavior_behavior').find('select').as('behaviorBehavior')
-        cy.get('@behaviorBehavior').select('add_update');
+        cy.get('@behaviorBehavior').select('add_update',{force:true});
 
         //specify Import Source section
         cy.googlePathSource('https://docs.google.com/spreadsheets/d/13FemIzzexF5koAdQYjbcKscqoCfXyknYWkQkbSZGPsk/edit#gid=938235826')
 
         //validate Import file
-        cy.get('.source_check_button').click()
+        cy.get('.source_check_button').click({force:true})
         cy.get('.fieldset_source').contains('File validated successfully',{timeout: 60000})
 
         //save and run process
@@ -54,7 +56,7 @@ context('Import Сustomer Finances', () => {
         cy.get('.admin__data-grid-wrap').contains('Edit').click({force:true})
 
         //check that Veronica's Costello finances were added 
-        cy.get('#rewardPointsBalanceGrid').find('td').as('rewardPointsBalance')
+        cy.get('#rewardPointsBalanceGrid',{timeout: 10000}).find('td').as('rewardPointsBalance')
         cy.get('@rewardPointsBalance').contains('100',{timeout: 60000})
         cy.get('#balanceGrid').find('td').as('creditBalance')
         cy.get('@creditBalance').contains('$20.00',{timeout: 60000});
@@ -74,7 +76,7 @@ context('Import Сustomer Finances', () => {
         cy.get('.admin__data-grid-wrap').contains('Edit').click({force:true})
 
         //check that Mrs. Jane R Roe's finances were added 
-        cy.get('#rewardPointsBalanceGrid').find('td').as('rewardPointsBalance')
+        cy.get('#rewardPointsBalanceGrid',{timeout: 10000}).find('td').as('rewardPointsBalance')
         cy.get('@rewardPointsBalance').contains('444',{timeout: 60000})
         cy.get('#balanceGrid').find('td').as('creditBalance')
         cy.get('@creditBalance').contains('555',{timeout: 60000});

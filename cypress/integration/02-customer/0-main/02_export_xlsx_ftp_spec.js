@@ -1,5 +1,5 @@
 
-context('Export Customers Xlsx Sftp', () => {
+context('Export Customers Xlsx Sftp 2', () => {
     it('xlsx - sftp - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
