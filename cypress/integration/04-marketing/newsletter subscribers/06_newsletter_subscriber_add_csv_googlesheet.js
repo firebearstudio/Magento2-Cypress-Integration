@@ -1,4 +1,4 @@
-context('Import Newsletter Subscribers', () => {
+context('Import Newsletter Subscribers Add Update Csv GoogleSheet 6', () => {
     it('add update - csv - google sheet - new job', () => {
         //login
         cy.loginToAdminPanel('ee')

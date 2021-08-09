@@ -1,4 +1,4 @@
-context('Export Catalog Rule', () => {
+context('Export Catalog Rule Csv Sftp 1', () => {
     it('csv - sftp - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -27,7 +27,7 @@ context('Export Catalog Rule', () => {
         cy.get('@fileFormat').select('csv');
 
         //specify Import Source section
-        cy.specifySftpSource('exportSftp','/var/www/alex/files/test/export_catalog_rules.csv')
+        cy.specifySftpSource('exportSftp' , '/chroot/home/a0563af8/develop-gold.dev.firebearstudio.com/pub/media/importexport/test/export_catalog_rules.csv')
 
         //check ftp connection
         cy.get('.source_check_button').click()

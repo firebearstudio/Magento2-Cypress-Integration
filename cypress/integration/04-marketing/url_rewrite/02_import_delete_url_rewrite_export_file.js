@@ -26,7 +26,7 @@ context('Import Url Rewrites', () => {
         cy.get('@behaviorBehavior').select('delete');
 
         //specify Import Source section
-        cy.specifySftpSource('importSftp','/var/www/alex/files/test/export_url_rewrite.csv')
+        cy.specifySftpSource('importSftp','/chroot/home/a0563af8/develop-gold.dev.firebearstudio.com/pub/media/importexport/test/export_url_rewrite.csv')
 
         //validate Import file
         cy.get('.source_check_button').click()
@@ -42,6 +42,7 @@ context('Import Url Rewrites', () => {
         //check that  url rewrites were deleted
         cy.get('#menu-magento-backend-marketing').find('.item-urlrewrite').find('a').as('goToUrlRewriteGrid')
         cy.get('@goToUrlRewriteGrid').click({force:true})
-        cy.get('#urlrewriteGrid-total-count').contains('0',{timeout: 60000})
+        cy.get('.admin__control-support-text').contains('0',{timeout: 60000})
+
     })
 })

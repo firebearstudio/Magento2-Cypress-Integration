@@ -1,7 +1,7 @@
-context('Import Cart Price Rules', () => {
+context('Import Cart Price Rules Add Update Json Dropbox 2', () => {
     it('add update - json - dropbox - new job', () => {
         //login
-        cy.loginToAdminPanel('ce')
+        cy.loginToAdminPanel('ee')
 
         //go to import page
         cy.get('.item-import-job').find('a').as('goToImportPageLink')
@@ -12,7 +12,7 @@ context('Import Cart Price Rules', () => {
         cy.get('@addJobButton').click()
 
         //specify general section
-        cy.generalImportSection('Cart Price Rules - add update - json - dropbox')
+        cy.generalImportSectionWithoutReIndex('Cart Price Rules - add update - json - dropbox')
     
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
@@ -39,6 +39,6 @@ context('Import Cart Price Rules', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResult('Entity cart_price_rule')
+        cy.consoleImportResultWithoutReIndex('Entity sales_rule')
     })
 })

@@ -1,4 +1,4 @@
-context('Export Search Terms', () => {
+context('Export Search Terms Filter 12', () => {
     it('csv - sftp - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -27,37 +27,26 @@ context('Export Search Terms', () => {
         cy.get('@fileFormat').select('csv');
 
         //specify Import Source section
-        cy.specifySftpSource('exportSftp','/var/www/alex/files/test/export_search_terms.csv')
+        cy.specifySftpSource('exportSftp' , '/chroot/home/a0563af8/develop-gold.dev.firebearstudio.com/pub/media/importexport/test/export_search_terms_filter.csv')
         
         //check sftp connection
         cy.get('.source_check_button').click()
         cy.get('.fieldset_source').contains('Success! Your connection is ready!',{timeout: 60000})
 
         //filter
-        cy.get('.source_filter_map_rows').find('tfoot').as('tfoot')
-        cy.get('@tfoot').find('.addButton').click({force:true})
-        cy.get('.record-1').find('.source_filter_map_source_filter_field').find('select').as('sourceDataExport')
-        cy.get('@sourceDataExport').select('Redirect')
-        cy.get('.record-1').find('.source_filter_map_source_filter_filter').find('[name="source_filter_map[text][source_filter_filter]"]')
+       cy.get('.source_filter_map_rows').find('tfoot').as('tfoot')
+       cy.get('@tfoot').find('.addButton').click({force:true})
+       cy.get('.record-1').find('.source_filter_map_source_filter_field').find('select').as('sourceDataExport')
+       cy.get('@sourceDataExport').select('Redirect')
+       cy.get('.record-1').find('.source_filter_map_source_filter_filter').find('[name="source_filter_map[text][source_filter_filter]"]')
             .type('firebearstudio.com')
             .should('have.value', 'firebearstudio.com')
-    
-        cy.get('.source_filter_map_rows').find('tfoot').as('tfoot')
-        cy.get('@tfoot').find('.addButton').click({force:true})
-        cy.get('.record-2').find('.source_filter_map_source_filter_field').find('select').as('sourceDataExport')
-        cy.get('@sourceDataExport').select('Num Results')
-        cy.get('.record-2').find('.source_filter_map_source_filter_filter').find('[name="source_filter_map[from][source_filter_filter]"]')
-           .type('0')
-           .should('have.value', '0')
-        cy.get('.record-2').find('.source_filter_map_source_filter_filter').find('[name="source_filter_map[to][source_filter_filter]"]')
-           .type('5')
-           .should('have.value', '5')
 
         //save and run process
         cy.get('#save_and_run').click({force:true})
         cy.get('.run').click()
 
         //check Export results
-        cy.consoleExportResult('Entity search_query')
+        cy.consoleExportResult('Entity search_terms')
     })
 })

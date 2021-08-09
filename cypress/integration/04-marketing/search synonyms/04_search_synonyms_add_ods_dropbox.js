@@ -1,4 +1,4 @@
-context('Import Search Synonyms', () => {
+context('Import Search Synonyms Add Ods Dropbox 4', () => {
     it('add - ods - dropbox - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -12,7 +12,7 @@ context('Import Search Synonyms', () => {
         cy.get('@addJobButton').click()
 
         //specify general section
-        cy.generalImportSection('Search Synonyms Import - add  - ods - dropbox')
+        cy.generalImportSectionWithoutReIndex('Search Synonyms Import - add  - ods - dropbox')
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
@@ -28,7 +28,7 @@ context('Import Search Synonyms', () => {
         //specify Import Source section
         cy.get('.type_file').find('select').as('importSourceType')
         cy.get('@importSourceType').select('ods');
-        cy.dropboxSource('/search_synonyms.ods','***')
+        cy.dropboxSource('/search_synonyms.ods')
 
         //validate Import file
         cy.get('.source_check_button').click()
@@ -39,6 +39,6 @@ context('Import Search Synonyms', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResult('Entity search_synonyms')
+        cy.consoleImportResultWithoutReIndex('Entity search_synonyms')
     })
 })

@@ -1,4 +1,4 @@
-context('Export Cms block', () => {
+context('Export Cms block Filter 12', () => {
     it('csv - sftp - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -9,28 +9,28 @@ context('Export Cms block', () => {
 
         //go to new job page
         cy.get('#add').as('addJobButton')
-        cy.get('@addJobButton').click()
+        cy.get('@addJobButton').click({force:true})
 
         //specify general section
         cy.get('.general_is_active',{timeout: 60000}).find('.admin__actions-switch-label').as('generalIsActive')
-        cy.get('@generalIsActive').click()
+        cy.get('@generalIsActive').click({force:true})
         cy.get('.general_title ').find('input')
             .type('Cms Block Export - csv - sftp')
             .should('have.value', 'Cms Block Export - csv - sftp')
 
         //specify Export Settings section
         cy.get('.settings_entity').find('select').as('settingsEntity')
-        cy.get('@settingsEntity').select('cms_block')
+        cy.get('@settingsEntity').select('cms_block',{force:true})
 
         //specify Export Behavior section
         cy.get('.behavior_behavior_field_file_format').find('select').as('fileFormat')
-        cy.get('@fileFormat').select('csv');
+        cy.get('@fileFormat').select('csv',{force:true});
 
         //specify Import Source section
-        cy.specifySftpSource('exportSftp','/var/www/alex/files/test/export_cms_block.csv')
+        cy.specifySftpSource('exportSftp' , '/chroot/home/a0563af8/develop-gold.dev.firebearstudio.com/pub/media/importexport/test/export_cms_block_filter.csv')
 
         //check ftp connection
-        cy.get('.source_check_button').click()
+        cy.get('.source_check_button').click({force:true})
         cy.get('.fieldset_source').contains('Success! Your connection is ready!',{timeout: 60000})
 
         //filter
@@ -38,18 +38,18 @@ context('Export Cms block', () => {
         cy.get('@tfoot').find('.addButton').click({force:true})
         cy.get('.record-1').find('.source_filter_map_source_filter_field').find('select').as('sourceDataExport')
         cy.get('@sourceDataExport').select('title')
-        cy.get('.record-1').find('.source_filter_map_source_filter_filter').find('[name="source_filter_filter[text][0]"]')
-            .type('Sample CMS page 1')
+        cy.get('.record-1').find('.source_filter_map_source_filter_filter').find('[name="source_filter_map[text][source_filter_filter]"]')
+            .type('Custom static block #1')
             .should('have.value', 'Custom static block #1')
 
         cy.get('.source_filter_map_rows').find('tfoot').as('tfoot')
         cy.get('@tfoot').find('.addButton').click({force:true})
         cy.get('.record-2').find('.source_filter_map_source_filter_field').find('select').as('sourceDataExport')
         cy.get('@sourceDataExport').select('block_id')
-        cy.get('.record-2').find('.source_filter_map_source_filter_filter').find('[name="source_filter_filter[from][1]"]')
+        cy.get('.record-2').find('.source_filter_map_source_filter_filter').find('[name="source_filter_map[from][source_filter_filter]"]')
             .type('1')
             .should('have.value', '1')
-        cy.get('.record-2').find('.source_filter_map_source_filter_filter').find('[name="source_filter_filter[to][1]"]')
+        cy.get('.record-2').find('.source_filter_map_source_filter_filter').find('[name="source_filter_map[to][source_filter_filter]"]')
             .type('50')
             .should('have.value', '50')
 

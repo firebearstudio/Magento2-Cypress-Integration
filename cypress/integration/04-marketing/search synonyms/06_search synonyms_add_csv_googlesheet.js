@@ -1,4 +1,4 @@
-context('Import Search Synonyms', () => {
+context('Import Search Synonyms Add Update Csv Googlesheet 6', () => {
     it('add update - csv - google sheet - new job', () => {
         //login
         cy.loginToAdminPanel('ee')

@@ -27,7 +27,7 @@ context('Export Url Rewrites', () => {
         cy.get('@fileFormat').select('csv');
 
         //specify Import Source section
-        cy.specifySftpSource('exportSftp','/var/www/alex/files/test/export_url_rewrite.csv')
+        cy.specifySftpSource('exportSftp' , '/chroot/home/a0563af8/develop-gold.dev.firebearstudio.com/pub/media/importexport/test/export_url_rewrite_only_map.csv')
 
         //check ftp connection
         cy.get('.source_check_button').click()

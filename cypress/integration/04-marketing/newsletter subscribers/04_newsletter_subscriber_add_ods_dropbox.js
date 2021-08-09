@@ -1,4 +1,4 @@
-context('Import Newsletter Subscribers', () => {
+context('Import Newsletter Subscribers Add Ods Dropbox 4', () => {
     it('add - ods - dropbox - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -12,7 +12,7 @@ context('Import Newsletter Subscribers', () => {
         cy.get('@addJobButton').click()
 
         //specify general section
-        cy.generalImportSection('Newsletter Subscribers Import - add  - ods - dropbox')
+        cy.generalImportSectionWithoutReIndex('Newsletter Subscribers Import - add  - ods - dropbox')
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
@@ -39,9 +39,9 @@ context('Import Newsletter Subscribers', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResult('Entity newsletter_subscriber')
+        cy.consoleImportResultWithoutReIndex('Entity newsletter_subscriber')
 
-        //check that  newsletter sibscribers were deleted
+        //check that  newsletter sibscribers were added
         cy.get('#menu-magento-backend-marketing').find('.item-newsletter-subscriber').find('a').as('goToNewsletterSubscriberGrid')
         cy.get('@goToNewsletterSubscriberGrid').click({force:true})
         cy.get('.even').find('.col-email').contains('jentle@test.com',{timeout: 600000})

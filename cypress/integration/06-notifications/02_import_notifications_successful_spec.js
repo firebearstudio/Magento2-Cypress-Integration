@@ -1,5 +1,5 @@
-context('Import Advanced Pricing', () => {
-    it('add update - xlsx - ftp - new job', () => {
+context('Import Advanced Pricing Notifications Successful 2', () => {
+    it('add update - xlsx - sftp - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
 
@@ -12,7 +12,7 @@ context('Import Advanced Pricing', () => {
         cy.get('@addJobButton').click()
 
         //specify general section
-        cy.generalImportSection('Advanced Pricing Import - notifications - xlsx - ftp')
+        cy.generalImportSection('Advanced Pricing Import - notifications - successful - xlsx - sftp')
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')

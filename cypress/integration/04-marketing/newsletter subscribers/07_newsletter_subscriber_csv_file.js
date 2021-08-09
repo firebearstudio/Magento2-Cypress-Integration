@@ -1,4 +1,4 @@
-context('Import Newsletter Subscribers', () => {
+context('Import Newsletter Subscribers Replace Csv File 7', () => {
     it('replace - csv - file - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -12,7 +12,7 @@ context('Import Newsletter Subscribers', () => {
         cy.get('@addJobButton').click()
 
         //specify general section
-        cy.generalImportSection('Newsletter Subscribers Import - replace - csv - file')
+        cy.generalImportSectionWithoutReIndex('Newsletter Subscribers Import - replace - csv - file')
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
@@ -37,7 +37,7 @@ context('Import Newsletter Subscribers', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResult('Entity newsletter_subscriber')
+        cy.consoleImportResultWithoutReIndex('Entity newsletter_subscriber')
     })
 })
 

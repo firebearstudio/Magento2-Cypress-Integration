@@ -28,7 +28,7 @@ context('Import Url Rewrites', () => {
         //specify Import Source section
         cy.get('.type_file').find('select').as('importSourceType')
         cy.get('@importSourceType').select('xml');
-        cy.fileSource('pub/media/importexport/u/r/url_rewrites_map_1.xml')
+        cy.fileSource('pub/media/importexport/url_rewrites_map.xml')
 
         //validate Import file
         cy.get('.source_check_button').click()

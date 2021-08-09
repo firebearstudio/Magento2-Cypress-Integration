@@ -1,4 +1,4 @@
-context('Import Search Terms', () => {
+context('Import Search Terms Add Ods Dropbox 4', () => {
     it('add - ods - dropbox - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -12,7 +12,7 @@ context('Import Search Terms', () => {
         cy.get('@addJobButton').click()
 
         //specify general section
-        cy.generalImportSection('Search Terms Import - add  - ods - dropbox')
+        cy.generalImportSectionWithoutReIndex('Search Terms Import - add  - ods - dropbox')
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
@@ -28,7 +28,7 @@ context('Import Search Terms', () => {
         //specify Import Source section
         cy.get('.type_file').find('select').as('importSourceType')
         cy.get('@importSourceType').select('ods');
-        cy.dropboxSource('/search_terms.ods','***')
+        cy.dropboxSource('/search_terms.ods')
 
         //validate Import file
         cy.get('.source_check_button').click()
@@ -39,6 +39,6 @@ context('Import Search Terms', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResult('Entity search_query')
+        cy.consoleImportResultWithoutReIndex('Entity search_query')
     })
 })

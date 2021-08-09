@@ -1,4 +1,4 @@
-context('Export Search Synonyms', () => {
+context('Export Search Synonyms Mapping 11', () => {
     it('csv - sftp - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -27,7 +27,7 @@ context('Export Search Synonyms', () => {
         cy.get('@fileFormat').select('csv');
 
         //specify Import Source section
-        cy.specifySftpSource('exportSftp','/var/www/alex/files/test/export_search_synonyms.csv')
+        cy.specifySftpSource('exportSftp','/chroot/home/a0563af8/develop-gold.dev.firebearstudio.com/pub/media/importexport/test/export_search_synonyms_map.csv')
 
         //check sftp connection
         cy.get('.source_check_button').click()

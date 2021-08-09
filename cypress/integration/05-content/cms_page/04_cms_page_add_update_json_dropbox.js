@@ -1,4 +1,4 @@
-context('Import Cms Page', () => {
+context('Import Cms Page Add Json Dropbox 4', () => {
     it('add - json - dropbox - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -9,29 +9,29 @@ context('Import Cms Page', () => {
 
         //go to new job page
         cy.get('#add').as('addJobButton')
-        cy.get('@addJobButton').click()
+        cy.get('@addJobButton').click({force:true})
 
         //specify general section
-        cy.generalImportSection('Cms Page Import - add - json - dropbox')
+        cy.generalImportSectionWithoutReIndex('Cms Page Import - add - json - dropbox')
     
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
-        cy.get('@fieldsetSettings').click()
+        cy.get('@fieldsetSettings').click({force:true})
         cy.get('.settings_entity').find('select').as('settingsEntity')
-        cy.get('@settingsEntity').select('cms_page');
+        cy.get('@settingsEntity').select('cms_page',{force:true});
 
         //specify Import Behavior section
         cy.get('.fieldset_behavior').find('.fieldset-wrapper-title').as('fieldsetBehaviour')
         cy.get('.behavior_behavior').find('select').as('behaviorBehavior')
-        cy.get('@behaviorBehavior').select('append');
+        cy.get('@behaviorBehavior').select('append',{force:true});
 
         //specify Import Source section
         cy.get('.type_file').find('select').as('importSourceType')
-        cy.get('@importSourceType').select('json');
-        cy.dropboxSource('/cms_pages.json','***')
+        cy.get('@importSourceType').select('json',{force:true});
+        cy.dropboxSource('/cms_pages.json')
 
         //validate Import file
-        cy.get('.source_check_button').click()
+        cy.get('.source_check_button').click({force:true})
         cy.get('.fieldset_source').contains('File validated successfully',{timeout: 60000})
 
         //save and run process
@@ -39,6 +39,6 @@ context('Import Cms Page', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResult('Entity cms_page')
+        cy.consoleImportResultWithoutReIndex('Entity cms_page')
     })
 })

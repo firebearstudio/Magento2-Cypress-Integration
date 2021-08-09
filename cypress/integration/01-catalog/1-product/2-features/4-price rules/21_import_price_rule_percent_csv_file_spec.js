@@ -37,15 +37,15 @@ context('Import Products Round Price Percent 21', () => {
         cy.get('.price_rules_rows').find('tfoot').contains('Add Rule').as('addRuleButton')
         cy.get('@addRuleButton').click({force:true})
         cy.get('[name="price_rules_rows[0][value]"]').invoke('val', '10').trigger('change',{force:true})
-        cy.get('#conditions__1__children').find('.label').click({force:true})
+        cy.get('#conditions__1__children').find('[title="Add"]').click({force:true})
         cy.get('#conditions__1__new_child').select('SKU',{force:true})
-        cy.get('#conditions__1__children').find('a').should('have.value','SKU').as('priceSku')
+        cy.get('#conditions__1__children').find('a').as('priceSku')
         cy.get('@priceSku').click()
         cy.get('[name="rule[conditions][1--1][value]"]',{timeout: 7000}).invoke('val', 'TST-Conf-Simp-S-Green').trigger('change',{force:true})
 
         //save and run process
         cy.get('#save_and_run').click({force:true})
-        cy.get('.run').click({force:true})
+        cy.get('.run').click()
 
         //check Import results
         cy.consoleImportResultWithoutReIndex('Entity catalog_product')

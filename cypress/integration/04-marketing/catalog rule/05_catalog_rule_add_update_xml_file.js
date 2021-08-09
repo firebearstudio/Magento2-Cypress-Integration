@@ -1,4 +1,4 @@
-context('Import Catalog Rule', () => {
+context('Import Catalog Rule Mapping 5', () => {
     it(' add  - map - csv - file - new job', () => {
        //login
        cy.loginToAdminPanel('ee')
@@ -12,7 +12,7 @@ context('Import Catalog Rule', () => {
         cy.get('@addJobButton').click()
 
         //specify general section
-        cy.generalImportSection('Catalog Rule Import - add - map - csv - file')
+        cy.generalImportSectionWithoutReIndex('Catalog Rule Import - add - map - csv - file')
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
@@ -26,7 +26,7 @@ context('Import Catalog Rule', () => {
         cy.get('@behaviorBehavior').select('append');
 
         //specify Import Source section
-        cy.fileSource('pub/media/importexport//c/a/catalog_rules_map_1.csv')
+        cy.fileSource('pub/media/importexport/test/catalog_rules_map.csv')
 
         //validate Import file
         cy.get('.source_check_button').click()
@@ -57,6 +57,6 @@ context('Import Catalog Rule', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResult('Entity catalog_rule')
+        cy.consoleImportResultWithoutReIndex('Entity catalog_rule')
     })
 })

@@ -1,5 +1,5 @@
-context('Import Search Synonyms', () => {
-    it('add - xlsx - ftp - new job', () => {
+context('Import Search Synonyms Add Xlsx Sftp 9', () => {
+    it('add - xlsx - sftp - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
 
@@ -12,7 +12,7 @@ context('Import Search Synonyms', () => {
         cy.get('@addJobButton').click()
 
         //specify general section
-        cy.generalImportSection('Search Synonyms Import - add - xlsx - ftp')
+        cy.generalImportSectionWithoutReIndex('Search Synonyms Import - add - xlsx - sftp')
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
@@ -28,7 +28,8 @@ context('Import Search Synonyms', () => {
         //specify Import Source section
         cy.get('.type_file').find('select').as('importSourceType')
         cy.get('@importSourceType').select('xlsx');
-        cy.ftpSource('importFtp','/files/search_synonyms.xlsx')
+        cy.specifySftpSource('importSftp','/chroot/home/a0563af8/develop-gold.dev.firebearstudio.com/pub/media/importexport/test/search_synonyms.xlsx')
+
 
         //validate Import file
         cy.get('.source_check_button').click()
@@ -39,6 +40,6 @@ context('Import Search Synonyms', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResult('Entity search_synonyms')
+        cy.consoleImportResultWithoutReIndex('Entity search_synonyms')
     })
 })

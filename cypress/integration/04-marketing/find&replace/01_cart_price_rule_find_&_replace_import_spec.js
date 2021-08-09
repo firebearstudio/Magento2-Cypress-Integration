@@ -92,7 +92,7 @@ context('Import Cart Price Rule', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResultWithoutReIndex('Entity cart_price_rule')
+        cy.consoleImportResultWithoutReIndex('Entity sales_rule')
 
         //сheck that values were replaced
         cy.get('#menu-magento-backend-marketing').find('.item-promo-quote').find('a').as('goToCartPriceRuleGrid')

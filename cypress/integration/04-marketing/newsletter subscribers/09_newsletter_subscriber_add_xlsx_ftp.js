@@ -1,5 +1,5 @@
-context('Import Newsletter Subscribers', () => {
-    it('add - xlsx - ftp - new job', () => {
+context('Import Newsletter Subscribers Add Xlsx Sftp 9', () => {
+    it('add - xlsx - sftp - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
 
@@ -12,7 +12,7 @@ context('Import Newsletter Subscribers', () => {
         cy.get('@addJobButton').click()
 
         //specify general section
-        cy.generalImportSection('Newsletter Subscribers Import - add - xlsx - ftp')
+        cy.generalImportSectionWithoutReIndex('Newsletter Subscribers Import - add - xlsx - sftp')
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
@@ -28,7 +28,7 @@ context('Import Newsletter Subscribers', () => {
         //specify Import Source section
         cy.get('.type_file').find('select').as('importSourceType')
         cy.get('@importSourceType').select('xlsx');
-        cy.ftpSource('importFtp','/files/newsletter.xlsx')
+        cy.specifySftpSource('importSftp','/chroot/home/a0563af8/develop-gold.dev.firebearstudio.com/pub/media/importexport/test/newsletter.xlsx')
 
         //validate Import file
         cy.get('.source_check_button').click()
@@ -39,6 +39,6 @@ context('Import Newsletter Subscribers', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResult('Entity newsletter_subscriber')
+        cy.consoleImportResultWithoutReIndex('Entity newsletter_subscriber')
     })
 })

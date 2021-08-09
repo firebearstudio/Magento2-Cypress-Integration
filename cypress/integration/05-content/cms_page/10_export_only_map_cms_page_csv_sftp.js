@@ -1,4 +1,4 @@
-context('Export Cms Page', () => {
+context('Export Cms Page Only Mapping 10', () => {
     it('csv - sftp - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -9,7 +9,7 @@ context('Export Cms Page', () => {
 
         //go to new job page
         cy.get('#add').as('addJobButton')
-        cy.get('@addJobButton').click()
+        cy.get('@addJobButton').click({force:true})
 
         //specify general section
         cy.get('.general_is_active',{timeout: 60000}).find('.admin__actions-switch-label').as('generalIsActive')
@@ -20,17 +20,17 @@ context('Export Cms Page', () => {
 
         //specify Export Settings section
         cy.get('.settings_entity').find('select').as('settingsEntity')
-        cy.get('@settingsEntity').select('cms_page')
+        cy.get('@settingsEntity').select('cms_page',{force:true})
 
         //specify Export Behavior section
         cy.get('.behavior_behavior_field_file_format').find('select').as('fileFormat')
-        cy.get('@fileFormat').select('csv');
+        cy.get('@fileFormat').select('csv',{force:true});
 
         //specify Import Source section
-        cy.specifySftpSource('exportSftp','/var/www/alex/files/test/export_cms_page.csv')
+        cy.specifySftpSource('exportSftp' , '/chroot/home/a0563af8/develop-gold.dev.firebearstudio.com/pub/media/importexport/test/export_cms_page_only_map.csv')
 
         //check sftp connection
-        cy.get('.source_check_button').click()
+        cy.get('.source_check_button').click({force:true})
         cy.get('.fieldset_source').contains('Success! Your connection is ready!',{timeout: 60000})
 
         //mapping

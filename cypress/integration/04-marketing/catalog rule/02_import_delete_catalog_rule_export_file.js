@@ -1,4 +1,4 @@
-context('Import Catalog Rule', () => {
+context('Import Catalog Rule Delete Export File 2', () => {
     it('delete - export file - csv - sftp - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -12,7 +12,7 @@ context('Import Catalog Rule', () => {
         cy.get('@addJobButton').click()
 
         //specify general section
-        cy.generalImportSection('Catalog Rule Import - export file - delete - csv - sftp')
+        cy.generalImportSectionWithoutReIndex('Catalog Rule Import - export file - delete - csv - sftp')
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
@@ -26,7 +26,7 @@ context('Import Catalog Rule', () => {
         cy.get('@behaviorBehavior').select('delete');
 
         //specify Import Source section
-        cy.specifySftpSource('importSftp','/var/www/alex/files/test/export_catalog_rules.csv')
+        cy.specifySftpSource('importSftp','/chroot/home/a0563af8/develop-gold.dev.firebearstudio.com/pub/media/importexport/test/export_catalog_rules.csv')
         
         //validate Import file
         cy.get('.source_check_button').click()
@@ -37,7 +37,7 @@ context('Import Catalog Rule', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResult('Entity catalog_rule')
+        cy.consoleImportResultWithoutReIndex('Entity catalog_rule')
 
        //check that  catalog rules were deleted
        cy.get('#menu-magento-backend-marketing').find('.item-promo-catalog').find('a').as('goToCatalogRuleGrid')

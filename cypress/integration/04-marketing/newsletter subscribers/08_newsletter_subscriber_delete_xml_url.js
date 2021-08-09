@@ -1,4 +1,4 @@
-context('Import Newsletter Subscribers', () => {
+context('Import Newsletter Subscribers Delete Xml Url 8', () => {
     it('delete - xml - url - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -12,7 +12,7 @@ context('Import Newsletter Subscribers', () => {
         cy.get('@addJobButton').click()
 
         //specify general section
-        cy.generalImportSection('Newsletter Subscribers Import - delete - xml - url')
+        cy.generalImportSectionWithoutReIndex('Newsletter Subscribers Import - delete - xml - url')
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
@@ -28,7 +28,7 @@ context('Import Newsletter Subscribers', () => {
         //specify Import Source section
         cy.get('.type_file').find('select').as('importSourceType')
         cy.get('@importSourceType').select('xml');
-        cy.urlSource('http://alex-nancy.dev.firebearstudio.com/media/importexport/test/newsletter.xml')
+        cy.urlSource('https://48a8a91726-1275736.nxcli.net/media/importexport/test/newsletter.xml')
     
         //validate Import file
         cy.get('.source_check_button').click()
@@ -39,7 +39,7 @@ context('Import Newsletter Subscribers', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResult('Entity newsletter_subscriber')
+        cy.consoleImportResultWithoutReIndex('Entity newsletter_subscriber')
     })
 })
 
