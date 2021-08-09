@@ -1,4 +1,4 @@
-context('Import Search Synonyms', () => {
+context('Import Search Synonyms Add Map Csv File 5', () => {
     it(' add  - map - csv - file - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -12,7 +12,7 @@ context('Import Search Synonyms', () => {
         cy.get('@addJobButton').click()
 
         //specify general section
-        cy.generalImportSection('Search Synonyms Import - add - map - csv - file')
+        cy.generalImportSectionWithoutReIndex('Search Synonyms Import - add - map - csv - file')
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
@@ -26,7 +26,7 @@ context('Import Search Synonyms', () => {
         cy.get('@behaviorBehavior').select('append');
 
         //specify Import Source section
-        cy.fileSource('pub/media/importexport//s/e/search_synonyms_map_1.csv')
+        cy.fileSource('pub/media/importexport/test/search_synonyms_map.csv')
 
         //validate Import file
         cy.get('.source_check_button').click()
@@ -61,6 +61,6 @@ context('Import Search Synonyms', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResult('Entity search_synonyms')
+        cy.consoleImportResultWithoutReIndex('Entity search_synonyms')
     })
 })

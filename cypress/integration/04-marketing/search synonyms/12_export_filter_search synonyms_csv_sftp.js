@@ -1,4 +1,4 @@
-context('Export Search Synonyms', () => {
+context('Export Search Synonyms Filter 12', () => {
     it('csv - sftp - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -27,7 +27,7 @@ context('Export Search Synonyms', () => {
         cy.get('@fileFormat').select('csv');
 
         //specify Import Source section
-        cy.specifySftpSource('exportSftp','/var/www/alex/files/test/export_search_synonyms.csv')
+        cy.specifySftpSource('exportSftp','/chroot/home/a0563af8/develop-gold.dev.firebearstudio.com/pub/media/importexport/test/export_search_synonyms_filter.csv')
 
         //check sftp connection
         cy.get('.source_check_button').click()
@@ -35,22 +35,14 @@ context('Export Search Synonyms', () => {
 
        //filter
        cy.get('.source_filter_map_rows').find('tfoot').as('tfoot')
-       cy.get('@tfoot').find('.addButton').click({force:true})
-       cy.get('.record-1').find('.source_filter_map_source_filter_field').find('select').as('sourceDataExport')
-       cy.get('@sourceDataExport').select('Scope')
-       cy.get('.record-1').find('.source_filter_map_source_filter_filter').find('select').as('sourceDataExport')
-       cy.get('@sourceDataExport').select('All Store Views')
-
        cy.get('.source_filter_map_rows').find('tfoot').as('tfoot')
        cy.get('@tfoot').find('.addButton').click({force:true})
-       cy.get('.record-2').find('.source_filter_map_source_filter_field').find('select').as('sourceDataExport')
-       cy.get('@sourceDataExport').select('Group Id')
-       cy.get('.record-2').find('.source_filter_map_source_filter_filter').find('[name="source_filter_map[from][source_filter_filter]"]')
-           .type('1')
-           .should('have.value', '1')
-       cy.get('.record-2').find('.source_filter_map_source_filter_filter').find('[name="source_filter_map[to][source_filter_filter]"]')
-           .type('10')
-           .should('have.value', '10')
+       cy.get('.record-1').find('.source_filter_map_source_filter_field').find('select').as('sourceDataExport')
+       cy.get('@sourceDataExport').select('Synonyms')
+       cy.get('.record-1').find('.source_filter_map_source_filter_filter').find('[name="source_filter_map[text][source_filter_filter]"]')
+           .type('firebear')
+           .should('have.value', 'firebear')
+
 
         //save and run process
         cy.get('#save_and_run').click({force:true})

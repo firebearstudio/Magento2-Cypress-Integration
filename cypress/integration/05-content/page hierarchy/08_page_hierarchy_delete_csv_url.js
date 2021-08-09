@@ -1,4 +1,4 @@
-context('Import Page Hierarchy', () => {
+context('Import Page Hierarchy Delete Csv Url 8', () => {
     it('delete - csv - url - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -9,27 +9,27 @@ context('Import Page Hierarchy', () => {
 
         //go to new job page
         cy.get('#add').as('addJobButton')
-        cy.get('@addJobButton').click()
+        cy.get('@addJobButton').click({force:true})
 
         //specify general section
-        cy.generalImportSection('Page Hierarchy Import - delete - csv - url')
+        cy.generalImportSectionWithoutReIndex('Page Hierarchy Import - delete - csv - url')
     
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
         cy.get('@fieldsetSettings').click()
         cy.get('.settings_entity').find('select').as('settingsEntity')
-        cy.get('@settingsEntity').select('content_hierarchy');
+        cy.get('@settingsEntity').select('content_hierarchy',{force:true});
 
         //specify Import Behavior section
         cy.get('.fieldset_behavior').find('.fieldset-wrapper-title').as('fieldsetBehaviour')
         cy.get('.behavior_behavior').find('select').as('behaviorBehavior')
-        cy.get('@behaviorBehavior').select('delete');
+        cy.get('@behaviorBehavior').select('delete',{force:true});
 
         //specify Import Source section
-        cy.urlSource('http://alex-union.dev.firebearstudio.com/media/importexport/test/page_hierarchy.csv')
+        cy.urlSource('https://48a8a91726-1275736.nxcli.net/media/importexport/test/page_hierarchy.csv')
 
         //validate Import file
-        cy.get('.source_check_button').click()
+        cy.get('.source_check_button').click({force:true})
         cy.get('.fieldset_source').contains('File validated successfully',{timeout: 60000})
 
         //save and run process
@@ -37,7 +37,7 @@ context('Import Page Hierarchy', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResult('Entity content_hierarchy')
+        cy.consoleImportResultWithoutReIndex('Entity content_hierarchy')
     })
 })
 

@@ -39,5 +39,10 @@ context('Import Orders Csv GoogleSheet 3', () => {
 
         //check Import results
         cy.consoleImportResult('Entity order')
+
+        //check orders on dashboard
+        cy.get('#menu-magento-backend-dashboard').find('.item-dashboard').click()
+        cy.get('#lastOrdersGrid_table').find('tbody').contains('test test')
+        cy.get('#lastOrdersGrid_table').find('tbody').contains('$100.00')
     })
 })

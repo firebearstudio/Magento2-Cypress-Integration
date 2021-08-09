@@ -1,5 +1,5 @@
-context('Export Advanced Pricing Notifications', () => {
-    it('xlsx - ftp - new job', () => {
+context('Export Advanced Pricing Notifications Failed 4', () => {
+    it('xlsx - sftp - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
 
@@ -15,8 +15,8 @@ context('Export Advanced Pricing Notifications', () => {
         cy.get('.general_is_active',{timeout: 60000}).find('.admin__actions-switch-label').as('generalIsActive')
         cy.get('@generalIsActive').click()
         cy.get('.general_title ').find('input')
-            .type('Advanced Pricing Export - notifications - xlsx - ftp')
-            .should('have.value', 'Advanced Pricing Export - notifications - xlsx - ftp')
+            .type('Advanced Pricing Export - notifications - failed - xlsx - sftp')
+            .should('have.value', 'Advanced Pricing Export - notifications - failed - xlsx - sftp')
 
         //specify Export Settings section
         cy.get('.settings_entity').find('select').as('settingsEntity')
@@ -27,7 +27,7 @@ context('Export Advanced Pricing Notifications', () => {
         cy.get('@fileFormat').select('xlsx',{force:true})
 
         //specify Import Source section
-        cy.specifySftpSource('exportSftp' , '/chroot/home/a0563af8/develop-gold.dev.firebearstudio.com/pub/media/importexport/test/advanced_pricing.xlsx')
+        cy.specifySftpSource('exportSftp' , '/chroot/home/a0563af8/develop-gold.dev.firebearstudio.com/pub/media/importexport/test/adv_price_failed_notifications.xlsx')
 
         //check sftp connection
         cy.get('.source_check_button').click()

@@ -26,7 +26,7 @@ context('Import Url Rewrites', () => {
         cy.get('@behaviorBehavior').select('replace');
 
         //specify Import Source section
-        cy.fileSource('pub/media/importexport/u/r/url_rewrites_replace_3.csv')
+        cy.specifySftpSource('importSftp','/chroot/home/a0563af8/develop-gold.dev.firebearstudio.com/pub/media/importexport/test/url_rewrites_replace.csv')
 
         //validate Import file
         cy.get('.source_check_button').click()
@@ -38,5 +38,15 @@ context('Import Url Rewrites', () => {
 
         //check Import results
         cy.consoleImportResult('Entity url_rewrite')
+
+        // //check that url '9495' wasn't added and 9493's value changed to 'Test' 
+        // cy.get('#menu-magento-backend-marketing').find('.item-urlrewrite').find('a').as('goToUrlRewriteGrid')
+        // cy.get('@goToUrlRewriteGrid').click({force:true})
+        // cy.get('.col-url_rewrite_id').not('10')
+        
+        // // .should('not.have.value', '9495')
+        // cy.get('.col-url_rewrite_id').contains('9493').as('urlEdit')
+        // cy.get('@urlEdit').click()
+        // cy.get('#description').contains('Test')
     })
 })

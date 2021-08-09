@@ -1,4 +1,4 @@
-context('Import Search Terms', () => {
+context('Import Search Terms Add Export File 3', () => {
     it('add - csv - sftp - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -12,7 +12,7 @@ context('Import Search Terms', () => {
         cy.get('@addJobButton').click()
 
         //specify general section
-        cy.generalImportSection('Search Terms Import - export file - add - csv - sftp')
+        cy.generalImportSectionWithoutReIndex('Search Terms Import - export file - add - csv - sftp')
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
@@ -26,7 +26,7 @@ context('Import Search Terms', () => {
         cy.get('@behaviorBehavior').select('append');
 
         //specify Import Source section
-        cy.specifySftpSource('importSftp','/var/www/alex/files/test/export_search_terms.csv')
+        cy.specifySftpSource('importSftp','/chroot/home/a0563af8/develop-gold.dev.firebearstudio.com/pub/media/importexport/test/export_search_terms.csv')
 
         //validate Import file
         cy.get('.source_check_button').click()
@@ -37,6 +37,6 @@ context('Import Search Terms', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResult('Entity search_query')
+        cy.consoleImportResultWithoutReIndex('Entity search_query')
     })
 })

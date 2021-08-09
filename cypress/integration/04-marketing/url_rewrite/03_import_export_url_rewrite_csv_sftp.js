@@ -26,7 +26,7 @@ context('Import Url Rewrites', () => {
         cy.get('@behaviorBehavior').select('append');
 
         //specify Import Source section
-        cy.specifySftpSource('importSftp','/var/www/alex/files/test/export_url_rewrite.csv')
+        cy.specifySftpSource('importSftp','/chroot/home/a0563af8/develop-gold.dev.firebearstudio.com/pub/media/importexport/test/export_url_rewrite.csv')
 
         //validate Import file
         cy.get('.source_check_button').click()
@@ -42,9 +42,10 @@ context('Import Url Rewrites', () => {
         //check that  url rewrites were added
         cy.get('#menu-magento-backend-marketing').find('.item-urlrewrite').find('a').as('goToUrlRewriteGrid')
         cy.get('@goToUrlRewriteGrid').click({force:true})
-        cy.get('.data-grid').find('tbody')
-        cy.get('tbody').find('tr').should(($listOfElements) => {
-            expect($listOfElements).to.be.length(20)
-         })
+        cy.get('body').contains('gear/bags/a-bag11.html',{timeout: 60000})
+        cy.get('body').contains('/argus-all-weather-tank1.html',{timeout: 60000})
+        cy.get('body').contains('about-us1',{timeout: 60000})
+        cy.get('body').contains('women/tops-women/jackets-womenn.html',{timeout: 60000})
+        
     })
 })

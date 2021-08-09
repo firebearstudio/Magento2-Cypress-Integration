@@ -1,4 +1,4 @@
-context('Export Catalog Rule', () => {
+context('Export Catalog Rule Only Mapping 10', () => {
     it('csv - sftp - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -27,7 +27,7 @@ context('Export Catalog Rule', () => {
         cy.get('@fileFormat').select('csv');
 
         //specify Import Source section
-        cy.specifySftpSource('exportSftp','/var/www/alex/files/test/export_catalog_rules.csv')
+        cy.specifySftpSource('exportSftp' , '/chroot/home/a0563af8/develop-gold.dev.firebearstudio.com/pub/media/importexport/test/export_catalog_rules_only_map.csv')
 
         //check ftp connection
         cy.get('.source_check_button').click()
@@ -56,14 +56,14 @@ context('Export Catalog Rule', () => {
         cy.get('.source_data_map_rows').find('tfoot').as('tfoot')
         cy.get('@tfoot').find('.addButton').click({force:true})
         cy.get('.record-3').find('.source_data_map_source_data_system').find('select').as('sourceDataSystem')
-        cy.get('@sourceDataSystem').select('gender');
+        cy.get('@sourceDataSystem').select('description');
         cy.get('.record-3').find('.source_data_map_source_data_export').find('input').as('sourceDataImport')
         cy.get('@sourceDataImport')
             .type('_map')
-            .should('have.value', 'gender_map')
+            .should('have.value', 'description_map')
         cy.get('.record-3').find('.source_data_map_source_data_replace').find('input')
-            .type('Male')
-            .should('have.value', 'Male')
+            .type('Description')
+            .should('have.value', 'Description')
 
         //save and run process
         cy.get('#save_and_run').click({force:true})

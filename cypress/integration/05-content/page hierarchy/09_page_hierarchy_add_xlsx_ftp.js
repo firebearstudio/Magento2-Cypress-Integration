@@ -1,4 +1,4 @@
-context('Import Page Hierarchy', () => {
+context('Import Page Hierarchy Add Xlsx Sftp 9', () => {
     it('add - xlsx - ftp - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -9,26 +9,26 @@ context('Import Page Hierarchy', () => {
 
         //go to new job page
         cy.get('#add').as('addJobButton')
-        cy.get('@addJobButton').click()
+        cy.get('@addJobButton').click({force:true})
 
         //specify general section
-        cy.generalImportSection('Page Hierarchy Import - add - xlsx - ftp')
+        cy.generalImportSectionWithoutReIndex('Page Hierarchy Import - add - xlsx - ftp')
     
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
-        cy.get('@fieldsetSettings').click()
+        cy.get('@fieldsetSettings').click({force:true})
         cy.get('.settings_entity').find('select').as('settingsEntity')
-        cy.get('@settingsEntity').select('content_hierarchy');
+        cy.get('@settingsEntity').select('content_hierarchy',{force:true});
 
         //specify Import Behavior section
         cy.get('.fieldset_behavior').find('.fieldset-wrapper-title').as('fieldsetBehaviour')
         cy.get('.behavior_behavior').find('select').as('behaviorBehavior')
-        cy.get('@behaviorBehavior').select('append');
+        cy.get('@behaviorBehavior').select('append',{force:true});
 
         //specify Import Source section
         cy.get('.type_file').find('select').as('importSourceType')
-        cy.get('@importSourceType').select('xlsx');
-        cy.ftpSource('importFtp','/files/page_hierarchy.xlsx')
+        cy.get('@importSourceType').select('xlsx',{force:true});
+        cy.specifySftpSource('importSftp','/chroot/home/a0563af8/develop-gold.dev.firebearstudio.com/pub/media/importexport/test/page_hierarchy.xlsx')
 
         //validate Import file
         cy.get('.source_check_button').click()
@@ -39,6 +39,6 @@ context('Import Page Hierarchy', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResult('Entity content_hierarchy')
+        cy.consoleImportResultWithoutReIndex('Entity content_hierarchy')
     })
 })

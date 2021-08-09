@@ -27,7 +27,7 @@ context('Export Url Rewrites', () => {
         cy.get('@fileFormat').select('csv');
 
         //specify Import Source section
-        cy.specifySftpSource('exportSftp','/var/www/alex/files/test/export_url_rewrite.csv')
+        cy.specifySftpSource('exportSftp' , '/chroot/home/a0563af8/develop-gold.dev.firebearstudio.com/pub/media/importexport/test/export_url_rewrite_filter.csv')
 
         //check ftp connection
         cy.get('.source_check_button').click()
@@ -36,9 +36,10 @@ context('Export Url Rewrites', () => {
         //filter
        cy.get('.source_filter_map_rows').find('tfoot').as('tfoot')
        cy.get('@tfoot').find('.addButton').click({force:true})
-       cy.get('.record-1').find('.source_filter_map_source_filter_field').find('select').as('sourceDataExport')
+       cy.wait(100)
+       cy.get('.source_filter_map_source_filter_field').find('select').as('sourceDataExport')
        cy.get('@sourceDataExport').select('entity_type')
-       cy.get('.record-1').find('.source_filter_map_source_filter_filter').find('[name="source_filter_map[text][source_filter_filter]"]')
+       cy.get('.source_filter_map_source_filter_filter').find('[name="source_filter_map[text][source_filter_filter]"]')
             .type('category')
             .should('have.value', 'category')
     

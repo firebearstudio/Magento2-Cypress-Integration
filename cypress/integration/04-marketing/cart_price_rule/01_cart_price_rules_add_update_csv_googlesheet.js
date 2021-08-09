@@ -1,7 +1,7 @@
-context('Import Cart Price Rules', () => {
+context('Import Cart Price Rules Csv GoogleSheet 1', () => {
     it('add update - csv - google sheet - new job', () => {
         //login
-        cy.loginToAdminPanel('ce')
+        cy.loginToAdminPanel('ee')
 
         //go to import page
         cy.get('.item-import-job').find('a').as('goToImportPageLink')
@@ -37,7 +37,7 @@ context('Import Cart Price Rules', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResult('Entity cart_price_rule')
+        cy.consoleImportResult('Entity sales_rule')
 
         //сheck that cart price rules were added
         cy.get('#menu-magento-backend-marketing').find('.item-promo-quote').find('a').as('goToCartPriceRuleGrid')

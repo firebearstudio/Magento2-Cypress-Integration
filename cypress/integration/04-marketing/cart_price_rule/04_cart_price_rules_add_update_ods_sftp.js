@@ -1,7 +1,7 @@
-context('Import Cart Price Rules', () => {
+context('Import Cart Price Rules Add Update Ods Sftp 4', () => {
     it('add update - ods - sftp - new job', () => {
         //login
-        cy.loginToAdminPanel('ce')
+        cy.loginToAdminPanel('ee')
 
         //go to import page
         cy.get('.item-import-job').find('a').as('goToImportPageLink')
@@ -12,7 +12,7 @@ context('Import Cart Price Rules', () => {
         cy.get('@addJobButton').click()
 
         //specify general section
-        cy.generalImportSection('Cart Price Rules Import - add update - ods - sftp')
+        cy.generalImportSectionWithoutReIndex('Cart Price Rules Import - add update - ods - sftp')
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
@@ -28,7 +28,7 @@ context('Import Cart Price Rules', () => {
         //specify Import Source section
         cy.get('.type_file').find('select').as('importSourceType')
         cy.get('@importSourceType').select('ods');
-        cy.specifySftpSource('importSftp','/var/www/alex/files/test/cart_price_rule.ods')
+        cy.specifySftpSource('importSftp','/chroot/home/a0563af8/develop-gold.dev.firebearstudio.com/pub/media/importexport/test/cart_price_rule.ods')
 
         //validate Import file
         cy.get('.source_check_button').click()
@@ -39,6 +39,6 @@ context('Import Cart Price Rules', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResult('Entity cart_price_rule')
+        cy.consoleImportResultWithoutReIndex('Entity sales_rule')
     })
 })

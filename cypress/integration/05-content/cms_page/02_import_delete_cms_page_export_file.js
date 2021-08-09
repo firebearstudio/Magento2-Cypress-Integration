@@ -1,4 +1,4 @@
-context('Import Cms Page', () => {
+context('Import Cms Page Delete Export File 2', () => {
     it('delete - export file - csv - sftp - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -9,27 +9,27 @@ context('Import Cms Page', () => {
 
         //go to new job page
         cy.get('#add').as('addJobButton')
-        cy.get('@addJobButton').click()
+        cy.get('@addJobButton').click({force:true})
 
         //specify general section
-        cy.generalImportSection('Cms Page Import - export file - delete - csv - sftp')
+        cy.generalImportSectionWithoutReIndex('Cms Page Import - export file - delete - csv - sftp')
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
-        cy.get('@fieldsetSettings').click()
+        cy.get('@fieldsetSettings').click({force:true})
         cy.get('.settings_entity').find('select').as('settingsEntity')
-        cy.get('@settingsEntity').select('cms_page');
+        cy.get('@settingsEntity').select('cms_page',{force:true});
 
         //specify Import Behavior section
         cy.get('.fieldset_behavior').find('.fieldset-wrapper-title').as('fieldsetBehaviour')
         cy.get('.behavior_behavior').find('select').as('behaviorBehavior')
-        cy.get('@behaviorBehavior').select('delete');
+        cy.get('@behaviorBehavior').select('delete',{force:true});
 
         //specify Import Source section
-        cy.specifySftpSource('importSftp','/var/www/alex/files/test/export_cms_page.csv')
+        cy.specifySftpSource('importSftp','/chroot/home/a0563af8/develop-gold.dev.firebearstudio.com/pub/media/importexport/test/export_cms_page.csv')
         
         //validate Import file
-        cy.get('.source_check_button').click()
+        cy.get('.source_check_button').click({force:true})
         cy.get('.fieldset_source').contains('File validated successfully',{timeout: 60000})
 
         //save and run process
@@ -37,7 +37,7 @@ context('Import Cms Page', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResult('Entity cms_page')
+        cy.consoleImportResultWithoutReIndex('Entity cms_page')
 
         //check that cms pages were deleted
         cy.get('#menu-magento-backend-content').find('.item-versionscms-page-page').find('a').as('goToCmsPageGrid')

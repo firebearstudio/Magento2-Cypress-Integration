@@ -1,7 +1,7 @@
-context('Export Cart Price Rule', () => {
+context('Export Cart Price Rule Mapping 7', () => {
     it('csv - sftp - new job', () => {
         //login
-        cy.loginToAdminPanel('ce')
+        cy.loginToAdminPanel('ee')
 
         //go to import page
         cy.get('.item-export-job').find('a').as('goToExportPageLink')
@@ -26,8 +26,8 @@ context('Export Cart Price Rule', () => {
         cy.get('.behavior_behavior_field_file_format').find('select').as('fileFormat')
         cy.get('@fileFormat').select('csv');
 
-        //specify Import Source section
-        cy.specifySftpSource('exportSftp','/var/www/alex/files/test/export_cart_price_rules.csv')
+        //specify Export Source section
+        cy.specifySftpSource('exportSftp' , '/chroot/home/a0563af8/develop-gold.dev.firebearstudio.com/pub/media/importexport/test/var/export_cart_price_rule_map.csv')
 
         //check ftp connection
         cy.get('.source_check_button').click()

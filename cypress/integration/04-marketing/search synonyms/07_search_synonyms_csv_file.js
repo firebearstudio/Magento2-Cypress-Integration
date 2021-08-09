@@ -1,4 +1,4 @@
-context('Import Search Synonyms', () => {
+context('Import Search Synonyms Replace Csv File 7', () => {
     it('replace - csv - file - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -12,7 +12,7 @@ context('Import Search Synonyms', () => {
         cy.get('@addJobButton').click()
 
         //specify general section
-        cy.generalImportSection('Search Synonyms Import - replace - csv - file')
+        cy.generalImportSectionWithoutReIndex('Search Synonyms Import - replace - csv - file')
     
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
@@ -26,7 +26,7 @@ context('Import Search Synonyms', () => {
         cy.get('@behaviorBehavior').select('replace');
 
         //specify Import Source section
-        cy.fileSource('pub/media/importexport//s/e/search_synonyms_replace_2.csv')
+        cy.fileSource('pub/media/importexport/test/search_synonyms.csv')
 
         //validate Import file
         cy.get('.source_check_button').click()
@@ -37,7 +37,7 @@ context('Import Search Synonyms', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResult('Entity search_synonyms')
+        cy.consoleImportResultWithoutReIndex('Entity search_synonyms')
     })
 })
 

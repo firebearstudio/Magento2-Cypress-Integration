@@ -1,4 +1,4 @@
-context('Export Search Terms', () => {
+context('Export Search Terms Csv Sftp 1', () => {
     it('csv - sftp - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -27,7 +27,7 @@ context('Export Search Terms', () => {
         cy.get('@fileFormat').select('csv');
 
         //specify Import Source section
-        cy.specifySftpSource('exportSftp','/var/www/alex/files/test/export_search_terms.csv')
+        cy.specifySftpSource('exportSftp' , '/chroot/home/a0563af8/develop-gold.dev.firebearstudio.com/pub/media/importexport/test/export_search_terms.csv')
         
         //check sftp connection
         cy.get('.source_check_button').click()
@@ -38,6 +38,6 @@ context('Export Search Terms', () => {
         cy.get('.run').click()
 
         //check Export results
-        cy.consoleExportResult('Entity search_query')
+        cy.consoleExportResult('Entity search_terms')
     })
 })

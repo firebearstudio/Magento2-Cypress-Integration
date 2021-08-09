@@ -1,4 +1,4 @@
-context('Import Catalog Rule', () => {
+context('Import Catalog Rule Delete Csv Url 8', () => {
     it('delete - csv - url - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -12,7 +12,7 @@ context('Import Catalog Rule', () => {
         cy.get('@addJobButton').click()
 
         //specify general section
-        cy.generalImportSection('Catalog Rule Import - delete - csv - url')
+        cy.generalImportSectionWithoutReIndex('Catalog Rule Import - delete - csv - url')
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
@@ -26,7 +26,7 @@ context('Import Catalog Rule', () => {
         cy.get('@behaviorBehavior').select('delete');
 
         //specify Import Source section
-        cy.urlSource('http://alex-union.dev.firebearstudio.com/media/importexport/test/catalog_rules.csv')
+        cy.urlSource('https://48a8a91726-1275736.nxcli.net/media/importexport/test/catalog_rules.csv')
     
         //validate Import file
         cy.get('.source_check_button').click()
@@ -37,7 +37,7 @@ context('Import Catalog Rule', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResult('Entity catalog_rule')
+        cy.consoleImportResultWithoutReIndex('Entity catalog_rule')
     })
 })
 

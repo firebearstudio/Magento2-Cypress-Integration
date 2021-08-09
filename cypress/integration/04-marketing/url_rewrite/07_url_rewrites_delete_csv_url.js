@@ -26,7 +26,7 @@ context('Import Url Rewrites ', () => {
         cy.get('@behaviorBehavior').select('delete');
 
         //specify Import Source section
-        cy.urlSource('http://alex-union.dev.firebearstudio.com/media/importexport/test/url_rewrites.csv')
+        cy.urlSource('https://4af610548f-253334.nxcli.net/media/importexport/test/url_rewrites.csv')
 
         //validate Import file
         cy.get('.source_check_button').click()

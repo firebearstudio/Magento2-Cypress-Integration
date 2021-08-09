@@ -1,5 +1,5 @@
-context('Import Cms Page', () => {
-    it('add - xlsx - ftp - new job', () => {
+context('Import Cms Page Add Xlsx Sftp 9', () => {
+    it('add - xlsx - sftp - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
 
@@ -9,29 +9,29 @@ context('Import Cms Page', () => {
 
         //go to new job page
         cy.get('#add').as('addJobButton')
-        cy.get('@addJobButton').click()
+        cy.get('@addJobButton').click({force:true})
 
         //specify general section
-        cy.generalImportSection('Cms Page Import - add - xlsx - ftp')
+        cy.generalImportSectionWithoutReIndex('Cms Page Import - add - xlsx - sftp')
     
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
         cy.get('@fieldsetSettings').click()
         cy.get('.settings_entity').find('select').as('settingsEntity')
-        cy.get('@settingsEntity').select('cms_page');
+        cy.get('@settingsEntity').select('cms_page',{force:true});
 
         //specify Import Behavior section
         cy.get('.fieldset_behavior').find('.fieldset-wrapper-title').as('fieldsetBehaviour')
         cy.get('.behavior_behavior').find('select').as('behaviorBehavior')
-        cy.get('@behaviorBehavior').select('append');
+        cy.get('@behaviorBehavior').select('append',{force:true});
 
         //specify Import Source section
         cy.get('.type_file').find('select').as('importSourceType')
-        cy.get('@importSourceType').select('xlsx');
-        cy.ftpSource('importFtp','/files/cms_pages.xlsx')
+        cy.get('@importSourceType').select('xlsx',{force:true});
+        cy.specifySftpSource('importSftp','/chroot/home/a0563af8/develop-gold.dev.firebearstudio.com/pub/media/importexport/test/cms_pages.xlsx')
 
         //validate Import file
-        cy.get('.source_check_button').click()
+        cy.get('.source_check_button').click({force:true})
         cy.get('.fieldset_source').contains('File validated successfully',{timeout: 60000})
 
         //save and run process
@@ -39,6 +39,6 @@ context('Import Cms Page', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResult('Entity cms_page')
+        cy.consoleImportResultWithoutReIndex('Entity cms_page')
     })
 })

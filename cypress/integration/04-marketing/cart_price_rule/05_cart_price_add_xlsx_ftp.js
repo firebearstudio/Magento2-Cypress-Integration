@@ -1,7 +1,7 @@
-context('Import Cart price rule', () => {
+context('Import Cart price rule Add Xlsx Ftp 5', () => {
     it('add - xlsx - ftp - new job', () => {
         //login
-        cy.loginToAdminPanel('ce')
+        cy.loginToAdminPanel('ee')
 
         //go to import page
         cy.get('.item-import-job').find('a').as('goToImportPageLink')
@@ -12,7 +12,7 @@ context('Import Cart price rule', () => {
         cy.get('@addJobButton').click()
 
         //specify general section
-        cy.generalImportSection('Cart Price Rule Import - add - xlsx - ftp')
+        cy.generalImportSectionWithoutReIndex('Cart Price Rule Import - add - xlsx - ftp')
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
@@ -28,7 +28,7 @@ context('Import Cart price rule', () => {
         //specify Import Source section
         cy.get('.type_file').find('select').as('importSourceType')
         cy.get('@importSourceType').select('xlsx');
-        cy.ftpSource('importFtp','/files/cart_price_rule.xlsx')
+        cy.specifySftpSource('importSftp','/chroot/home/a0563af8/develop-gold.dev.firebearstudio.com/pub/media/importexport/test/cart_price_rule.xlsx')
 
         //validate Import file
         cy.get('.source_check_button').click()
@@ -39,6 +39,6 @@ context('Import Cart price rule', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResult('Entity cart_price_rule')
+        cy.consoleImportResultWithoutReIndex('Entity sales_rule')
     })
 })

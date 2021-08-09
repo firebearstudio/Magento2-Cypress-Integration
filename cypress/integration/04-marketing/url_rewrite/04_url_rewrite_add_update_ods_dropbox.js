@@ -28,7 +28,7 @@ context('Import Url Rewrites', () => {
         //specify Import Source section
         cy.get('.type_file').find('select').as('importSourceType')
         cy.get('@importSourceType').select('ods');
-        cy.dropboxSource('/url_rewrites.ods','***')
+        cy.dropboxSource('/url_rewrites.ods')
 
         //validate Import file
         cy.get('.source_check_button').click()

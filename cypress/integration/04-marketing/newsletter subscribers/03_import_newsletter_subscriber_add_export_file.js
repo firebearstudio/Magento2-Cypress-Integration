@@ -1,4 +1,4 @@
-context('Import Newsletter Subscribers', () => {
+context('Import Newsletter Subscribers Add Export File 3', () => {
     it('add update - csv - sftp - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -12,7 +12,7 @@ context('Import Newsletter Subscribers', () => {
         cy.get('@addJobButton').click()
 
         //specify general section
-        cy.generalImportSection('Newsletter Subscribers Import - export file - add update - csv - sftp')
+        cy.generalImportSectionWithoutReIndex('Newsletter Subscribers Import - export file - add update - csv - sftp')
     
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
@@ -26,7 +26,7 @@ context('Import Newsletter Subscribers', () => {
         cy.get('@behaviorBehavior').select('append');
 
         //specify Import Source section
-        cy.specifySftpSource('importSftp','/var/www/alex/files/test/export_newsletter_subscribers.csv')
+        cy.specifySftpSource('importSftp','/chroot/home/a0563af8/develop-gold.dev.firebearstudio.com/pub/media/importexport/test/export_newsletter_subscribers.csv')
 
         //validate Import file
         cy.get('.source_check_button').click()
@@ -37,6 +37,6 @@ context('Import Newsletter Subscribers', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResult('Entity newsletter_subscriber')
+        cy.consoleImportResultWithoutReIndex('Entity newsletter_subscriber')
     })
 })

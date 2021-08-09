@@ -1,4 +1,4 @@
-context('Import Search Terms', () => {
+context('Import Search Terms Add Csv GoogleSheet 6', () => {
     it('add - csv - google sheet - new job', () => {
         //login
         cy.loginToAdminPanel('ee')

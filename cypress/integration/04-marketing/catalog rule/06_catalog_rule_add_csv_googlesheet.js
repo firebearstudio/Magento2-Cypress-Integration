@@ -1,4 +1,4 @@
-context('Import Catalog Rule', () => {
+context('Import Catalog Rule Csv Googlesheet 6', () => {
     it('add update - csv - google sheet - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -26,7 +26,7 @@ context('Import Catalog Rule', () => {
         cy.get('@behaviorBehavior').select('append');
 
         //specify Import Source section
-        cy.googlePathSource('https://docs.google.com/spreadsheets/d/1mwxERkfGsPiUqtju9P4sp7S_JGS8OG1f4f3G2KmfU6w/edit#gid=1864097332')
+        cy.googlePathSource('https://docs.google.com/spreadsheets/d/1dZdl4iikVgIiIqJDh81Vva7NgLTE_JVmgx4kVhK34WY/edit#gid=244960377')
 
         //validate Import file
         cy.get('.source_check_button').click()

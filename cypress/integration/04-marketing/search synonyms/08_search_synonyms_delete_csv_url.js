@@ -1,4 +1,4 @@
-context('Import Search Synonyms', () => {
+context('Import Search Synonyms Delete Csv Url 8', () => {
     it('delete - csv - url - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -12,7 +12,7 @@ context('Import Search Synonyms', () => {
         cy.get('@addJobButton').click()
 
         //specify general section
-        cy.generalImportSection('Search Synonyms Import - delete - csv - url')
+        cy.generalImportSectionWithoutReIndex('Search Synonyms Import - delete - csv - url')
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
@@ -26,7 +26,7 @@ context('Import Search Synonyms', () => {
         cy.get('@behaviorBehavior').select('delete');
 
         //specify Import Source section
-        cy.urlSource('http://alex-union.dev.firebearstudio.com/media/importexport/test/search_synonyms.csv')
+        cy.urlSource('https://48a8a91726-1275736.nxcli.net/media/importexport/test/search_synonyms.csv')
 
         //validate Import file
         cy.get('.source_check_button').click()
@@ -37,7 +37,7 @@ context('Import Search Synonyms', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResult('Entity search_synonyms')
+        cy.consoleImportResultWithoutReIndex('Entity search_synonyms')
     })
 })
 

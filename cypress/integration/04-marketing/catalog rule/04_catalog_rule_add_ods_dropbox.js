@@ -1,4 +1,4 @@
-context('Import Catalog Rule', () => {
+context('Import Catalog Rule Add Ods Dropbox 4', () => {
     it('add - ods - dropbox - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -12,7 +12,7 @@ context('Import Catalog Rule', () => {
         cy.get('@addJobButton').click()
 
         //specify general section
-        cy.generalImportSection('Catalog Rule Import - add  - ods - dropbox')
+        cy.generalImportSectionWithoutReIndex('Catalog Rule Import - add  - ods - dropbox')
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
@@ -28,7 +28,7 @@ context('Import Catalog Rule', () => {
         //specify Import Source section
         cy.get('.type_file').find('select').as('importSourceType')
         cy.get('@importSourceType').select('ods');
-        cy.dropboxSource('/catalog_rules.ods','***')
+        cy.dropboxSource('/catalog_rules.ods')
 
         //validate Import file
         cy.get('.source_check_button').click()
@@ -39,6 +39,6 @@ context('Import Catalog Rule', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResult('Entity catalog_rule')
+        cy.consoleImportResultWithoutReIndex('Entity catalog_rule')
     })
 })

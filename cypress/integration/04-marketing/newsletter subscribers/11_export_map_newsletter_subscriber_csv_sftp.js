@@ -1,4 +1,4 @@
-context('Export Newsletter Subscribers', () => {
+context('Export Newsletter Subscribers Mapping 11', () => {
     it('csv - sftp - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -27,7 +27,7 @@ context('Export Newsletter Subscribers', () => {
         cy.get('@fileFormat').select('csv');
 
         //specify Import Source section
-        cy.specifySftpSource('exportSftp','/var/www/alex/files/test/export_newsletter_subscribers.csv')
+        cy.specifySftpSource('exportSftp' , '/chroot/home/a0563af8/develop-gold.dev.firebearstudio.com/pub/media/importexport/test/export_newsletter_subscribers_map.csv')
 
         //check ftp connection
         cy.get('.source_check_button').click()

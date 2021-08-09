@@ -1,5 +1,5 @@
-context('Import Search Terms', () => {
-    it('add - xlsx - ftp - new job', () => {
+context('Import Search Terms Add Xlsx Sftp 9', () => {
+    it('add - xlsx - sftp - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
 
@@ -12,7 +12,7 @@ context('Import Search Terms', () => {
         cy.get('@addJobButton').click()
 
         //specify general section
-        cy.generalImportSection('Search Terms Import - add - xlsx - ftp')
+        cy.generalImportSectionWithoutReIndex('Search Terms Import - add - xlsx - ftp')
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
@@ -28,8 +28,8 @@ context('Import Search Terms', () => {
         //specify Import Source section
         cy.get('.type_file').find('select').as('importSourceType')
         cy.get('@importSourceType').select('xlsx');
-        cy.ftpSource('importFtp','/files/search_terms.xlsx')
-
+        cy.specifySftpSource('importSftp','/chroot/home/a0563af8/develop-gold.dev.firebearstudio.com/pub/media/importexport/test/search_terms.xlsx')
+        
         //validate Import file
         cy.get('.source_check_button').click()
         cy.get('.fieldset_source').contains('File validated successfully',{timeout: 60000})
@@ -39,6 +39,6 @@ context('Import Search Terms', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResult('Entity search_query')
+        cy.consoleImportResultWithoutReIndex('Entity search_query')
     })
 })

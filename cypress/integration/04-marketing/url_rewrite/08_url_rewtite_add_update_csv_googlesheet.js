@@ -26,7 +26,7 @@ context('Import Url Rewrites', () => {
         cy.get('@behaviorBehavior').select('append');
 
         //specify Import Source section
-        cy.googlePathSource('https://docs.google.com/spreadsheets/d/13FemIzzexF5koAdQYjbcKscqoCfXyknYWkQkbSZGPsk/edit#gid=1237471602')
+        cy.googlePathSource('https://docs.google.com/spreadsheets/d/1dTZUJ96Y9TpKCYpNpqa2gvQ_55TPtaj7rI-dRXXqw_A/edit#gid=1237471602')
 
         //validate Import file
         cy.get('.source_check_button').click()
