@@ -1,5 +1,5 @@
 
-context('Import Products Custom logic Condition five 5', () => {
+context('Import Products Custom logic Condition five 5',{ retries: 3 }, () => {
     it('custom logic - condition five - add update -  csv - google sheet - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -64,17 +64,17 @@ context('Import Products Custom logic Condition five 5', () => {
         //check that products were created
         cy.get('#menu-magento-catalog-catalog').find('.item-catalog-products').find('a').as('goToProductsGrid')
         cy.get('@goToProductsGrid').click({force:true})
-        cy.get('[data-bind="collapsible: {openClass: false, closeOnOuter: false}"]',{timeout: 60000}).find('button').as('filtersButton')
+        cy.get('[data-bind="collapsible: {openClass: false, closeOnOuter: false}"]',{timeout: 10000}).find('button').as('filtersButton')
         cy.get('@filtersButton').click({force:true})
         cy.get('[name="sku"]').invoke('val', 'Melon').trigger('change',{force:true})
-        cy.get('[data-bind="i18n: \'Apply Filters\'"]',{timeout: 60000}).as('applyFiltersButton')
+        cy.get('[data-bind="i18n: \'Apply Filters\'"]',{timeout: 10000}).as('applyFiltersButton')
         cy.get('@applyFiltersButton').click({force:true})
-        cy.get('.admin__data-grid-outer-wrap').contains('7 records found',{timeout: 60000})
+        cy.get('.admin__data-grid-outer-wrap').contains('7 records found',{timeout: 10000})
 
         //check that configurable product has a child's products
-        cy.get('body').contains('Melon-config',{timeout: 60000})
+        cy.get('body').contains('Melon-config',{timeout: 20000})
         cy.get('body').contains('Melon-config').click({force:true});
-        cy.get('[data-index="configurable-matrix"]',{timeout: 60000}).find('tbody').find('tr').should('have.length', 6)
+        cy.get('[data-index="configurable-matrix"]',{timeout: 20000}).find('tbody').find('tr').should('have.length', 6)
 
        //delete 'melon' products
        cy.deleteAllFilterProducts()

@@ -33,7 +33,7 @@ context('Import Products - Enabled cache products', () => {
 
         //validate Import file
         cy.get('.source_check_button').click()
-        cy.get('.fieldset_source').contains('File validated successfully',{timeout: 60000})
+        cy.get('.fieldset_source').contains('File validated successfully',{timeout: 20000})
 
         //save and run process
         cy.get('#save_and_run').click({force:true})
@@ -46,10 +46,10 @@ context('Import Products - Enabled cache products', () => {
         cy.get('.run').click()
 
         //check that products were cached 
-        cy.get('#debug-run').contains('Product TST-Conf-Simp-S-Gray has not changed',{timeout: 120000})
-        cy.get('#debug-run').contains('Product TST-Conf-Simp-S-Green has not changed',{timeout: 120000})
-        cy.get('#debug-run').contains('Product TST-Conf-Simp-S-Purple has not changed',{timeout: 120000})
-        cy.get('#debug-run').contains('Product TST-Conf-Simp-M-Gray has not changed',{timeout: 120000})
-        cy.get('#debug-run').contains('Product TST-Conf-Simp-M-Green has not changed',{timeout: 120000})
+        cy.get('#debug-run').contains('Product TST-Conf-Simp-S-Gray has not changed',{timeout: 10000})
+        cy.get('#debug-run').contains('Product TST-Conf-Simp-S-Green has not changed',{timeout: 10000})
+        cy.get('#debug-run').contains('Product TST-Conf-Simp-S-Purple has not changed',{timeout: 10000})
+        cy.get('#debug-run').contains('Product TST-Conf-Simp-M-Gray has not changed',{timeout: 10000})
+        cy.get('#debug-run').contains('Product TST-Conf-Simp-M-Green has not changed',{timeout: 10000})
     })
 })

@@ -1,5 +1,5 @@
 
-context('Import Products Grouped Products 7', () => {
+context('Import Products Grouped Products 7',{ retries: 3 }, () => {
     it('grouped products - add update -  csv - file - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -45,19 +45,19 @@ context('Import Products Grouped Products 7', () => {
         //check that products were created
         cy.get('#menu-magento-catalog-catalog').find('.item-catalog-products').find('a').as('goToProductsGrid')
         cy.get('@goToProductsGrid').click({force:true})
-        cy.get('[data-bind="collapsible: {openClass: false, closeOnOuter: false}"]',{timeout: 60000}).find('button').as('filtersButton')
+        cy.get('[data-bind="collapsible: {openClass: false, closeOnOuter: false}"]',{timeout: 10000}).find('button').as('filtersButton')
         cy.get('@filtersButton').click({force:true})
         cy.get('[name="sku"]').invoke('val', 'train').trigger('change',{force:true})
         cy.get('[name="store_id"]').select('1',{force:true})
-        cy.get('[data-bind="i18n: \'Apply Filters\'"]',{timeout: 60000}).as('applyFiltersButton')
+        cy.get('[data-bind="i18n: \'Apply Filters\'"]',{timeout: 10000}).as('applyFiltersButton')
         cy.get('@applyFiltersButton').click({force:true})
 
          //check that bundle product has a bundle selections
-         cy.get('.data-row',{timeout: 60000})
+         cy.get('.data-row',{timeout: 20000})
          cy.get('.admin__data-grid-outer-wrap')
-             .contains('Training Kit',{timeout: 60000});
+             .contains('Training Kit',{timeout: 20000});
          cy.get('.admin__data-grid-outer-wrap').contains('Training Kit').click({force:true});
-         cy.get('[data-index="associated"]',{timeout: 60000}).find('tbody').find('tr').should('have.length', 3)
+         cy.get('[data-index="associated"]',{timeout: 20000}).find('tbody').find('tr').should('have.length', 3)
 
         //reset active filters in the product grid
         cy.get('#back').click()

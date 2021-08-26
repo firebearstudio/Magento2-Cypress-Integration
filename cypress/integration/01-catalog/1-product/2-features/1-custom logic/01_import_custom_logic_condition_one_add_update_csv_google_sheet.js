@@ -1,5 +1,5 @@
 
-context('Import Products Custom logic Condition one 1', () => {
+context('Import Products Custom logic Condition one 1',{ retries: 3 }, () => {
     it('custom logic - condition one - add update -  csv - google sheet - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -63,17 +63,17 @@ context('Import Products Custom logic Condition one 1', () => {
         //check that products were created
         cy.get('#menu-magento-catalog-catalog').find('.item-catalog-products').find('a').as('goToProductsGrid')
         cy.get('@goToProductsGrid').click({force:true})
-        cy.get('[data-bind="collapsible: {openClass: false, closeOnOuter: false}"]',{timeout: 60000}).find('button').as('filtersButton')
+        cy.get('[data-bind="collapsible: {openClass: false, closeOnOuter: false}"]',{timeout: 10000}).find('button').as('filtersButton')
         cy.get('@filtersButton').click({force:true})
         cy.get('[name="sku"]').invoke('val', 'new').trigger('change',{force:true})
-        cy.get('[data-bind="i18n: \'Apply Filters\'"]',{timeout: 60000}).as('applyFiltersButton')
+        cy.get('[data-bind="i18n: \'Apply Filters\'"]',{timeout: 10000}).as('applyFiltersButton')
         cy.get('@applyFiltersButton').click({force:true})
-        cy.get('.admin__data-grid-outer-wrap').contains('12 records found',{timeout: 60000})
+        cy.get('.admin__data-grid-outer-wrap').contains('12 records found',{timeout: 10000})
 
         // //check that configurable product has a child's products
-        cy.get('body').contains('Test Configurable product',{timeout: 60000})
+        cy.get('body').contains('Test Configurable product',{timeout: 20000})
         cy.get('body').contains('Test Configurable product').click({force:true});
-        cy.get('[data-index="configurable-matrix"]',{timeout: 60000}).find('tbody').find('tr').should('have.length', 11)
+        cy.get('[data-index="configurable-matrix"]',{timeout: 20000}).find('tbody').find('tr').should('have.length', 11)
 
         //delete 'new' products
         cy.deleteAllFilterProducts()

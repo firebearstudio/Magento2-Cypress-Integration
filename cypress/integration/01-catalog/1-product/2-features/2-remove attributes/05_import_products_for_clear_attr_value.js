@@ -1,5 +1,5 @@
 
-context('Import Products For Clear Attr Value 5', () => {
+context('Import Products For Clear Attr Value 5',{ retries: 3 }, () => {
     it('add update - csv - sftp - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -38,7 +38,7 @@ context('Import Products For Clear Attr Value 5', () => {
 
         //validate Import file
         cy.get('.source_check_button').click()
-        cy.get('.fieldset_source').contains('File validated successfully',{timeout: 60000})
+        cy.get('.fieldset_source').contains('File validated successfully',{timeout: 20000})
 
         //save and run process
         cy.get('#save_and_run').click({force:true})
@@ -53,7 +53,7 @@ context('Import Products For Clear Attr Value 5', () => {
         cy.get('[data-bind="collapsible: {openClass: false, closeOnOuter: false}"]',{timeout: 60000}).find('button').as('filtersButton')
         cy.get('@filtersButton').click({force:true})
         cy.get('[name="sku"]').invoke('val', 'test-clear').trigger('change',{force:true})
-        cy.get('[data-bind="i18n: \'Apply Filters\'"]',{timeout: 60000}).as('applyFiltersButton')
+        cy.get('[data-bind="i18n: \'Apply Filters\'"]',{timeout: 10000}).as('applyFiltersButton')
         cy.get('@applyFiltersButton').click({force:true})
         cy.get('.admin__data-grid-outer-wrap').contains('test-clear-attribute1',{timeout: 60000})
         cy.get('.admin__data-grid-outer-wrap').contains('test-clear-attribute1').click({force:true});

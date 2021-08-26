@@ -1,5 +1,5 @@
 
-context('Import Products Stop on Error - Failed', () => {
+context('Import Products Stop on Error - Failed',{ retries: 3 }, () => {
     it('import products - stop on Error - Failed', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -35,15 +35,15 @@ context('Import Products Stop on Error - Failed', () => {
 
         //validate Import file
         cy.get('.source_check_button').click()
-        cy.get('.fieldset_source').contains('File validated successfully',{timeout: 60000})
+        cy.get('.fieldset_source').contains('File validated successfully',{timeout: 20000})
 
         //save and run process
         cy.get('#save_and_run').click({force:true})
         cy.get('.run').click()
 
         //check Import results
-        cy.get('#debug-run').contains('Please make sure attribute "sku" is not empty.',{timeout: 120000})
-        cy.get('#debug-run').contains('Data validation failed. Please fix the following errors and upload the file again.',{timeout: 120000})
-        cy.get('#debug-run').contains('Data validation is failed. Please fix errors and re-upload the file',{timeout: 120000})
+        cy.get('#debug-run').contains('Please make sure attribute "sku" is not empty.',{timeout: 10000})
+        cy.get('#debug-run').contains('Data validation is failed. Please fix errors and re-upload the file..',{timeout: 10000})
+        cy.get('#debug-run').contains('was failure',{timeout: 10000})
     })
 })

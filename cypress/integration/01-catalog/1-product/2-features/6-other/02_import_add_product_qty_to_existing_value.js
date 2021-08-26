@@ -1,5 +1,5 @@
 
-context('Import Products', () => {
+context('Import Products',{ retries: 3 }, () => {
     it('import products - add products qty to existing value', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -49,18 +49,18 @@ context('Import Products', () => {
         cy.get('@filtersButton').click({force:true})
         cy.get('[name="sku"]').invoke('val', 'product-for-qty-increase').trigger('change',{force:true})
         cy.get('[name="store_id"]').select('1',{force:true})
-        cy.get('[data-bind="i18n: \'Apply Filters\'"]',{timeout: 60000}).as('applyFiltersButton')
+        cy.get('[data-bind="i18n: \'Apply Filters\'"]',{timeout: 10000}).as('applyFiltersButton')
         cy.get('@applyFiltersButton').click({force:true})
 
          //check that the products qty is 200
-         cy.get('.data-row',{timeout: 60000})
-        cy.get('.admin__data-grid-outer-wrap').contains('Product For Qty Increase',{timeout: 60000});
+         cy.get('.data-row',{timeout: 10000})
+        cy.get('.admin__data-grid-outer-wrap').contains('Product For Qty Increase',{timeout: 10000});
         cy.get('.admin__data-grid-outer-wrap').contains('Product For Qty Increase').click({force:true});
-        cy.get('[data-index="qty"]',{timeout: 60000}).find('input').should('have.value','200')
+        cy.get('[data-index="qty"]',{timeout: 10000}).find('input').should('have.value','200')
 
         //delete the product
         cy.get('#back').click()
-        cy.get('tbody',{timeout: 60000}).find('[type="checkbox"]').check()
+        cy.get('tbody',{timeout: 10000}).find('[type="checkbox"]').check()
         cy.get('#anchor-content').contains('Actions').click({force:true})
         cy.get('.action-menu-items').contains('Delete').click({force:true})
         cy.get('.modal-inner-wrap').contains('OK').click({force:true})

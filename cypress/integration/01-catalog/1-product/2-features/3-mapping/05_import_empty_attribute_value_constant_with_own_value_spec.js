@@ -1,5 +1,5 @@
 
-context('Import Products Empty Attr Value Constant With Own Value 5', () => {
+context('Import Products Empty Attr Value Constant With Own Value 5',{ retries: 3 }, () => {
     it(' empty - attr - value - constant - with - own - value', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -63,14 +63,14 @@ context('Import Products Empty Attr Value Constant With Own Value 5', () => {
         //check that products were created
         cy.get('#menu-magento-catalog-catalog').find('.item-catalog-products').find('a').as('goToProductsGrid')
         cy.get('@goToProductsGrid').click({force:true})
-        cy.get('[data-bind="collapsible: {openClass: false, closeOnOuter: false}"]',{timeout: 60000}).find('button').as('filtersButton')
+        cy.get('[data-bind="collapsible: {openClass: false, closeOnOuter: false}"]',{timeout: 10000}).find('button').as('filtersButton')
         cy.get('@filtersButton').click({force:true})
         cy.get('[name="sku"]').invoke('val', 'product-for-empty').trigger('change',{force:true})
-        cy.get('[data-bind="i18n: \'Apply Filters\'"]',{timeout: 60000}).as('applyFiltersButton')
+        cy.get('[data-bind="i18n: \'Apply Filters\'"]',{timeout: 10000}).as('applyFiltersButton')
         cy.get('@applyFiltersButton').click({force:true})
     
         //check that weight doesn't have a value
-        cy.get('.admin__data-grid-outer-wrap').contains('product-for-empty-constant',{timeout: 60000})
+        cy.get('.admin__data-grid-outer-wrap').contains('product-for-empty-constant',{timeout: 10000})
         cy.get('.admin__data-grid-outer-wrap').contains('product-for-empty-constant').click({force:true});
         cy.get('[data-index="weight"]',{timeout: 10000}).find('[name="product[weight]"]').should('not.have.value','5')
 
