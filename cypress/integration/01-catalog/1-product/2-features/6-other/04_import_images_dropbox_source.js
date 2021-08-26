@@ -35,7 +35,7 @@ context('Import Products Images Dropbox Source', () => {
 
         //validate Import file
         cy.get('.source_check_button').click()
-        cy.get('.fieldset_source').contains('File validated successfully',{timeout: 60000})
+        cy.get('.fieldset_source').contains('File validated successfully',{timeout: 20000})
 
         //save and run process
         cy.get('#save_and_run').click({force:true})
@@ -48,8 +48,8 @@ context('Import Products Images Dropbox Source', () => {
         cy.get('#debug-run').contains('Wrong URL/path used for attribute thumbnail in rows in rows').should('not.exist')
         cy.get('#debug-run').contains('Wrong URL/path used for attribute swatch_image in rows in rows').should('not.exist')
         cy.get('#debug-run').contains('Wrong URL/path used for attribute _media_image in rows in rows').should('not.exist')
-        cy.get('#debug-run').contains('Downloading Image From Source for product sku TST-Conf-Simp-S-Gray',{timeout: 120000})
-        cy.get('#debug-run').contains('Downloading Image From Source for product sku TST-Conf-Simp-S-Green',{timeout: 120000})
-        cy.get('#debug-run').contains('Downloading Image From Source for product sku TST-Conf-Simp-S-Purple',{timeout: 120000})
+        cy.get('#debug-run').contains('Downloading Image From Source for product sku TST-Conf-Simp-S-Gray',{timeout: 10000})
+        cy.get('#debug-run').contains('Downloading Image From Source for product sku TST-Conf-Simp-S-Green',{timeout: 10000})
+        cy.get('#debug-run').contains('Downloading Image From Source for product sku TST-Conf-Simp-S-Purple',{timeout: 10000})
     })
 })

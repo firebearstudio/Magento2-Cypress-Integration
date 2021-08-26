@@ -1,5 +1,5 @@
 
-context('Import Products Map Attributes 3', () => {
+context('Import Products Map Attributes 3',{ retries: 3 }, () => {
     it(' map attributes - csv - file - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -80,15 +80,15 @@ context('Import Products Map Attributes 3', () => {
         //check that products were created
         cy.get('#menu-magento-catalog-catalog').find('.item-catalog-products').find('a').as('goToProductsGrid')
         cy.get('@goToProductsGrid').click({force:true})
-        cy.get('[data-bind="collapsible: {openClass: false, closeOnOuter: false}"]',{timeout: 60000}).find('button').as('filtersButton')
+        cy.get('[data-bind="collapsible: {openClass: false, closeOnOuter: false}"]',{timeout: 10000}).find('button').as('filtersButton')
         cy.get('@filtersButton').click({force:true})
         cy.get('[name="sku"]').invoke('val', 'tst').trigger('change',{force:true})
-        cy.get('[data-bind="i18n: \'Apply Filters\'"]',{timeout: 60000}).as('applyFiltersButton')
+        cy.get('[data-bind="i18n: \'Apply Filters\'"]',{timeout: 10000}).as('applyFiltersButton')
         cy.get('@applyFiltersButton').click({force:true})
-        cy.get('.admin__data-grid-outer-wrap').contains('18 records found',{timeout: 60000})
+        cy.get('.admin__data-grid-outer-wrap').contains('18 records found',{timeout: 10000})
 
         //check that mapping chenged weight value
-        cy.get('.admin__data-grid-outer-wrap').contains('Test Configurable-simple product-S-Gray',{timeout: 60000})
+        cy.get('.admin__data-grid-outer-wrap').contains('Test Configurable-simple product-S-Gray',{timeout: 10000})
         cy.get('.admin__data-grid-outer-wrap').contains('Test Configurable-simple product-S-Gray').click({force:true});
         cy.get('[data-index="price"]').find('[name="product[price]"]').should('have.value','4.00')
         cy.get('[data-index="weight"]').find('[name="product[weight]"]').should('have.value','7')

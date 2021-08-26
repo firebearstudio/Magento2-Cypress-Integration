@@ -1,5 +1,5 @@
 
-context('Import Products', () => {
+context('Import Products',{ retries: 3 }, () => {
     it('import products for checking qty', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -43,18 +43,18 @@ context('Import Products', () => {
         //check that products were created
         cy.get('#menu-magento-catalog-catalog').find('.item-catalog-products').find('a').as('goToProductsGrid')
         cy.get('@goToProductsGrid').click({force:true})
-        cy.get('[data-bind="collapsible: {openClass: false, closeOnOuter: false}"]',{timeout: 60000}).find('button').as('filtersButton')
+        cy.get('[data-bind="collapsible: {openClass: false, closeOnOuter: false}"]',{timeout: 10000}).find('button').as('filtersButton')
         cy.get('@filtersButton').click({force:true})
         cy.get('[name="sku"]').invoke('val', 'product-for-qty-increase').trigger('change',{force:true})
         cy.get('[name="store_id"]').select('1',{force:true})
-        cy.get('[data-bind="i18n: \'Apply Filters\'"]',{timeout: 60000}).as('applyFiltersButton')
+        cy.get('[data-bind="i18n: \'Apply Filters\'"]',{timeout: 10000}).as('applyFiltersButton')
         cy.get('@applyFiltersButton').click({force:true})
 
          //check that the products qty is 100
-         cy.get('.data-row',{timeout: 60000})
-         cy.get('.admin__data-grid-outer-wrap').contains('Product For Qty Increase',{timeout: 60000});
+         cy.get('.data-row',{timeout: 10000})
+         cy.get('.admin__data-grid-outer-wrap').contains('Product For Qty Increase',{timeout: 10000});
          cy.get('.admin__data-grid-outer-wrap').contains('Product For Qty Increase').click({force:true});
-         cy.get('[data-index="qty"]',{timeout: 60000}).find('input').should('have.value','100')
+         cy.get('[data-index="qty"]',{timeout: 10000}).find('input').should('have.value','100')
 
     })
 })

@@ -1,5 +1,5 @@
 
-context('Import Products Remove Current Mapping 1', () => {
+context('Import Products Remove Current Mapping 1',{ retries: 3 }, () => {
     it('remove - current - mapping - csv - file - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -68,7 +68,7 @@ context('Import Products Remove Current Mapping 1', () => {
 
         //validate Import file
         cy.get('.source_check_button').click({force:true})
-        cy.get('.fieldset_source').contains('File validated successfully',{timeout: 60000})
+        cy.get('.fieldset_source').contains('File validated successfully',{timeout: 20000})
 
         //check that mapping was removed
         cy.get('.source_data_map_rows').find('tbody').should('not.have.class','.record-1')

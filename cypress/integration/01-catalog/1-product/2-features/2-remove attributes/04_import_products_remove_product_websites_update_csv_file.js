@@ -1,5 +1,5 @@
 
-context('Import Products Remove Product Websites 4', () => {
+context('Import Products Remove Product Websites 4',{ retries: 3 }, () => {
     it('remove product websites - add update -  csv - file - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -35,7 +35,7 @@ context('Import Products Remove Product Websites 4', () => {
 
         //validate Import file
         cy.get('.source_check_button').click()
-        cy.get('.fieldset_source').contains('File validated successfully',{timeout: 60000})
+        cy.get('.fieldset_source').contains('File validated successfully',{timeout: 20000})
 
         //save and run process
         cy.get('#save_and_run').click({force:true})
@@ -47,10 +47,10 @@ context('Import Products Remove Product Websites 4', () => {
         //check that products were created
         cy.get('#menu-magento-catalog-catalog').find('.item-catalog-products').find('a').as('goToProductsGrid')
         cy.get('@goToProductsGrid').click({force:true})
-        cy.get('[data-bind="collapsible: {openClass: false, closeOnOuter: false}"]',{timeout: 60000}).find('button').as('filtersButton')
+        cy.get('[data-bind="collapsible: {openClass: false, closeOnOuter: false}"]',{timeout: 10000}).find('button').as('filtersButton')
         cy.get('@filtersButton').click({force:true})
         cy.get('[name="sku"]').invoke('val', 'tst').trigger('change',{force:true})
-        cy.get('[data-bind="i18n: \'Apply Filters\'"]',{timeout: 60000}).as('applyFiltersButton')
+        cy.get('[data-bind="i18n: \'Apply Filters\'"]',{timeout: 10000}).as('applyFiltersButton')
         cy.get('@applyFiltersButton').click({force:true})
 
        //check that website was removed

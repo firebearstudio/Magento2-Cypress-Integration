@@ -1,5 +1,5 @@
 
-context('Import Products Map Attr Value 1', () => {
+context('Import Products Map Attr Value 1',{ retries: 3 }, () => {
     it('map attr value - csv - file - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -54,13 +54,13 @@ context('Import Products Map Attr Value 1', () => {
        //check that color and size attribute have values
        cy.get('#menu-magento-catalog-catalog').find('.item-catalog-products').find('a').as('goToProductsGrid')
        cy.get('@goToProductsGrid').click({force:true})
-       cy.get('[data-bind="collapsible: {openClass: false, closeOnOuter: false}"]',{timeout: 60000}).find('button').as('filtersButton')
+       cy.get('[data-bind="collapsible: {openClass: false, closeOnOuter: false}"]',{timeout: 10000}).find('button').as('filtersButton')
        cy.get('@filtersButton').click({force:true})
        cy.get('[name="sku"]').invoke('val', 'tst').trigger('change',{force:true})
        cy.get('[name="store_id"]').select('1',{force:true})
-       cy.get('[data-bind="i18n: \'Apply Filters\'"]',{timeout: 60000}).as('applyFiltersButton')
+       cy.get('[data-bind="i18n: \'Apply Filters\'"]',{timeout: 10000}).as('applyFiltersButton')
        cy.get('@applyFiltersButton').click({force:true})
-       cy.get('.admin__data-grid-outer-wrap').contains('18 records found',{timeout: 60000})
+       cy.get('.admin__data-grid-outer-wrap').contains('18 records found',{timeout: 10000})
 
        //check that map value was changed
        cy.get('.admin__data-grid-wrap').contains('888',{timeout: 2000})
