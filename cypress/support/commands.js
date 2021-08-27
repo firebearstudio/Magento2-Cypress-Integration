@@ -286,3 +286,13 @@ Cypress.Commands.add('deleteAllFilterProducts' , () => {
 Cypress.Commands.add('resetActiveFilters' , () => {
     cy.get('.admin__current-filters-actions-wrap').find('button').contains('Clear all').click()
 })
+
+//add Mapping Attributes Row
+Cypress.Commands.add('addMappingRowImport', (rowNumber,systemAttribute,importAttribute) => {  
+    cy.get('.source_data_map_rows').find('.addButton').as('tfoot')
+    cy.get('@tfoot').click({force:true})
+    cy.get(rowNumber).find('.source_data_map_source_data_system').find('select').as('sourceDataSystem')
+    cy.get('@sourceDataSystem').select(systemAttribute);
+    cy.get(rowNumber).find('.source_data_map_source_data_import').find('select').as('sourceDataImport')
+    cy.get('@sourceDataImport').select(importAttribute);
+})
