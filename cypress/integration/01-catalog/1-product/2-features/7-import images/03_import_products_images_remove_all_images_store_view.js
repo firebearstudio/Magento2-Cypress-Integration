@@ -1,6 +1,6 @@
 
-context('Import Products Images Remove All Images Enabled 2',{ retries: 3 }, () => {
-    it('import - products - images - remove - all - images - enabled', () => {
+context('Import Products Images Remove All Images Enabled 3',{ retries: 3 }, () => {
+    it('import - products - images - remove - all - images - enabled - specific store view', () => {
         //login
         cy.loginToAdminPanel('ee')
 
@@ -13,7 +13,7 @@ context('Import Products Images Remove All Images Enabled 2',{ retries: 3 }, () 
         cy.get('@addJobButton').click()
 
         //specify general section
-        cy.generalImportSectionWithoutReIndex('Product Import - remove all images enabled')
+        cy.generalImportSectionWithoutReIndex('Product Import - remove all images enabled - specific store view')
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
@@ -62,7 +62,7 @@ context('Import Products Images Remove All Images Enabled 2',{ retries: 3 }, () 
         cy.get('.admin__data-grid-outer-wrap').contains('fruit1',{timeout: 10000})
         cy.get('.admin__data-grid-outer-wrap').contains('fruit1').click({force:true});
 
-        //check that old images were deleted and new images were imported and roles were applied
+        //check that old images were deleted and new images were imported and roles were applied on specific store view
         cy.get('[data-index="gallery"]').find('.fieldset-wrapper-title').click({force:true});
         cy.get('#media_gallery_content').find('[src="https://bcb62cd561-254704.nxcli.net/media/catalog/product/2/3/2315de17772796a58e28741b6aed243472da1fd48cde623c29af655c2d44e442.jpeg"]').should('not.exist')
         cy.get('#media_gallery_content').find('[src="https://bcb62cd561-254704.nxcli.net/media/catalog/product/1/e/1e756be2f3bc257db3ae612cd253e21159438399e78487d8687016a5281c4e6c.jpeg"]').click()
