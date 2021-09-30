@@ -34,26 +34,9 @@ context('Import Stock Sources Mapping 3', () => {
         //map attributes
         cy.get('.source_data_map_container_replace_default_value').find('select').as('replaceDefaultValue')
         cy.get('@replaceDefaultValue').select('All rows')
-        cy.get('tfoot').find('.addButton').as('tfoot')
-        cy.get('@tfoot').click({force:true})
-        cy.get('.record-1').find('.source_data_map_source_data_system').find('select').as('sourceDataSystem')
-        cy.get('@sourceDataSystem').select('source_code');
-        cy.get('.record-1').find('.source_data_map_source_data_import').find('select').as('sourceDataImport')
-        cy.get('@sourceDataImport').select('source_code_map');
-
-        cy.get('tfoot').find('.addButton').as('tfoot')
-        cy.get('@tfoot').click({force:true})
-        cy.get('.record-2').find('.source_data_map_source_data_system').find('select').as('sourceDataSystem')
-        cy.get('@sourceDataSystem').select('name');
-        cy.get('.record-2').find('.source_data_map_source_data_import').find('select').as('sourceDataImport')
-        cy.get('@sourceDataImport').select('name_map');
-
-        cy.get('tfoot').find('.addButton').as('tfoot')
-        cy.get('@tfoot').click({force:true})
-        cy.get('.record-3').find('.source_data_map_source_data_system').find('select').as('sourceDataSystem')
-        cy.get('@sourceDataSystem').select('enabled');
-        cy.get('.record-3').find('.source_data_map_source_data_import').find('select').as('sourceDataImport')
-        cy.get('@sourceDataImport').select('enabled_map');
+        cy.addMappingRowImport('.record-1','source_code','source_code_map')
+        cy.addMappingRowImport('.record-2','name','name_map')
+        cy.addMappingRowImport('.record-3','enabled','enabled_map')
 
         //save and run process
         cy.get('#save_and_run').click({force:true})
