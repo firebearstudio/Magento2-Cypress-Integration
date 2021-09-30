@@ -35,26 +35,9 @@ context('Import Newsletter Subscribers Mapping 5', () => {
         //map attributes
         cy.get('.source_data_map_container_replace_default_value').find('select').as('replaceDefaultValue')
         cy.get('@replaceDefaultValue').select('All rows')
-        cy.get('tfoot').find('.addButton').as('tfoot')
-        cy.get('@tfoot').click({force:true})
-        cy.get('.record-1').find('.source_data_map_source_data_system').find('select').as('sourceDataSystem')
-        cy.get('@sourceDataSystem').select('subscriber_email');
-        cy.get('.record-1').find('.source_data_map_source_data_import').find('select').as('sourceDataImport')
-        cy.get('@sourceDataImport').select('subscriber_email_map');
-
-        cy.get('tfoot').find('.addButton').as('tfoot')
-        cy.get('@tfoot').click({force:true})
-        cy.get('.record-2').find('.source_data_map_source_data_system').find('select').as('sourceDataSystem')
-        cy.get('@sourceDataSystem').select('store_id');
-        cy.get('.record-2').find('.source_data_map_source_data_import').find('select').as('sourceDataImport')
-        cy.get('@sourceDataImport').select('store_id_map');
-
-        cy.get('tfoot').find('.addButton').as('tfoot')
-        cy.get('@tfoot').click({force:true})
-        cy.get('.record-3').find('.source_data_map_source_data_system').find('select').as('sourceDataSystem')
-        cy.get('@sourceDataSystem').select('subscriber_status');
-        cy.get('.record-3').find('.source_data_map_source_data_import').find('select').as('sourceDataImport')
-        cy.get('@sourceDataImport').select('subscriber_status_map');
+        cy.addMappingRowImport('.record-1','subscriber_email','subscriber_email_map')
+        cy.addMappingRowImport('.record-2','store_id','store_id_map')
+        cy.addMappingRowImport('.record-3','subscriber_status','subscriber_status_map')
         cy.get('.record-3').find('.source_data_map_source_data_replace').find('input')
           .type('3')
           .should('have.value', '3')

@@ -35,12 +35,7 @@ context('Import Reviews Mapping All rows 9', () => {
         //map attributes
         cy.get('.source_data_map_container_replace_default_value').find('select').as('replaceDefaultValue')
         cy.get('@replaceDefaultValue').select('All rows')
-        cy.get('tfoot').find('.addButton').as('tfoot')
-        cy.get('@tfoot').click({force:true})
-        cy.get('.source_data_map_source_data_system').find('select').as('sourceDataSystem')
-        cy.get('@sourceDataSystem').select('title');
-        cy.get('.source_data_map_source_data_import').find('select').as('sourceDataImport')
-        cy.get('@sourceDataImport').select('title_map');
+        cy.addMappingRowImport('.record-1','title','title_map')
         cy.get('.source_data_map_source_data_replace').find('input')
             .type('Title Map')
             .should('have.value', 'Title Map')

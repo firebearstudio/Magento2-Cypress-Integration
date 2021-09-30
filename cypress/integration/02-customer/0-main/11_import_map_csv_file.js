@@ -38,27 +38,10 @@ context('Import Сustomers Mapping All rows Csv File 11', () => {
         //map attributes
         cy.get('.source_data_map_container_replace_default_value').find('select').as('replaceDefaultValue')
         cy.get('@replaceDefaultValue').select('All rows')
-        cy.get('tfoot').find('.addButton').as('tfoot')
-        cy.get('@tfoot').click({force:true})
-        cy.get('.record-1').find('.source_data_map_source_data_system').find('select').as('sourceDataSystem')
-        cy.get('@sourceDataSystem').select('email');
-        cy.get('.record-1').find('.source_data_map_source_data_import').find('select').as('sourceDataImport')
-        cy.get('@sourceDataImport').select('email_map');
-
-        cy.get('tfoot').find('.addButton').as('tfoot')
-        cy.get('@tfoot').click({force:true})
-        cy.get('.record-2').find('.source_data_map_source_data_system').find('select').as('sourceDataSystem')
-        cy.get('@sourceDataSystem').select('firstname');
-        cy.get('.record-2').find('.source_data_map_source_data_import').find('select').as('sourceDataImport')
-        cy.get('@sourceDataImport').select('firstname_map');
-
-        cy.get('tfoot').find('.addButton').as('tfoot')
-        cy.get('@tfoot').click({force:true})
-        cy.get('.record-3').find('.source_data_map_source_data_system').find('select').as('sourceDataSystem')
-        cy.get('@sourceDataSystem').select('gender');
-        cy.get('.record-3').find('.source_data_map_source_data_import').find('select').as('sourceDataImport')
-        cy.get('@sourceDataImport').select('gender_map');
-        
+        cy.addMappingRowImport('.record-1','email','email_map')
+        cy.addMappingRowImport('.record-2','firstname','firstname_map')
+        cy.addMappingRowImport('.record-3','gender','gender_map')
+       
         //save and run process
         cy.get('#save_and_run').click({force:true})
         cy.get('.run').click()

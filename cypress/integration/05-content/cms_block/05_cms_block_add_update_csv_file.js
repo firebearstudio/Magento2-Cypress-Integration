@@ -35,12 +35,7 @@ context('Import Cms Block Mapping 5', () => {
         //map attributes
         cy.get('.source_data_map_container_replace_default_value').find('select').as('replaceDefaultValue')
         cy.get('@replaceDefaultValue').select('All rows')
-        cy.get('tfoot').find('.addButton').as('tfoot')
-        cy.get('@tfoot').click({force:true})
-        cy.get('.source_data_map_source_data_system').find('select').as('sourceDataSystem')
-        cy.get('@sourceDataSystem').select('title');
-        cy.get('.source_data_map_source_data_import').find('select').as('sourceDataImport')
-        cy.get('@sourceDataImport').select('title_new');
+        cy.addMappingRowImport('.record-1','title','title_new')
 
         //save and run process
         cy.get('#save_and_run').click({force:true})

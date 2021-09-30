@@ -35,19 +35,8 @@ context('Import Catalog Rule Mapping 5', () => {
         //map attributes
         cy.get('.source_data_map_container_replace_default_value').find('select').as('replaceDefaultValue')
         cy.get('@replaceDefaultValue').select('All rows')
-        cy.get('tfoot').find('.addButton').as('tfoot')
-        cy.get('@tfoot').click({force:true})
-        cy.get('.record-1').find('.source_data_map_source_data_system').find('select').as('sourceDataSystem')
-        cy.get('@sourceDataSystem').select('name');
-        cy.get('.record-1').find('.source_data_map_source_data_import').find('select').as('sourceDataImport')
-        cy.get('@sourceDataImport').select('name_map');
-
-        cy.get('tfoot').find('.addButton').as('tfoot')
-        cy.get('@tfoot').click({force:true})
-        cy.get('.record-2').find('.source_data_map_source_data_system').find('select').as('sourceDataSystem')
-        cy.get('@sourceDataSystem').select('description');
-        cy.get('.record-2').find('.source_data_map_source_data_import').find('select').as('sourceDataImport')
-        cy.get('@sourceDataImport').select('description_map');
+        cy.addMappingRowImport('.record-1','name','name_map')
+        cy.addMappingRowImport('.record-2','description','description_map')
         cy.get('.record-2').find('.source_data_map_source_data_replace').find('input')
           .type('Description Map')
           .should('have.value', 'Description Map')
