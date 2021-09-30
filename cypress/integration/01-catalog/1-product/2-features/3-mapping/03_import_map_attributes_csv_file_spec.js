@@ -36,36 +36,13 @@ context('Import Products Map Attributes 3',{ retries: 3 }, () => {
         //map attributes
         cy.get('.source_data_map_container_replace_default_value').find('select').as('replaceDefaultValue')
         cy.get('@replaceDefaultValue').select('All rows')
-        cy.get('.source_data_map_rows').find('.addButton').as('tfoot')
-        cy.get('@tfoot').click({force:true})
-        cy.get('.record-1').find('.source_data_map_source_data_system').find('select').as('sourceDataSystem')
-        cy.get('@sourceDataSystem').select('sku');
-        cy.get('.record-1').find('.source_data_map_source_data_import').find('select').as('sourceDataImport')
-        cy.get('@sourceDataImport').select('sku_map');
-
-        cy.get('.source_data_map_rows').find('.addButton').as('tfoot')
-        cy.get('@tfoot').click({force:true})
-        cy.get('.record-2').find('[data-index="source_data_system"]').find('select').as('sourceDataSystem')
-        cy.get('@sourceDataSystem').select('product_type');
-        cy.get('.record-2').find('.source_data_map_source_data_import').find('select').as('sourceDataImport')
-        cy.get('@sourceDataImport').select('product_type_map');
-
-        cy.get('.source_data_map_rows').find('.addButton').as('tfoot')
-        cy.get('@tfoot').click({force:true})
-        cy.get('.record-3').find('[data-index="source_data_system"]').find('select').as('sourceDataSystem')
-        cy.get('@sourceDataSystem').select('weight');
-        cy.get('.record-3').find('.source_data_map_source_data_import').find('select').as('sourceDataImport')
-        cy.get('@sourceDataImport').select('weight_map');
+        cy.addMappingRowImport('.record-1','sku','sku_map')
+        cy.addMappingRowImport('.record-2','product_type','product_type_map')
+        cy.addMappingRowImport('.record-3','weight','weight_map')
         cy.get('.record-3').find('[name="source_data_map[2][source_data_replace]"]')
             .type('7')
             .should('have.value', '7')
-
-        cy.get('.source_data_map_rows').find('.addButton').as('tfoot')
-        cy.get('@tfoot').click({force:true})
-        cy.get('.record-4').find('.source_data_map_source_data_system').find('select').as('sourceDataSystem')
-        cy.get('@sourceDataSystem').select('price');
-        cy.get('.record-4').find('.source_data_map_source_data_import').find('select').as('sourceDataImport')
-        cy.get('@sourceDataImport').select('price_map');
+        cy.addMappingRowImport('.record-4','price','price_map')
         cy.get('.record-4').find('[name="source_data_map[3][source_data_replace]"]')
             .type('4')
             .should('have.value', '4')

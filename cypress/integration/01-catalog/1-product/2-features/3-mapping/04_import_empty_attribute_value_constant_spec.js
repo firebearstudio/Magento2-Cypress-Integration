@@ -36,12 +36,7 @@ context('Import Products Empty Attr Value Constant 4',{ retries: 3 }, () => {
         //map attributes
         cy.get('.source_data_map_container_replace_default_value').find('select').as('replaceDefaultValue')
         cy.get('@replaceDefaultValue').select('All rows')
-        cy.get('.source_data_map_rows').find('.addButton').as('tfoot')
-        cy.get('@tfoot').click({force:true})
-        cy.get('.record-1').find('.source_data_map_source_data_system').find('select').as('sourceDataSystem')
-        cy.get('@sourceDataSystem').select('weight');
-        cy.get('.record-1').find('.source_data_map_source_data_import').find('select').as('sourceDataImport')
-        cy.get('@sourceDataImport').select('weight')
+        cy.addMappingRowImport('.record-1','weight','weight')
         cy.get('.record-1').find('[name="source_data_map[0][source_data_replace]"]')
             .type('__EMPTY__VALUE__')
             .should('have.value', '__EMPTY__VALUE__')

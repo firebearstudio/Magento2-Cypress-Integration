@@ -33,26 +33,9 @@ context('Import Advanced Pricing Mapping Empty Rows 11', () => {
         cy.get('.fieldset_source').contains('File validated successfully',{timeout: 60000})
 
         //map attributes
-        cy.get('tfoot',{timeout: 60000}).find('.addButton').as('tfoot')
-        cy.get('@tfoot').click({force:true})
-        cy.get('.record-1').find('.source_data_map_source_data_system').find('select').as('sourceDataSystem')
-        cy.get('@sourceDataSystem').select('sku');
-        cy.get('.record-1').find('.source_data_map_source_data_import').find('select').as('sourceDataImport')
-        cy.get('@sourceDataImport').select('sku_map');
-
-        cy.get('tfoot').find('.addButton').as('tfoot')
-        cy.get('@tfoot').click({force:true})
-        cy.get('.record-2').find('.source_data_map_source_data_system').find('select').as('sourceDataSystem')
-        cy.get('@sourceDataSystem').select('tier_price_qty');
-        cy.get('.record-2').find('.source_data_map_source_data_import').find('select').as('sourceDataImport')
-        cy.get('@sourceDataImport').select('tier_price_qty_map');
-
-        cy.get('tfoot').find('.addButton').as('tfoot')
-        cy.get('@tfoot').click({force:true})
-        cy.get('.record-3').find('.source_data_map_source_data_system').find('select').as('sourceDataSystem')
-        cy.get('@sourceDataSystem').select('tier_price');
-        cy.get('.record-3').find('.source_data_map_source_data_import').find('select').as('sourceDataImport')
-        cy.get('@sourceDataImport').select('tier_price_map');
+        cy.addMappingRowImport('.record-1','sku','sku_map')
+        cy.addMappingRowImport('.record-2','tier_price_qty','tier_price_qty_map')
+        cy.addMappingRowImport('.record-3','tier_price','tier_price_map')
 
         //save and run process
         cy.get('#save_and_run').click({force:true})
