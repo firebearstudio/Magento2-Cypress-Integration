@@ -80,5 +80,9 @@ context('Import Сustomer Finances Add Update Csv GoogleSheet 4', () => {
         cy.get('@rewardPointsBalance').contains('444',{timeout: 60000})
         cy.get('#balanceGrid').find('td').as('creditBalance')
         cy.get('@creditBalance').contains('555',{timeout: 60000});
+
+        //reset filter
+        cy.get('#back').click({force:true})
+        cy.get('.admin__data-grid-filters-current').contains('Clear all').click({force:true})
     })
 })

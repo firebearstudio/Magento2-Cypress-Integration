@@ -42,5 +42,9 @@ context('Import Сustomer Finances Add Update Xlsx Sftp 7', () => {
 
         //check Import results
         cy.consoleImportResult('Entity customer_finance')
+
+        //reset filter
+        cy.get('#back').click({force:true})
+        cy.get('.admin__data-grid-filters-current').contains('Clear all').click({force:true})
     })
 })

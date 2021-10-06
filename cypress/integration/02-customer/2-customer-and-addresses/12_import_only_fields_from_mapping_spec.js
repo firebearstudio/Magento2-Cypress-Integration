@@ -1,5 +1,5 @@
 
-context('Import Customers And Addresses Only Fields From Mapping 12', () => {
+context('Import Customers And Addresses Only Fields From Mapping 12',{ retries: 3 }, () => {
     it(' only mapping fields - csv - file - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
