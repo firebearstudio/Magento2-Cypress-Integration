@@ -82,5 +82,9 @@ context('Import Сustomer Delete Finances Using Export File 2', () => {
         cy.get('@rewardPointsBalance').contains('0',{timeout: 60000})
         cy.get('#balanceGrid').find('td').as('creditBalance')
         cy.get('@creditBalance').contains('$0.00',{timeout: 60000});
+
+        //reset filter
+        cy.get('#back').click({force:true})
+        cy.get('.admin__data-grid-filters-current').contains('Clear all').click({force:true})
     })
 })

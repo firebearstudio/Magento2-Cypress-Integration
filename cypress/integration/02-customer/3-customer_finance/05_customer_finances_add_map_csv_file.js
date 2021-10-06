@@ -84,5 +84,9 @@ context('Import Сustomer Finance Mapping Empty Rows 5', () => {
         //check that Mrs. Jane R Roe's reward points were changed 
         cy.get('#rewardPointsBalanceGrid',{timeout: 10000}).find('td').as('rewardPointsBalance')
         cy.get('@rewardPointsBalance').contains('9000',{timeout: 60000})
+
+        //reset filter
+        cy.get('#back').click({force:true})
+        cy.get('.admin__data-grid-filters-current').contains('Clear all').click({force:true})
     })
 })
