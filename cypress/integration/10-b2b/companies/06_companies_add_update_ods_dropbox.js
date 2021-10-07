@@ -1,4 +1,4 @@
-context('Import Companies', () => {
+context('Import Companies Add Update Ods Dropbox 6', () => {
     it('add update - ods - dropbox - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -13,6 +13,8 @@ context('Import Companies', () => {
 
         //specify general section
         cy.generalImportSection('Companies Import - add update - ods - dropbox')
+        cy.get('[data-index="indexers"]').find('.admin__control-multiselect').as('indexManagement')
+        cy.get('@indexManagement').select('customer_grid',{force:true})
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')

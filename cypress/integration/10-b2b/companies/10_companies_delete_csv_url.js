@@ -1,4 +1,4 @@
-context('Import Companies ', () => {
+context('Import Companies Delete Csv Url 10', () => {
     it('delete - csv - url - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -13,6 +13,8 @@ context('Import Companies ', () => {
 
         //specify general section
         cy.generalImportSection('Companies Import - delete - csv - url')
+        cy.get('[data-index="indexers"]').find('.admin__control-multiselect').as('indexManagement')
+        cy.get('@indexManagement').select('customer_grid',{force:true})
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
@@ -26,7 +28,7 @@ context('Import Companies ', () => {
         cy.get('@behaviorBehavior').select('delete');
 
         //specify Import Source section
-        cy.urlSource('http://alex-union.dev.firebearstudio.com/media/importexport/test/b2b_companies.csv')
+        cy.urlSource('https://48a8a91726-1275736.nxcli.net/media/importexport/test/b2b_companies.csv')
 
         //validate Import file
         cy.get('.source_check_button').click()

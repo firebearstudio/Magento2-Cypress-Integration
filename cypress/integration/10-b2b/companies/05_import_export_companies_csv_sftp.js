@@ -1,4 +1,4 @@
-context('Import Companies', () => {
+context('Import Companies Add Update Export File 5', () => {
     it('add update - csv - sftp - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -13,6 +13,8 @@ context('Import Companies', () => {
 
         //specify general section
         cy.generalImportSection('Companies Import - export file - add update - csv - sftp')
+        cy.get('[data-index="indexers"]').find('.admin__control-multiselect').as('indexManagement')
+        cy.get('@indexManagement').select('customer_grid',{force:true})
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
@@ -26,7 +28,7 @@ context('Import Companies', () => {
         cy.get('@behaviorBehavior').select('add_update');
 
         //specify Import Source section
-        cy.specifySftpSource('importSftp','/var/www/alex/files/test/export_company.csv')
+        cy.specifySftpSource('importSftp','/chroot/home/a0563af8/develop-gold.dev.firebearstudio.com/pub/media/importexport/test/var/export_company_filter.csv')
 
         //validate Import file
         cy.get('.source_check_button').click()
@@ -42,7 +44,8 @@ context('Import Companies', () => {
         //check that  companies were added
         cy.get('#menu-magento-customer-customer').find('.item-company-index').find('a').as('goToCompaniesGrid')
         cy.get('@goToCompaniesGrid').click({force:true})
-        cy.get('[data-bind="text: $col.getLabel($row())"]').contains('FireBear')
-        
+        cy.get('table').contains('FireBear')
+        cy.get('table').contains('Microsoft')
+        cy.get('table').contains('Apple')
     })
 })
