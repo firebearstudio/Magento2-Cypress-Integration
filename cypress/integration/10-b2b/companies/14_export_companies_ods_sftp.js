@@ -1,4 +1,4 @@
-context('Export Companies 2', () => {
+context('Export Companies Ods File 14', () => {
     it('csv - sftp - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -24,7 +24,7 @@ context('Export Companies 2', () => {
 
         //specify Export Behavior section
         cy.get('.behavior_behavior_field_file_format').find('select').as('fileFormat')
-        cy.get('@fileFormat').select('csv');
+        cy.get('@fileFormat').select('ods');
 
         //select the Company Entities: Company, Customer, Customer Advanced
         cy.get('#14').click()
@@ -32,7 +32,7 @@ context('Export Companies 2', () => {
         cy.get('#16').click()
 
         //specify Import Source section
-        cy.specifySftpSource('exportSftp','/chroot/home/a0563af8/develop-gold.dev.firebearstudio.com/pub/media/importexport/test/var/export_companies.csv')
+        cy.specifySftpSource('exportSftp','/chroot/home/a0563af8/develop-gold.dev.firebearstudio.com/pub/media/importexport/test/var/export_companies.ods')
 
         //check ftp connection
         cy.get('.source_check_button').click()

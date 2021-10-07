@@ -1,4 +1,4 @@
-context('Import Companies', () => {
+context('Import Companies Add Update Map Xml File 7', () => {
     it(' add update - xml - file - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -13,6 +13,8 @@ context('Import Companies', () => {
 
         //specify general section
         cy.generalImportSection('Companies Import - add update - xml - file')
+        cy.get('[data-index="indexers"]').find('.admin__control-multiselect').as('indexManagement')
+        cy.get('@indexManagement').select('customer_grid',{force:true})
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
@@ -57,7 +59,7 @@ context('Import Companies', () => {
         //check that  telephone's value was changed
         cy.get('#menu-magento-customer-customer').find('.item-company-index').find('a').as('goToCompanyGrid')
         cy.get('@goToCompanyGrid').click({force:true})
-        cy.get('[data-bind="text: $col.getLabel($row())"]').contains('123456').as('companyPhone')
+        cy.get('table').contains('123456').as('companyPhone')
 
     })
 })
