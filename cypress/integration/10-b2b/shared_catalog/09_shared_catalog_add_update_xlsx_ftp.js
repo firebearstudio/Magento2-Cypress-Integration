@@ -1,4 +1,4 @@
-context('Import Shared Catalog', () => {
+context('Import Shared Catalog Add Update Xlsx 9', () => {
     it('add update - xlsx - ftp - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -12,7 +12,7 @@ context('Import Shared Catalog', () => {
         cy.get('@addJobButton').click()
 
         //specify general section
-        cy.generalImportSection('Shared Catalog Import - add update - xlsx - ftp')
+        cy.generalImportSectionWithoutReIndex('Shared Catalog Import - add update - xlsx - ftp')
        
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
@@ -28,7 +28,7 @@ context('Import Shared Catalog', () => {
         //specify Import Source section
         cy.get('.type_file').find('select').as('importSourceType')
         cy.get('@importSourceType').select('xlsx');
-        cy.ftpSource('importFtp','/files/b2b_shared_catalogs.xlsx')
+        cy.specifySftpSource('importSftp','/chroot/home/a0563af8/develop-gold.dev.firebearstudio.com/pub/media/importexport/test/b2b_shared_catalogs.xlsx')
 
         //validate Import file
         cy.get('.source_check_button').click()
@@ -39,6 +39,6 @@ context('Import Shared Catalog', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResult('Entity shared_catalog')
+        cy.consoleImportResultWithoutReIndex('Entity shared_catalog')
     })
 })

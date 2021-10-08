@@ -1,4 +1,4 @@
-context('Import Shared Catalog', () => {
+context('Import Shared Catalog Delete Export File Csv Sftp 4', () => {
     it('delete - export file - csv - sftp - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -12,7 +12,7 @@ context('Import Shared Catalog', () => {
         cy.get('@addJobButton').click()
 
         //specify general section
-        cy.generalImportSection('Shared Catalog Import - export file - delete - csv - sftp')
+        cy.generalImportSectionWithoutReIndex('Shared Catalog Import - export file - delete - csv - sftp')
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
@@ -26,7 +26,7 @@ context('Import Shared Catalog', () => {
         cy.get('@behaviorBehavior').select('delete');
 
         //specify Import Source section
-        cy.specifySftpSource('importSftp','/var/www/alex/files/test/export_shared_catalog.csv')
+        cy.specifySftpSource('importSftp','/chroot/home/a0563af8/develop-gold.dev.firebearstudio.com/pub/media/importexport/test/var/export_shared_catalog_filter.csv')
 
         //validate Import file
         cy.get('.source_check_button').click()
@@ -37,12 +37,13 @@ context('Import Shared Catalog', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResult('Entity shared_catalog')
+        cy.consoleImportResultWithoutReIndex('Entity shared_catalog')
 
-        //check that  Shared Catalog were deleted
+        //check that Shared Catalog were deleted
         cy.get('#menu-magento-catalog-catalog').find('.item-shared-list').find('a').as('goToSharedCatalogGrid')
         cy.get('@goToSharedCatalogGrid').click({force:true})
-        cy.get('[data-bind="text: $col.getLabel($row())"]').contains('Shared Catalog 1').should('not.exist')
+        cy.get('table').contains('Shared Catalog 1').should('not.exist')
+        cy.get('table').contains('Shared Catalog 2')
     })
 })
  
