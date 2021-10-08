@@ -1,5 +1,5 @@
-context('Export Shared Catalog Filter 3', () => {
-    it('csv - sftp - new job', () => {
+context('Export Shared Catalog Ods 14', () => {
+    it('ods - sftp - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
 
@@ -15,8 +15,8 @@ context('Export Shared Catalog Filter 3', () => {
         cy.get('.general_is_active',{timeout: 60000}).find('.admin__actions-switch-label').as('generalIsActive')
         cy.get('@generalIsActive').click()
         cy.get('.general_title ').find('input')
-            .type('Shared Catalog Export - csv - sftp')
-            .should('have.value', 'Shared Catalog Export - csv - sftp')
+            .type('Shared Catalog Export - ods - sftp')
+            .should('have.value', 'Shared Catalog Export - ods - sftp')
 
         //specify Export Settings section
         cy.get('.settings_entity').find('select').as('settingsEntity')
@@ -24,28 +24,19 @@ context('Export Shared Catalog Filter 3', () => {
 
         //specify Export Behavior section
         cy.get('.behavior_behavior_field_file_format').find('select').as('fileFormat')
-        cy.get('@fileFormat').select('csv');
+        cy.get('@fileFormat').select('ods');
 
         //select the Shared Catalog Entities: Shared Catalog, Customer Group, Company
-        cy.get('#7').click()
-        cy.get('#8').click()
         cy.get('#9').click()
+        cy.get('#10').click()
+        cy.get('#11').click()
 
         //specify Import Source section
-        cy.specifySftpSource('exportSftp','/chroot/home/a0563af8/develop-gold.dev.firebearstudio.com/pub/media/importexport/test/var/export_shared_catalog_filter.csv')
+        cy.specifySftpSource('exportSftp','/chroot/home/a0563af8/develop-gold.dev.firebearstudio.com/pub/media/importexport/test/var/export_shared_catalog.ods')
 
         //check ftp connection
         cy.get('.source_check_button').click()
         cy.get('.fieldset_source').contains('Success! Your connection is ready!',{timeout: 60000})
-
-        //filter
-        cy.get('.source_filter_map_rows').find('tfoot').as('tfoot')
-        cy.get('@tfoot').find('.addButton').click({force:true})
-        cy.get('.record-1').find('.source_filter_map_source_filter_field').find('select').as('sourceDataExport')
-        cy.get('@sourceDataExport').select('name')
-        cy.get('.record-1').find('.source_filter_map_source_filter_filter').find('[name="source_filter_map[text][source_filter_filter]"]')
-            .type('Shared Catalog 1')
-            .should('have.value', 'Shared Catalog 1')
 
         //save and run process
         cy.get('#save_and_run').click({force:true})

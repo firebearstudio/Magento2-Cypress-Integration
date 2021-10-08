@@ -1,4 +1,4 @@
-context('Import Shared Catalog', () => {
+context('Import Shared Catalog Add Update Ods Dropbox 6', () => {
     it('add update - ods - dropbox - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -12,7 +12,7 @@ context('Import Shared Catalog', () => {
         cy.get('@addJobButton').click()
 
         //specify general section
-        cy.generalImportSection('Shared Catalog Import - add update - ods - dropbox')
+        cy.generalImportSectionWithoutReIndex('Shared Catalog Import - add update - ods - dropbox')
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
@@ -28,7 +28,7 @@ context('Import Shared Catalog', () => {
         //specify Import Source section
         cy.get('.type_file').find('select').as('importSourceType')
         cy.get('@importSourceType').select('ods');
-        cy.dropboxSource('/b2b_shared_catalogs.ods')
+        cy.dropboxSource('/b2b_shared_catalog.ods')
 
         //validate Import file
         cy.get('.source_check_button').click()
@@ -39,6 +39,6 @@ context('Import Shared Catalog', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResult('Entity shared_catalog')
+        cy.consoleImportResultWithoutReIndex('Entity shared_catalog')
     })
 })

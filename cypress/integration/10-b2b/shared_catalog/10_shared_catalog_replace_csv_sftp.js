@@ -1,4 +1,4 @@
-context('Import Shared Catalog', () => {
+context('Import Shared Catalog Replace Csv File 10', () => {
     it('shared_catalog - csv - file - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -12,7 +12,7 @@ context('Import Shared Catalog', () => {
         cy.get('@addJobButton').click()
 
         //specify general section
-        cy.generalImportSection('Shared Catalog Import - replace - csv - file')
+        cy.generalImportSectionWithoutReIndex('Shared Catalog Import - replace - csv - file')
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
@@ -37,11 +37,11 @@ context('Import Shared Catalog', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResult('Entity shared_catalog')
+        cy.consoleImportResultWithoutReIndex('Entity shared_catalog')
 
         //check that Shared Catalogs have only Public type
         cy.get('#menu-magento-catalog-catalog').find('.item-shared-list').find('a').as('goToSharedCatalogGrid')
         cy.get('@goToSharedCatalogGrid').click({force:true})
-        cy.get('[data-bind="text: $col.getLabel($row())"]').contains('Custom').should('not.exist')
+        cy.get('table').contains('Custom').should('not.exist')
     })
 })

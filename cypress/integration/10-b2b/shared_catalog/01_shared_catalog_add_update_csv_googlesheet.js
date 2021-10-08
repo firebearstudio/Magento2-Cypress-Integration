@@ -1,4 +1,4 @@
-context('Import Shared Catalog', () => {
+context('Import Shared Catalog Add Update Csv GoogleSheet 1', () => {
     it('add update - csv - google sheet - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -12,7 +12,7 @@ context('Import Shared Catalog', () => {
         cy.get('@addJobButton').click()
 
         //specify general section
-        cy.generalImportSection('Shared Catalog Import - add update - csv - google sheet')
+        cy.generalImportSectionWithoutReIndex('Shared Catalog Import - add update - csv - google sheet')
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
@@ -26,7 +26,7 @@ context('Import Shared Catalog', () => {
         cy.get('@behaviorBehavior').select('add_update');
 
         //specify Import Source section
-        cy.googlePathSource('https://docs.google.com/spreadsheets/d/1ASaPIdt8RrZfIP3f1ZmSPG9CQzAYMTNdfzQEhe38bPE/edit#gid=2137364248')
+        cy.googlePathSource('https://docs.google.com/spreadsheets/d/1MTPZL72H3ynXVbkVnK5cdt3uWfEZCtPBYV1M97w9eGg/edit#gid=2137364248')
 
         //validate Import file
         cy.get('.source_check_button').click()
@@ -37,13 +37,23 @@ context('Import Shared Catalog', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResult('Entity shared_catalog')
+        cy.consoleImportResultWithoutReIndex('Entity shared_catalog')
 
         //check that  Shared Catalog were added
         cy.get('#menu-magento-catalog-catalog').find('.item-shared-list').find('a').as('goToSharedCatalogGrid')
         cy.get('@goToSharedCatalogGrid').click({force:true})
-        cy.get('[data-bind="text: $col.getLabel($row())"]').contains('Shared Catalog 1')
-        cy.get('[data-bind="text: $col.getLabel($row())"]').contains('Shared Catalog 2')
-        
+        cy.get('table').contains('Shared Catalog 1')
+        cy.get('table').contains('Shared Catalog 2')
+        cy.get('[data-repeat-index="1"]').contains('Select').click() 
+        cy.get('[data-repeat-index="1"]').find('ul').find('[data-repeat-index="2"]').click()
+        cy.get('[data-index="name"]').find('input').should('have.value','Shared Catalog 1')   
+        cy.get('[data-index="type"]').find('select').find('[value="0"]').should('be.selected')
+        cy.get('[data-index="tax_class_id"]').find('select').find('[value="3"]').should('be.selected')
+        cy.get('[data-index="description"]').find('textarea').should('have.value','Description of Shared Catalog 1')
+        cy.get('#back').click() 
+        cy.wait(10000)
+        cy.get('[data-repeat-index="1"]').contains('Select').click() 
+        cy.get('[data-repeat-index="1"]').find('ul').find('[data-repeat-index="1"]').click()
+        cy.get('table').contains('Google') 
     })
 })

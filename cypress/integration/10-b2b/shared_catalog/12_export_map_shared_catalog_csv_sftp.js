@@ -1,4 +1,4 @@
-context('Export Shared Catalog', () => {
+context('Export Shared Catalog Map 12', () => {
     it('csv - sftp - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -32,7 +32,7 @@ context('Export Shared Catalog', () => {
         cy.get('#9').click()
 
         //specify Import Source section
-        cy.specifySftpSource('exportSftp','/var/www/alex/files/test/export_shared_catalog.csv')
+        cy.specifySftpSource('exportSftp','/chroot/home/a0563af8/develop-gold.dev.firebearstudio.com/pub/media/importexport/test/var/export_shared_catalog.csv')
 
         //check ftp connection
         cy.get('.source_check_button').click()
