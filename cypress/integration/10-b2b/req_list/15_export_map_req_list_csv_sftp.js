@@ -1,4 +1,4 @@
-context('Export Req List', () => {
+context('Export Req List Map 15', () => {
     it('csv - sftp - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -31,7 +31,10 @@ context('Export Req List', () => {
         cy.get('#2').click()
 
         //specify Import Source section
-        cy.specifySftpSource('exportSftp','/var/www/alex/files/test/export_req_list_map.csv')
+        cy.get('.source_export_source_entity').find('[name="export_source_entity"]').select('file')
+        cy.get('[name="export_source_file_file_path"]').type('/var/export/b2b_req_list_mapping.csv',{force:true})
+            .should('have.value', '/var/export/b2b_req_list_mapping.csv')
+        
 
         //check ftp connection
         cy.get('.source_check_button').click()

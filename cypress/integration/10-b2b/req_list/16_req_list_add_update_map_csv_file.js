@@ -1,5 +1,5 @@
-context('Import Req list', () => {
-    it(' add update - xml - file - new job', () => {
+context('Import Req list Map Csv File 16', () => {
+    it(' add update - csv - file - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
 
@@ -12,7 +12,7 @@ context('Import Req list', () => {
         cy.get('@addJobButton').click()
 
         //specify general section
-        cy.generalImportSection('Req list Import - add update - xml - file')
+        cy.generalImportSectionWithoutReIndex('Req list Import - add update - csv - file')
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
@@ -27,8 +27,8 @@ context('Import Req list', () => {
 
         //specify Import Source section
         cy.get('.type_file').find('select').as('importSourceType')
-        cy.get('@importSourceType').select('xml');
-        cy.fileSource('pub/media/importexport/test/b2b_requisition_list_map.xml')
+        cy.get('@importSourceType').select('csv');
+        cy.fileSource('var/export/b2b_req_list_mapping.csv')
 
         //validate Import file
         cy.get('.source_check_button').click()
@@ -37,26 +37,9 @@ context('Import Req list', () => {
         //map attributes
         cy.get('.source_data_map_container_replace_default_value').find('select').as('replaceDefaultValue')
         cy.get('@replaceDefaultValue').select('All rows')
-        cy.get('tfoot').find('.addButton').as('tfoot')
-        cy.get('@tfoot').click({force:true})
-        cy.get('.record-1').find('.source_data_map_source_data_system').find('select').as('sourceDataSystem')
-        cy.get('@sourceDataSystem').select('customer_id');
-        cy.get('.record-1').find('.source_data_map_source_data_import').find('select').as('sourceDataImport')
-        cy.get('@sourceDataImport').select('customer_id_map');
-
-        cy.get('tfoot').find('.addButton').as('tfoot')
-        cy.get('@tfoot').click({force:true})
-        cy.get('.record-2').find('.source_data_map_source_data_system').find('select').as('sourceDataSystem')
-        cy.get('@sourceDataSystem').select('name');
-        cy.get('.record-2').find('.source_data_map_source_data_import').find('select').as('sourceDataImport')
-        cy.get('@sourceDataImport').select('name_map');
-
-        cy.get('tfoot').find('.addButton').as('tfoot')
-        cy.get('@tfoot').click({force:true})
-        cy.get('.record-3').find('.source_data_map_source_data_system').find('select').as('sourceDataSystem')
-        cy.get('@sourceDataSystem').select('description');
-        cy.get('.record-3').find('.source_data_map_source_data_import').find('select').as('sourceDataImport')
-        cy.get('@sourceDataImport').select('description_map');
+        cy.addMappingRowImport('.record-1','customer_id','customer_id_map')
+        cy.addMappingRowImport('.record-2','sku','item:sku_map')
+        cy.addMappingRowImport('.record-3','description','description_map')
         cy.get('.record-3').find('.source_data_map_source_data_replace').find('input')
             .type('map description')
             .should('have.value', 'map description')
@@ -66,6 +49,6 @@ context('Import Req list', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResult('Entity requisition_list')
+        cy.consoleImportResultWithoutReIndex('Entity requisition_list')
     })
 })
