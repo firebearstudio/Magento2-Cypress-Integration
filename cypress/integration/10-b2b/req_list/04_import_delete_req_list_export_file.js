@@ -1,4 +1,4 @@
-context('Import Req list', () => {
+context('Import Req list Delete Export File Csv Sftp 4', () => {
     it('delete - export file - csv - sftp - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -12,7 +12,7 @@ context('Import Req list', () => {
         cy.get('@addJobButton').click()
 
         //specify general section
-        cy.generalImportSection('Req list Import - export file - delete - csv - sftp')
+        cy.generalImportSectionWithoutReIndex('Req list Import - export file - delete - csv - sftp')
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
@@ -26,7 +26,7 @@ context('Import Req list', () => {
         cy.get('@behaviorBehavior').select('delete');
 
         //specify Import Source section
-        cy.specifySftpSource('importSftp','/var/www/alex/files/test/export_requisition_list.csv')
+        cy.specifySftpSource('importSftp','/chroot/home/a0563af8/develop-gold.dev.firebearstudio.com/pub/media/importexport/test/var/export_requisition_list_filter.csv')
 
         //validate Import file
         cy.get('.source_check_button').click()
@@ -37,7 +37,15 @@ context('Import Req list', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResult('Entity requisition_list')
+        cy.consoleImportResultWithoutReIndex('Entity requisition_list')
+
+        //go to the front-end page
+        cy.loginToFrontEndPanel()
+
+        //check that req list were imported
+        cy.visit('https://bcb62cd561-254704.nxcli.net/customer/account/')
+        cy.visit('https://bcb62cd561-254704.nxcli.net/requisition_list/requisition/index/')
+        cy.get('table').should('not.contain','First list name')
     })
 })
  

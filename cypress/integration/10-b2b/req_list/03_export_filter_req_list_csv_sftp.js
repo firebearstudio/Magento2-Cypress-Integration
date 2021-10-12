@@ -1,4 +1,4 @@
-context('Export Req List', () => {
+context('Export Req List Filter 3', () => {
     it('csv - sftp - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -31,7 +31,7 @@ context('Export Req List', () => {
         cy.get('#2').click()
 
         //specify Import Source section
-        cy.specifySftpSource('exportSftp','/var/www/alex/files/test/export_requisition_list.csv')
+        cy.specifySftpSource('exportSftp','/chroot/home/a0563af8/develop-gold.dev.firebearstudio.com/pub/media/importexport/test/var/export_requisition_list_filter.csv')
 
         //check ftp connection
         cy.get('.source_check_button').click()

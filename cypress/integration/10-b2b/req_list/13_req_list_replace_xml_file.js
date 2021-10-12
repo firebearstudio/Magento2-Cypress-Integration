@@ -1,5 +1,5 @@
-context('Import Req list Add Update Csv Google Sheet 1', () => {
-    it('add update - csv - google sheet - new job', () => {
+context('Import Req list Replace Xml File 11', () => {
+    it(' replace - Xml - file - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
 
@@ -12,7 +12,7 @@ context('Import Req list Add Update Csv Google Sheet 1', () => {
         cy.get('@addJobButton').click()
 
         //specify general section
-        cy.generalImportSectionWithoutReIndex('Req list Import - add update - csv - google sheet')
+        cy.generalImportSectionWithoutReIndex('Req list Import - replace - xml - file')
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
@@ -23,10 +23,12 @@ context('Import Req list Add Update Csv Google Sheet 1', () => {
         //specify Import Behavior section
         cy.get('.fieldset_behavior').find('.fieldset-wrapper-title').as('fieldsetBehaviour')
         cy.get('.behavior_behavior').find('select').as('behaviorBehavior')
-        cy.get('@behaviorBehavior').select('add_update');
+        cy.get('@behaviorBehavior').select('replace');
 
         //specify Import Source section
-        cy.googlePathSource('https://docs.google.com/spreadsheets/d/1MTPZL72H3ynXVbkVnK5cdt3uWfEZCtPBYV1M97w9eGg/edit#gid=1361515626')
+        cy.get('.type_file').find('select').as('importSourceType')
+        cy.get('@importSourceType').select('xml');
+        cy.fileSource('var/export/b2b_req_list.xml')
 
         //validate Import file
         cy.get('.source_check_button').click()
