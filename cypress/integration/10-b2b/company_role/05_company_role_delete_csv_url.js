@@ -1,4 +1,4 @@
-context('Import Company Roles ', () => {
+context('Import Company Roles Delete Csv Url 5 ', () => {
     it('delete - csv - url - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -13,6 +13,8 @@ context('Import Company Roles ', () => {
 
         //specify general section
         cy.generalImportSection('Company Roles Import - delete - csv - url')
+        cy.get('[data-index="indexers"]').find('.admin__control-multiselect').as('indexManagement')
+        cy.get('@indexManagement').select('customer_grid',{force:true})
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
@@ -26,7 +28,7 @@ context('Import Company Roles ', () => {
         cy.get('@behaviorBehavior').select('delete');
 
         //specify Import Source section
-        cy.urlSource('http://alex-union.dev.firebearstudio.com/media/importexport/test/b2b-company_roles.csv')
+        cy.urlSource('https://48a8a91726-1275736.nxcli.net/media/importexport/test/b2b_company_roles_test.csv')
 
         //validate Import file
         cy.get('.source_check_button').click()
@@ -38,5 +40,15 @@ context('Import Company Roles ', () => {
 
         //check Import results
         cy.consoleImportResult('Entity company_role')
+
+        //go to the front-end page
+        cy.loginToFrontEndPanel()
+
+        //check that company roles were deleted
+        cy.visit('https://bcb62cd561-254704.nxcli.net/customer/account/')
+        cy.visit('https://bcb62cd561-254704.nxcli.net/company/role/')
+        cy.get('.admin__data-grid-outer-wrap').should('not.contain','Developer')
+        cy.get('.admin__data-grid-outer-wrap').should('not.contain','Manager')
+        cy.get('.admin__data-grid-outer-wrap').should('not.contain','Tester')
     })
 })

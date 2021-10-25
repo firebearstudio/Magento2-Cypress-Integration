@@ -1,4 +1,4 @@
-context('Import Companies', () => {
+context('Import Companies Add Update Csv Dropobox 3', () => {
     it('add update - csv - dropbox - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -13,6 +13,8 @@ context('Import Companies', () => {
 
         //specify general section
         cy.generalImportSection('Companies Import - add update - csv - dropbox')
+        cy.get('[data-index="indexers"]').find('.admin__control-multiselect').as('indexManagement')
+        cy.get('@indexManagement').select('customer_grid',{force:true})
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
@@ -28,7 +30,7 @@ context('Import Companies', () => {
         //specify Import Source section
         cy.get('.type_file').find('select').as('importSourceType')
         cy.get('@importSourceType').select('csv');
-        cy.dropboxSource('/b2b-company_roles.csv')
+        cy.dropboxSource('/b2b_company_roles_test.csv')
 
         //validate Import file
         cy.get('.source_check_button').click()
