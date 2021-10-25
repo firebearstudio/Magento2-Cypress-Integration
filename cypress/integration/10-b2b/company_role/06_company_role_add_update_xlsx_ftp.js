@@ -1,4 +1,4 @@
-context('Import Company Roles', () => {
+context('Import Company Roles Add Update Xlsx Ftp 6', () => {
     it('add update - xlsx - ftp - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -13,6 +13,8 @@ context('Import Company Roles', () => {
 
         //specify general section
         cy.generalImportSection('Company Roles Import - add update - xlsx - ftp')
+        cy.get('[data-index="indexers"]').find('.admin__control-multiselect').as('indexManagement')
+        cy.get('@indexManagement').select('customer_grid',{force:true})
        
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
@@ -28,7 +30,7 @@ context('Import Company Roles', () => {
         //specify Import Source section
         cy.get('.type_file').find('select').as('importSourceType')
         cy.get('@importSourceType').select('xlsx');
-        cy.ftpSource('importFtp','/files/b2b-company_roles.csv')
+        cy.ftpSource('importFtp','/files/b2b_company_roles_test.csv')
 
         //validate Import file
         cy.get('.source_check_button').click()
