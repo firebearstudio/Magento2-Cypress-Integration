@@ -1,5 +1,5 @@
-context('Import Req list Add Update Json File 11', () => {
-    it(' add update - json - file - new job', () => {
+context('Import Req list Add Update Xlsx Sftp 9', () => {
+    it(' add update - xlsx - sftp - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
 
@@ -12,7 +12,7 @@ context('Import Req list Add Update Json File 11', () => {
         cy.get('@addJobButton').click()
 
         //specify general section
-        cy.generalImportSectionWithoutReIndex('Req list Import - add update - json - file')
+        cy.generalImportSectionWithoutReIndex('Req list Import - add update - xlsx - sftp')
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
@@ -27,8 +27,8 @@ context('Import Req list Add Update Json File 11', () => {
 
         //specify Import Source section
         cy.get('.type_file').find('select').as('importSourceType')
-        cy.get('@importSourceType').select('json');
-        cy.fileSource('var/export/b2b_req_list.json')
+        cy.get('@importSourceType').select('xlsx');
+        cy.specifySftpSource('importSftp','/chroot/home/a0563af8/develop-gold.dev.firebearstudio.com/pub/media/importexport/test/var/b2b_req_list.xlsx')
 
         //validate Import file
         cy.get('.source_check_button').click()
@@ -59,9 +59,6 @@ context('Import Req list Add Update Json File 11', () => {
         cy.get('table').contains('24-MB04')
         cy.get('table').contains('24-MB05')
         cy.get('table').contains('24-MB06')
-        cy.get('table').contains('$38.00')
-        cy.get('table').contains('$32.00')
-        cy.get('table').contains('$45.00')
         cy.go('back')
         cy.get('[data-repeat-index="1"]').find('a',{timeout: 10000}).click()
         cy.get('table').contains('24-MB01')
@@ -70,11 +67,6 @@ context('Import Req list Add Update Json File 11', () => {
         cy.get('table').contains('24-MB04')
         cy.get('table').contains('24-MB05')
         cy.get('table').contains('24-MB06')
-        cy.get('table').contains('$34.00')
-        cy.get('table').contains('$59.00')
-        cy.get('table').contains('$38.00')
-        cy.get('table').contains('$32.00')
-        cy.get('table').contains('$45.00')
         cy.go('back')
         cy.get('[data-repeat-index="2"]').find('a',{timeout: 10000}).click()
         cy.get('table').contains('TST-Conf-Simp-S-Gray')
@@ -82,7 +74,5 @@ context('Import Req list Add Update Json File 11', () => {
         cy.get('table').contains('TST-Conf-Simp-L-Gray')
         cy.get('table').contains('24-MB04')
         cy.get('table').contains('24-MB05')
-        cy.get('table').contains('$32.00')
-        cy.get('table').contains('$45.00')   
     })
 })

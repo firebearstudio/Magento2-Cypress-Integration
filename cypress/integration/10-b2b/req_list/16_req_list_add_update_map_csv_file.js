@@ -26,9 +26,7 @@ context('Import Req list Map Csv File 16', () => {
         cy.get('@behaviorBehavior').select('add_update');
 
         //specify Import Source section
-        cy.get('.type_file').find('select').as('importSourceType')
-        cy.get('@importSourceType').select('csv');
-        cy.fileSource('var/export/b2b_req_list_mapping.csv')
+        cy.specifySftpSource('importSftp','/chroot/home/a0563af8/develop-gold.dev.firebearstudio.com/pub/media/importexport/test/var/b2b_req_list_mapping.csv')
 
         //validate Import file
         cy.get('.source_check_button').click()

@@ -31,10 +31,7 @@ context('Export Req List Map 15', () => {
         cy.get('#2').click()
 
         //specify Import Source section
-        cy.get('.source_export_source_entity').find('[name="export_source_entity"]').select('file')
-        cy.get('[name="export_source_file_file_path"]').type('/var/export/b2b_req_list_mapping.csv',{force:true})
-            .should('have.value', '/var/export/b2b_req_list_mapping.csv')
-        
+        cy.specifySftpSource('exportSftp','/chroot/home/a0563af8/develop-gold.dev.firebearstudio.com/pub/media/importexport/test/var/b2b_req_list_mapping.csv')
 
         //check ftp connection
         cy.get('.source_check_button').click()
