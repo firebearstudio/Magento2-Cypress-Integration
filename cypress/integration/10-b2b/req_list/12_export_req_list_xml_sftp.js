@@ -1,5 +1,5 @@
-context('Export Req List Ods File 6', () => {
-    it('csv - sftp - new job', () => {
+context('Export Req List Xml Sftp 12', () => {
+    it('xml - sftp - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
 
@@ -15,8 +15,8 @@ context('Export Req List Ods File 6', () => {
         cy.get('.general_is_active',{timeout: 60000}).find('.admin__actions-switch-label').as('generalIsActive')
         cy.get('@generalIsActive').click()
         cy.get('.general_title ').find('input')
-            .type('Req List Export - ods - file')
-            .should('have.value', 'Req List Export - ods - file')
+            .type('Req List Export - xml - sftp')
+            .should('have.value', 'Req List Export - xml - sftp')
 
         //specify Export Settings section
         cy.get('.settings_entity').find('select').as('settingsEntity')
@@ -24,17 +24,14 @@ context('Export Req List Ods File 6', () => {
 
         //specify Export Behavior section
         cy.get('.behavior_behavior_field_file_format').find('select').as('fileFormat')
-        cy.get('@fileFormat').select('ods');
+        cy.get('@fileFormat').select('xml');
 
         //select the Req List Entities: Requisition List, Item
         cy.get('#1').click()
         cy.get('#2').click()
     
         //specify Import Source section
-        cy.get('.source_export_source_entity').find('[name="export_source_entity"]').select('file')
-        cy.get('[name="export_source_file_file_path"]').type('/var/export/b2b_req_list.ods',{force:true})
-            .should('have.value', '/var/export/b2b_req_list.ods')
-        
+        cy.specifySftpSource('exportSftp','/chroot/home/a0563af8/develop-gold.dev.firebearstudio.com/pub/media/importexport/test/var/b2b_req_list.xml')
 
         //check ftp connection
         cy.get('.source_check_button').click()

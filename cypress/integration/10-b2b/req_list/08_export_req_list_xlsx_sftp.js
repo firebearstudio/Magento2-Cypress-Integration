@@ -1,4 +1,4 @@
-context('Export Req List Xlsx File 8', () => {
+context('Export Req List Xlsx Sftp 8', () => {
     it('xlsx - sftp - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -15,8 +15,8 @@ context('Export Req List Xlsx File 8', () => {
         cy.get('.general_is_active',{timeout: 60000}).find('.admin__actions-switch-label').as('generalIsActive')
         cy.get('@generalIsActive').click()
         cy.get('.general_title ').find('input')
-            .type('Req List Export - xlsx - file')
-            .should('have.value', 'Req List Export - xlsx - file')
+            .type('Req List Export - xlsx - sftp')
+            .should('have.value', 'Req List Export - xlsx - sftp')
 
         //specify Export Settings section
         cy.get('.settings_entity').find('select').as('settingsEntity')
@@ -31,11 +31,8 @@ context('Export Req List Xlsx File 8', () => {
         cy.get('#2').click()
     
         //specify Import Source section
-        cy.get('.source_export_source_entity').find('[name="export_source_entity"]').select('file')
-        cy.get('[name="export_source_file_file_path"]').type('/var/export/b2b_req_list.xlsx',{force:true})
-            .should('have.value', '/var/export/b2b_req_list.xlsx')
+        cy.specifySftpSource('exportSftp','/chroot/home/a0563af8/develop-gold.dev.firebearstudio.com/pub/media/importexport/test/var/b2b_req_list.xlsx')
         
-
         //check ftp connection
         cy.get('.source_check_button').click()
         cy.get('.fieldset_source').contains('Success! Your connection is ready!',{timeout: 60000})
