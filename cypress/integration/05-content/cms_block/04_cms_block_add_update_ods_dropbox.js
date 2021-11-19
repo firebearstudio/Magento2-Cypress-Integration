@@ -28,7 +28,7 @@ context('Import Cms Block Add Ods Dropbox 4', () => {
         //specify Import Source section
         cy.get('.type_file').find('select').as('importSourceType')
         cy.get('@importSourceType').select('ods',{force:true});
-        cy.dropboxSource('/cms_blocks.ods')
+        cy.dropboxSource('/cms_block.ods')
 
         //validate Import file
         cy.get('.source_check_button').click({force:true})

@@ -42,6 +42,6 @@ context('Import Cms Block Delete Export File 2', () => {
         //check that cms blocks were deleted
         cy.get('#menu-magento-backend-content').find('.item-cms-block ').find('a').as('goToCmsBlockGrid')
         cy.get('@goToCmsBlockGrid').click({force:true})
-        cy.get('.admin__control-support-text').contains('0',{timeout: 60000})
+        cy.get('.admin__control-support-text',{timeout: 20000}).contains('0',{timeout: 30000})
     })
 })

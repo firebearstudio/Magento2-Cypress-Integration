@@ -1,6 +1,6 @@
 
-context('Export Cms Page Xml Sftp 13', () => {
-    it('xml - sftp - new job', () => {
+context('Export Cms block ODS Sftp 15', () => {
+    it('ods - sftp - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
 
@@ -16,19 +16,19 @@ context('Export Cms Page Xml Sftp 13', () => {
         cy.get('.general_is_active',{timeout: 60000}).find('.admin__actions-switch-label').as('generalIsActive')
         cy.get('@generalIsActive').click({force:true})
         cy.get('.general_title ').find('input')
-            .type('Cms Page Export - xml - ftp')
-            .should('have.value', 'Cms Page Export - xml - ftp')
+            .type('Cms block Export - ods - sftp')
+            .should('have.value', 'Cms block Export - ods - sftp')
 
         //specify Export Settings section
         cy.get('.settings_entity').find('select').as('settingsEntity')
-        cy.get('@settingsEntity').select('cms_page',{force:true})
+        cy.get('@settingsEntity').select('cms_block',{force:true})
 
         //specify Export Behavior section
         cy.get('.behavior_behavior_field_file_format').find('select').as('fileFormat')
-        cy.get('@fileFormat').select('xlsx',{force:true});
+        cy.get('@fileFormat').select('ods',{force:true});
 
         //specify Import Source section
-        cy.specifySftpSource('exportSftp' , '/chroot/home/a0563af8/develop-gold.dev.firebearstudio.com/pub/media/importexport/test/var/export_xml_products.xml')
+        cy.specifySftpSource('exportSftp' , '/chroot/home/a0563af8/develop-gold.dev.firebearstudio.com/pub/media/importexport/test/var/export_ods_products.ods')
 
         //check ftp connection
         cy.get('.source_check_button').click({force:true})
@@ -39,6 +39,6 @@ context('Export Cms Page Xml Sftp 13', () => {
         cy.get('.run').click()
 
         //check Export results
-        cy.consoleExportResult('Entity cms_page')
+        cy.consoleExportResult('Entity cms_block')
     })
 })
