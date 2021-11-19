@@ -1,4 +1,4 @@
-context('Export Cms block Filter 12', () => {
+context('Export Cms Page Filter 10', () => {
     it('csv - sftp - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -15,21 +15,21 @@ context('Export Cms block Filter 12', () => {
         cy.get('.general_is_active',{timeout: 60000}).find('.admin__actions-switch-label').as('generalIsActive')
         cy.get('@generalIsActive').click({force:true})
         cy.get('.general_title ').find('input')
-            .type('Cms Block Export - csv - sftp')
-            .should('have.value', 'Cms Block Export - csv - sftp')
+            .type('Cms Page Export - csv - sftp')
+            .should('have.value', 'Cms Page Export - csv - sftp')
 
         //specify Export Settings section
         cy.get('.settings_entity').find('select').as('settingsEntity')
-        cy.get('@settingsEntity').select('cms_block',{force:true})
+        cy.get('@settingsEntity').select('cms_page',{force:true})
 
         //specify Export Behavior section
         cy.get('.behavior_behavior_field_file_format').find('select').as('fileFormat')
         cy.get('@fileFormat').select('csv',{force:true});
 
         //specify Import Source section
-        cy.specifySftpSource('exportSftp' , '/chroot/home/a0563af8/develop-gold.dev.firebearstudio.com/pub/media/importexport/test/export_cms_block_filter.csv')
+        cy.specifySftpSource('exportSftp' , '/chroot/home/a0563af8/develop-gold.dev.firebearstudio.com/pub/media/importexport/test/export_cms_page_filter.csv')
 
-        //check ftp connection
+        //check sftp connection
         cy.get('.source_check_button').click({force:true})
         cy.get('.fieldset_source').contains('Success! Your connection is ready!',{timeout: 60000})
 
@@ -39,14 +39,14 @@ context('Export Cms block Filter 12', () => {
         cy.get('.record-1').find('.source_filter_map_source_filter_field').find('select').as('sourceDataExport')
         cy.get('@sourceDataExport').select('title')
         cy.get('.record-1').find('.source_filter_map_source_filter_filter').find('[name="source_filter_map[text][source_filter_filter]"]')
-            .type('Custom static block')
-            .should('have.value', 'Custom static block')
+            .type('Sample CMS page')
+            .should('have.value', 'Sample CMS page')
 
         //save and run process
         cy.get('#save_and_run').click({force:true})
         cy.get('.run').click()
 
         //check Export results
-        cy.consoleExportResult('Entity cms_block')
+        cy.consoleExportResult('Entity cms_page')
     })
 })

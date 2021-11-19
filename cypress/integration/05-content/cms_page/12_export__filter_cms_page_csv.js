@@ -39,19 +39,8 @@ context('Export Cms Page Filter 12', () => {
         cy.get('.record-1').find('.source_filter_map_source_filter_field').find('select').as('sourceDataExport')
         cy.get('@sourceDataExport').select('title')
         cy.get('.record-1').find('.source_filter_map_source_filter_filter').find('[name="source_filter_map[text][source_filter_filter]"]')
-            .type('Sample CMS page 1')
-            .should('have.value', 'Sample CMS page 1')
-
-        cy.get('.source_filter_map_rows').find('tfoot').as('tfoot')
-        cy.get('@tfoot').find('.addButton').click({force:true})
-        cy.get('.record-2').find('.source_filter_map_source_filter_field').find('select').as('sourceDataExport')
-        cy.get('@sourceDataExport').select('page_id')
-        cy.get('.record-2').find('.source_filter_map_source_filter_filter').find('[name="source_filter_map[from][source_filter_filter]"]')
-            .type('1')
-            .should('have.value', '1')
-        cy.get('.record-2').find('.source_filter_map_source_filter_filter').find('[name="source_filter_map[to][source_filter_filter]"]')
-            .type('50')
-            .should('have.value', '50')
+            .type('Sample CMS page')
+            .should('have.value', 'Sample CMS page')
 
         //save and run process
         cy.get('#save_and_run').click({force:true})

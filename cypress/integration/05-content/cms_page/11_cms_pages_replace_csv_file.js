@@ -1,5 +1,5 @@
-context('Import Cms Page Add Xlsx Sftp 9', () => {
-    it('add - xlsx - sftp - new job', () => {
+context('Import Cms Page Replace Csv File 11', () => {
+    it(' replace - csv - file - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
 
@@ -12,23 +12,23 @@ context('Import Cms Page Add Xlsx Sftp 9', () => {
         cy.get('@addJobButton').click({force:true})
 
         //specify general section
-        cy.generalImportSectionWithoutReIndex('Cms Page Import - add - xlsx - sftp')
-    
+        cy.generalImportSectionWithoutReIndex('Cms Page Import - replace - csv - file')
+
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
-        cy.get('@fieldsetSettings').click()
+        cy.get('@fieldsetSettings').click({force:true})
         cy.get('.settings_entity').find('select').as('settingsEntity')
         cy.get('@settingsEntity').select('cms_page',{force:true});
 
         //specify Import Behavior section
         cy.get('.fieldset_behavior').find('.fieldset-wrapper-title').as('fieldsetBehaviour')
         cy.get('.behavior_behavior').find('select').as('behaviorBehavior')
-        cy.get('@behaviorBehavior').select('append',{force:true});
+        cy.get('@behaviorBehavior').select('replace',{force:true});
 
         //specify Import Source section
         cy.get('.type_file').find('select').as('importSourceType')
-        cy.get('@importSourceType').select('xlsx',{force:true});
-        cy.specifySftpSource('importSftp','/chroot/home/a0563af8/develop-gold.dev.firebearstudio.com/pub/media/importexport/test/cms_pages.xlsx')
+        cy.get('@importSourceType').select('csv',{force:true});
+        cy.specifySftpSource('importSftp','/chroot/home/a0563af8/develop-gold.dev.firebearstudio.com/pub/media/importexport/test/export_cms_page_filter.csv')
 
         //validate Import file
         cy.get('.source_check_button').click({force:true})
@@ -42,3 +42,4 @@ context('Import Cms Page Add Xlsx Sftp 9', () => {
         cy.consoleImportResultWithoutReIndex('Entity cms_page')
     })
 })
+

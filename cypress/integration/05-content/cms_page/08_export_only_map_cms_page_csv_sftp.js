@@ -1,4 +1,4 @@
-context('Export Cms Page Mapping 11', () => {
+context('Export Cms Page Only Mapping 8', () => {
     it('csv - sftp - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -13,7 +13,7 @@ context('Export Cms Page Mapping 11', () => {
 
         //specify general section
         cy.get('.general_is_active',{timeout: 60000}).find('.admin__actions-switch-label').as('generalIsActive')
-        cy.get('@generalIsActive').click({force:true})
+        cy.get('@generalIsActive').click()
         cy.get('.general_title ').find('input')
             .type('Cms Page Export - csv - sftp')
             .should('have.value', 'Cms Page Export - csv - sftp')
@@ -27,18 +27,19 @@ context('Export Cms Page Mapping 11', () => {
         cy.get('@fileFormat').select('csv',{force:true});
 
         //specify Import Source section
-        cy.specifySftpSource('exportSftp' , '/chroot/home/a0563af8/develop-gold.dev.firebearstudio.com/pub/media/importexport/test/export_cms_page_map.csv')
+        cy.specifySftpSource('exportSftp' , '/chroot/home/a0563af8/develop-gold.dev.firebearstudio.com/pub/media/importexport/test/export_cms_page_only_map.csv')
 
         //check sftp connection
         cy.get('.source_check_button').click({force:true})
         cy.get('.fieldset_source').contains('Success! Your connection is ready!',{timeout: 60000})
 
         //mapping
+        cy.get('.source_data_map_container_source_data_count').find('.admin__actions-switch').click()
         cy.get('.source_data_map_rows').find('tfoot').as('tfoot')
         cy.get('@tfoot').find('.addButton').click({force:true})
-        cy.get('.source_data_map_source_data_system').find('select').as('sourceDataSystem')
+        cy.get('.record-1').find('.source_data_map_source_data_system').find('select').as('sourceDataSystem')
         cy.get('@sourceDataSystem').select('page_id');
-        cy.get('.source_data_map_source_data_export').find('input').as('sourceDataImport')
+        cy.get('.record-1').find('.source_data_map_source_data_export').find('input').as('sourceDataImport')
         cy.get('@sourceDataImport')
             .type('_map')
             .should('have.value', 'page_id_map');

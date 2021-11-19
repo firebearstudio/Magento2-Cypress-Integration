@@ -39,8 +39,8 @@ context('Import Cms Page Mapping 5', () => {
         cy.get('@replaceDefaultValue').select('All rows')
         cy.addMappingRowImport('.record-1','title','title_new')
         cy.get('.source_data_map_source_data_replace').find('input')
-            .type('Title New')
-            .should('have.value', 'Title New')
+            .type('Sample CMS page Title New')
+            .should('have.value', 'Sample CMS page Title New')
 
         //save and run process
         cy.get('#save_and_run').click({force:true})
@@ -52,7 +52,7 @@ context('Import Cms Page Mapping 5', () => {
         //check that mapping changed cms page's title
         cy.get('#menu-magento-backend-content').find('.item-versionscms-page-page').find('a').as('goToCmsPageGrid')
         cy.get('@goToCmsPageGrid').click({force:true})
-        cy.get('tbody').find('.data-row').find('.data-grid-cell-content').contains('Title New')
+        cy.get('table',{timeout: 20000}).contains('Sample CMS page Title New',{timeout: 20000})
         
     })
 })

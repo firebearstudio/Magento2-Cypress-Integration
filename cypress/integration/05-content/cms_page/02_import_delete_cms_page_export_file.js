@@ -42,6 +42,6 @@ context('Import Cms Page Delete Export File 2', () => {
         //check that cms pages were deleted
         cy.get('#menu-magento-backend-content').find('.item-versionscms-page-page').find('a').as('goToCmsPageGrid')
         cy.get('@goToCmsPageGrid').click({force:true})
-        cy.get('.admin__control-support-text').contains('0',{timeout: 60000})
+        cy.get('.admin__control-support-text',{timeout: 20000}).contains('0',{timeout: 20000})
     })
 })

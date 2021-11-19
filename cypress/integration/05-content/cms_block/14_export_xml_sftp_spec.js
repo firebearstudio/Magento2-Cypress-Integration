@@ -1,5 +1,5 @@
 
-context('Export Cms block Xml Sftp 13', () => {
+context('Export Cms block Xml Sftp 14', () => {
     it('xml - sftp - new job', () => {
         //login
         cy.loginToAdminPanel('ee')

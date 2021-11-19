@@ -12,7 +12,7 @@ context('Import Cms Page Add Csv GoogleSheet 6', () => {
         cy.get('@addJobButton').click({force:true})
 
         //specify general section
-        cy.generalImportSection('Cms Page Import - add - csv - google sheet')
+        cy.generalImportSectionWithoutReIndex('Cms Page Import - add - csv - google sheet')
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
@@ -37,6 +37,6 @@ context('Import Cms Page Add Csv GoogleSheet 6', () => {
         cy.get('.run').click()
 
         //check Import results
-         cy.consoleImportResult('Entity cms_page')
+        cy.consoleImportResultWithoutReIndex('Entity cms_page')
     })
 })

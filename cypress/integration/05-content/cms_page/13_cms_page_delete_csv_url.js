@@ -1,5 +1,5 @@
-context('Import Cms Block Add Csv GoogleSheet 6', () => {
-    it('add - csv - google sheet - new job', () => {
+context('Import Cms Page Delete Csv Url 13', () => {
+    it('delete - csv - url - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
 
@@ -12,22 +12,24 @@ context('Import Cms Block Add Csv GoogleSheet 6', () => {
         cy.get('@addJobButton').click({force:true})
 
         //specify general section
-        cy.generalImportSectionWithoutReIndex('Cms Block Import - add - csv - google sheet')
-        
+        cy.generalImportSectionWithoutReIndex('Cms Page Import - delete - csv - url')
+    
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
-        cy.get('@fieldsetSettings').click()
+        cy.get('@fieldsetSettings').click({force:true})
         cy.get('.settings_entity').find('select').as('settingsEntity')
-        cy.get('@settingsEntity').select('cms_block',{force:true});
+        cy.get('@settingsEntity').select('cms_page',{force:true});
 
         //specify Import Behavior section
         cy.get('.fieldset_behavior').find('.fieldset-wrapper-title').as('fieldsetBehaviour')
         cy.get('.behavior_behavior').find('select').as('behaviorBehavior')
-        cy.get('@behaviorBehavior').select('append',{force:true});
+        cy.get('@behaviorBehavior').select('delete',{force:true});
 
         //specify Import Source section
-        cy.googlePathSource('https://docs.google.com/spreadsheets/d/13FemIzzexF5koAdQYjbcKscqoCfXyknYWkQkbSZGPsk/edit#gid=1020130914')
-      
+        cy.get('.type_file').find('select').as('importSourceType')
+        cy.get('@importSourceType').select('csv',{force:true});
+        cy.specifySftpSource('importSftp','/chroot/home/a0563af8/develop-gold.dev.firebearstudio.com/pub/media/importexport/test/export_cms_page_filter.csv')
+
         //validate Import file
         cy.get('.source_check_button').click({force:true})
         cy.get('.fieldset_source').contains('File validated successfully',{timeout: 60000})
@@ -37,6 +39,7 @@ context('Import Cms Block Add Csv GoogleSheet 6', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResultWithoutReIndex('Entity cms_block')
+        cy.consoleImportResultWithoutReIndex('Entity cms_page')
     })
 })
+
