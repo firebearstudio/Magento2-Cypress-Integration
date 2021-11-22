@@ -296,3 +296,6 @@ Cypress.Commands.add('addMappingRowImport', (rowNumber,systemAttribute,importAtt
     cy.get(rowNumber).find('.source_data_map_source_data_import').find('select').as('sourceDataImport')
     cy.get('@sourceDataImport').select(importAttribute);
 })
+
+//Upload file from a cypress folder
+import 'cypress-file-upload';
