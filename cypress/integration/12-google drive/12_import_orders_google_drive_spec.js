@@ -1,6 +1,6 @@
 
-context('Import Products Google Drive 13', () => {
-    it('import products - google drive - new job', () => {
+context('Import Order Google Drive 12', () => {
+    it('import order - google drive - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
 
@@ -13,23 +13,24 @@ context('Import Products Google Drive 13', () => {
         cy.get('@addJobButton').click()
 
         //specify general section
-        cy.generalImportSectionWithoutReIndex('Product Import - add update - csv - google drive')
+        cy.generalImportSectionWithoutReIndex('Order Import - add update - csv - google drive')
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
         cy.get('@fieldsetSettings').click()
         cy.get('.settings_entity').find('select').as('settingsEntity')
-        cy.get('@settingsEntity').select('catalog_product');
+        cy.get('@settingsEntity').select('order');
 
         //specify Import Behavior section
         cy.get('.fieldset_behavior').find('.fieldset-wrapper-title').as('fieldsetBehaviour')
         cy.get('.behavior_behavior').find('select').as('behaviorBehavior')
-        cy.get('@behaviorBehavior').select('append');
+        cy.get('@behaviorBehavior').select('add_update');
         
         //specify Import Source section
         cy.get('[data-index="import_source"]').find('select').select('googledrive')
-        cy.get('[data-index="googledrive_googledrive_file_path"]').find('input').type('new/product_all_types.csv',{force:true})
-        .should('have.value','new/product_all_types.csv')
+        cy.get('[data-index="googledrive_googledrive_file_path"]').find('input')
+            .type('new/orders.csv',{force:true})
+            .should('have.value','new/orders.csv')
 
         //upload a key for the Google Drive
         const filepath = 'files/new1-268508-0814a8f755d1.json'
@@ -45,7 +46,7 @@ context('Import Products Google Drive 13', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResultWithoutReIndex('Entity catalog_product')
+        cy.consoleImportResultWithoutReIndex('Entity order')
     })
 })
 
