@@ -13,7 +13,7 @@ context('Import Customer Main Only Fields From Mapping 22', () => {
         cy.get('@addJobButton').click()
 
         //specify general section
-        cy.generalImportSectionWithoutReIndex('Customer Main Import - Only fields from mapping')
+        cy.generalImportSection('Customer Main Import - Only fields from mapping')
         cy.get('[data-index="indexers"]').find('.admin__control-multiselect').as('indexManagement')
         cy.get('@indexManagement').select('customer_grid',{force:true})
 
@@ -50,7 +50,7 @@ context('Import Customer Main Only Fields From Mapping 22', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResultWithoutReIndex('Entity customer')
+        cy.consoleImportResult('Entity customer')
         
         //check if only mapping attributes were updated
         cy.get('#menu-magento-customer-customer').find('.item-customer-manage').find('a').as('goToCustomerMainGrid')
