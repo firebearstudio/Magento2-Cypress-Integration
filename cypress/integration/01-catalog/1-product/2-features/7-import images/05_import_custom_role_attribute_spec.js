@@ -41,5 +41,10 @@ context('Import Attributes Image Custom Role Add Update 5', () => {
 
         //check Import results
         cy.consoleImportResultWithoutReIndex('Entity attribute')
+        cy.get('#debug-run').contains('Wrong URL/path used for attribute _media_image').should('not.exist')
+        cy.get('#debug-run').contains('Wrong URL/path used for attribute image').should('not.exist')
+        cy.get('#debug-run').contains('Wrong URL/path used for attribute small_image').should('not.exist')
+        cy.get('#debug-run').contains('Wrong URL/path used for attribute thumbnail').should('not.exist')
+        cy.get('#debug-run').contains('Wrong URL/path used for attribute swatch_image').should('not.exist')
     })
 })

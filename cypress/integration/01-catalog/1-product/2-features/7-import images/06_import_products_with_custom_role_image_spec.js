@@ -39,6 +39,11 @@ context('Import Products With Custom Role Image 6',{ retries: 2 }, () => {
 
         //check Import results
         cy.consoleImportResultWithoutReIndex('Entity catalog_product')
+        cy.get('#debug-run').contains('Wrong URL/path used for attribute _media_image').should('not.exist')
+        cy.get('#debug-run').contains('Wrong URL/path used for attribute image').should('not.exist')
+        cy.get('#debug-run').contains('Wrong URL/path used for attribute small_image').should('not.exist')
+        cy.get('#debug-run').contains('Wrong URL/path used for attribute thumbnail').should('not.exist')
+        cy.get('#debug-run').contains('Wrong URL/path used for attribute swatch_image').should('not.exist')
   
         //check that products were created
         cy.get('#menu-magento-catalog-catalog').find('.item-catalog-products').find('a').as('goToProductsGrid')
@@ -54,16 +59,16 @@ context('Import Products With Custom Role Image 6',{ retries: 2 }, () => {
         cy.get('.admin__data-grid-outer-wrap').contains('product_with_custom_role_image').click({force:true});
 
         //check that the custom role was applied and system roles too
-        cy.get('[data-index="gallery"]').find('.fieldset-wrapper-title').click({force:true});
-        cy.get('#media_gallery_content').find('[src="https://bcb62cd561-254704.nxcli.net/media/catalog/product/e/8/e89bdd6fa5b36b2cd0845b10710c97bd8caf96b4cbd8722d0e90fe348f645438.jpeg"]').click()
+        cy.get('[data-index="gallery"]',{timeout: 10000}).find('.fieldset-wrapper-title').click({force:true});
+        cy.get('#media_gallery_content').find('[src="https://bcb62cd561-254704.nxcli.net/media/catalog/product/e/8/e89bdd6fa5b36b2cd0845b10710c97bd8caf96b4cbd8722d0e90fe348f645438.jpeg"]',{timeout: 10000}).click()
         cy.get('.multiselect-alt').find('.selected').contains('Base')
         cy.get('[aria-labelledby="modal-title-25"]').find('button').click({force:true})
-        cy.get('#media_gallery_content').find('[src="https://bcb62cd561-254704.nxcli.net/media/catalog/product/9/1/91d542037fa28865ae1af3690af77aa112ba898c0e1b55a42dca20d348b3a1f7.jpeg"]').click()
+        cy.get('#media_gallery_content').find('[src="https://bcb62cd561-254704.nxcli.net/media/catalog/product/9/1/91d542037fa28865ae1af3690af77aa112ba898c0e1b55a42dca20d348b3a1f7.jpeg"]',{timeout: 10000}).click()
         cy.get('.multiselect-alt').find('.selected').contains('Small')
         cy.get('.multiselect-alt').find('.selected').contains('Thumbnail')
         cy.get('.multiselect-alt').find('.selected').contains('Swatch')
         cy.get('[aria-labelledby="modal-title-25"]').find('button').click({force:true})
-        cy.get('#media_gallery_content').find('[src="https://bcb62cd561-254704.nxcli.net/media/catalog/product/5/1/511eee0409aa302b59788e5a5f76dd79fb7e9e6417b081121ed41fc5e39435aa.jpeg"]').click()
+        cy.get('#media_gallery_content').find('[src="https://bcb62cd561-254704.nxcli.net/media/catalog/product/5/1/511eee0409aa302b59788e5a5f76dd79fb7e9e6417b081121ed41fc5e39435aa.jpeg"]',{timeout: 10000}).click()
         cy.get('.multiselect-alt').find('.selected').contains('custom_role')
         cy.get('[aria-labelledby="modal-title-25"]').find('button').click({force:true})
 

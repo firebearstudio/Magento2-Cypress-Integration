@@ -1,5 +1,5 @@
 
-context('Import Customer Addresses Only Fields From Mapping 20',{ retries: 3 }, () => {
+context('Import Customer Addresses Only Fields From Mapping 20', () => {
     it(' only mapping fields - csv - file - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -13,7 +13,7 @@ context('Import Customer Addresses Only Fields From Mapping 20',{ retries: 3 }, 
         cy.get('@addJobButton').click()
 
         //specify general section
-        cy.generalImportSectionWithoutReIndex('Customer Addresses Import - Only fields from mapping')
+        cy.generalImportSection('Customer Addresses Import - Only fields from mapping')
         cy.get('[data-index="indexers"]').find('.admin__control-multiselect').as('indexManagement')
         cy.get('@indexManagement').select('customer_grid',{force:true})
 
@@ -50,7 +50,7 @@ context('Import Customer Addresses Only Fields From Mapping 20',{ retries: 3 }, 
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResultWithoutReIndex('Entity customer_address')
+        cy.consoleImportResult('Entity customer_address')
 
         //go to Veronica's Costello Edit
         cy.get('#menu-magento-customer-customer').find('.item-customer-manage').find('a').as('goToCustomersGrid')
@@ -63,7 +63,7 @@ context('Import Customer Addresses Only Fields From Mapping 20',{ retries: 3 }, 
         cy.get('.admin__data-grid-outer-wrap').contains('1 records found',{timeout: 60000})
         cy.get('.admin__data-grid-wrap').contains('Edit',{timeout: 60000})
         cy.get('.admin__data-grid-wrap').contains('Edit').click({force:true})
-        cy.get('#tab_address').click()
+        cy.get('#tab_address',{timeout: 10000}).click()
 
         //check if only mapping attributes were updated
         cy.get('.customer-default-address-wrapper').contains('CalderCity')

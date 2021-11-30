@@ -284,7 +284,7 @@ Cypress.Commands.add('deleteAllFilterProducts' , () => {
 
 //reset active filters 
 Cypress.Commands.add('resetActiveFilters' , () => {
-    cy.get('.admin__current-filters-actions-wrap').find('button').contains('Clear all').click()
+    cy.get('.admin__current-filters-actions-wrap',{timeout: 10000}).find('button').contains('Clear all',{timeout: 10000}).click({force:true})
 })
 
 //add Mapping Attributes Row
