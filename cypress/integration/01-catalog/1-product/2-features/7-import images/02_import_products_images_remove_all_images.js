@@ -47,6 +47,11 @@ context('Import Products Images Remove All Images Enabled 2',{ retries: 3 }, () 
 
         //check Import results
         cy.consoleImportResultWithoutReIndex('Entity catalog_product')
+        cy.get('#debug-run').contains('Wrong URL/path used for attribute _media_image').should('not.exist')
+        cy.get('#debug-run').contains('Wrong URL/path used for attribute image').should('not.exist')
+        cy.get('#debug-run').contains('Wrong URL/path used for attribute small_image').should('not.exist')
+        cy.get('#debug-run').contains('Wrong URL/path used for attribute thumbnail').should('not.exist')
+        cy.get('#debug-run').contains('Wrong URL/path used for attribute swatch_image').should('not.exist')
   
         //check that products were created
         cy.get('#menu-magento-catalog-catalog').find('.item-catalog-products').find('a').as('goToProductsGrid')
@@ -62,8 +67,8 @@ context('Import Products Images Remove All Images Enabled 2',{ retries: 3 }, () 
         cy.get('.admin__data-grid-outer-wrap').contains('fruit1').click({force:true});
 
         //check that old images were deleted and new images were imported and roles were applied
-        cy.get('[data-index="gallery"]').find('.fieldset-wrapper-title').click({force:true});
-        cy.get('#media_gallery_content').find('[src="https://bcb62cd561-254704.nxcli.net/media/catalog/product/1/e/1e756be2f3bc257db3ae612cd253e21159438399e78487d8687016a5281c4e6c.jpeg"]').should('not.exist')
+        cy.get('[data-index="gallery"]',{timeout: 10000}).find('.fieldset-wrapper-title').click({force:true});
+        cy.get('#media_gallery_content').find('[src="https://bcb62cd561-254704.nxcli.net/media/catalog/product/1/e/1e756be2f3bc257db3ae612cd253e21159438399e78487d8687016a5281c4e6c.jpeg"]',{timeout: 10000}).should('not.exist')
         cy.get('#media_gallery_content').find('[src="https://bcb62cd561-254704.nxcli.net/media/catalog/product/2/3/2315de17772796a58e28741b6aed243472da1fd48cde623c29af655c2d44e442.jpeg"]').click()
         cy.get('.multiselect-alt').find('.selected').contains('Base')
         cy.get('.multiselect-alt').find('.selected').contains('Small')

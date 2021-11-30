@@ -39,6 +39,11 @@ context('Import Products Images 1',{ retries: 3 }, () => {
 
         //check Import results
         cy.consoleImportResultWithoutReIndex('Entity catalog_product')
+        cy.get('#debug-run').contains('Wrong URL/path used for attribute _media_image').should('not.exist')
+        cy.get('#debug-run').contains('Wrong URL/path used for attribute image').should('not.exist')
+        cy.get('#debug-run').contains('Wrong URL/path used for attribute small_image').should('not.exist')
+        cy.get('#debug-run').contains('Wrong URL/path used for attribute thumbnail').should('not.exist')
+        cy.get('#debug-run').contains('Wrong URL/path used for attribute swatch_image').should('not.exist')
   
         //check that products were created
         cy.get('#menu-magento-catalog-catalog').find('.item-catalog-products').find('a').as('goToProductsGrid')
@@ -46,15 +51,15 @@ context('Import Products Images 1',{ retries: 3 }, () => {
         cy.get('[data-bind="collapsible: {openClass: false, closeOnOuter: false}"]',{timeout: 10000}).find('button').as('filtersButton')
         cy.get('@filtersButton').click({force:true})
         cy.get('[name="sku"]').invoke('val', 'fruit').trigger('change',{force:true})
+        cy.get('[name="store_id"]').select('1',{force:true})
         cy.get('[data-bind="i18n: \'Apply Filters\'"]',{timeout: 10000}).as('applyFiltersButton')
         cy.get('@applyFiltersButton').click({force:true})
     
-        //check that weight doesn't have a value
         cy.get('.admin__data-grid-outer-wrap').contains('fruit1',{timeout: 10000})
         cy.get('.admin__data-grid-outer-wrap').contains('fruit1').click({force:true});
          //check that images were imported and roles were applied
-         cy.get('[data-index="gallery"]').find('.fieldset-wrapper-title').click({force:true});
-         cy.get('#media_gallery_content').find('[src="https://bcb62cd561-254704.nxcli.net/media/catalog/product/1/e/1e756be2f3bc257db3ae612cd253e21159438399e78487d8687016a5281c4e6c.jpeg"]').click()
+         cy.get('[data-index="gallery"]',{timeout: 10000}).find('.fieldset-wrapper-title').click({force:true});
+         cy.get('#media_gallery_content').find('[src="https://bcb62cd561-254704.nxcli.net/media/catalog/product/1/e/1e756be2f3bc257db3ae612cd253e21159438399e78487d8687016a5281c4e6c.jpeg"]',{timeout: 10000}).click()
          cy.get('.multiselect-alt').find('.selected').contains('Base')
          cy.get('.multiselect-alt').find('.selected').contains('Small')
          cy.get('.multiselect-alt').find('.selected').contains('Thumbnail')

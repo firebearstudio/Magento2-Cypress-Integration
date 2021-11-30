@@ -40,5 +40,10 @@ context('Import Products Images 4', () => {
 
         //check Import results
         cy.consoleImportResultWithoutReIndex('Entity catalog_product')
+        cy.get('#debug-run').contains('Wrong URL/path used for attribute _media_image').should('not.exist')
+        cy.get('#debug-run').contains('Wrong URL/path used for attribute image').should('not.exist')
+        cy.get('#debug-run').contains('Wrong URL/path used for attribute small_image').should('not.exist')
+        cy.get('#debug-run').contains('Wrong URL/path used for attribute thumbnail').should('not.exist')
+        cy.get('#debug-run').contains('Wrong URL/path used for attribute swatch_image').should('not.exist')
     })
 })
