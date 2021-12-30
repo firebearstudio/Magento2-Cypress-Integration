@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * import-prod
+ *
+ * @copyright Copyright © 2020 Vinay Shah. All rights reserved.
+ * @author    vinay.sudhir@gmail.com
+ */
+-->
+<xsl:stylesheet
+xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+xmlns:php="http://php.net/xsl"
+exclude-result-prefixes="php"
+version="1.0">
+<xsl:output method="xml"
+version="1.0"
+encoding="UTF-8"
+indent="yes"/>
+<xsl:variable name="attributeSetCode">
+<xsl:text>Default</xsl:text>
+</xsl:variable>
+<xsl:variable name="multiValueSeparator">
+<xsl:text>,</xsl:text>
+</xsl:variable>
+<xsl:variable name="multiValueCatSeparator">
+<xsl:text>,</xsl:text>
+</xsl:variable>
+<xsl:variable name="websites">
+<xsl:text>base</xsl:text>
+</xsl:variable>
+<xsl:variable name="product_type">
+<xsl:text>simple</xsl:text>
+</xsl:variable>
+<xsl:template match="timezone">
+<xsl:element name="Items">
+<xsl:for-each select="simpleproduct">
+<xsl:element name="Item">
+<xsl:for-each select="*">
+<xsl:variable name="var" select="normalize-space(name())"/>
+<xsl:element name="{$var}">
+<xsl:value-of select="normalize-space(string(.))"/>
+</xsl:element>
+</xsl:for-each>
+<xsl:for-each select="attributes/*">
+<xsl:variable name="var" select="normalize-space(name())"/>
+<xsl:element name="attributes_{$var}">
+<xsl:value-of select="normalize-space(string(.))"/>
+</xsl:element>
+</xsl:for-each>
+<xsl:for-each select="inventory/*">
+<xsl:variable name="var" select="normalize-space(name())"/>
+<xsl:element name="inventory_{$var}">
+<xsl:value-of select="normalize-space(string(.))"/>
+</xsl:element>
+</xsl:for-each>
+<xsl:element name="visibility">
+<xsl:choose>
+<xsl:when test="visibility = 'both'">
+<xsl:text>Catalog, Search</xsl:text>
+</xsl:when>
+<xsl:otherwise>
+<xsl:text>Not Visible Individually</xsl:text>
+</xsl:otherwise>
+</xsl:choose>
+</xsl:element>
+<xsl:element name="image">
+<xsl:value-of select="images/item/path" />
+</xsl:element>
+<xsl:element name="additional_images">
+<xsl:for-each select="images/item">
+<xsl:variable name="count" select="position()"/>
+<xsl:if test="$count &gt; 2">
+<xsl:value-of select="normalize-space(path)"/>
+<xsl:if test="$count != last()">
+<xsl:value-of select="$multiValueSeparator"/>
+</xsl:if>
+</xsl:if>
+</xsl:for-each>
+</xsl:element>
+<xsl:element name="categories">
+<xsl:for-each select="categories/item">
+<xsl:variable name="count" select="position()"/>
+<xsl:value-of select="normalize-space(id)"/>
+<xsl:if test="$count != last()">
+<xsl:value-of select="$multiValueSeparator"/>
+</xsl:if>
+</xsl:for-each>
+</xsl:element>
+<xsl:element name="related_skus">
+<xsl:for-each select="related/sku">
+<xsl:variable name="count" select="position()"/>
+<xsl:value-of select="normalize-space(string(.))"/>
+<xsl:if test="$count != last()">
+<xsl:value-of select="$multiValueSeparator"/>
+</xsl:if>
+</xsl:for-each>
+</xsl:element>
+<xsl:element name="upsell_skus">
+<xsl:for-each select="upselling/sku">
+<xsl:variable name="count" select="position()"/>
+<xsl:value-of select="normalize-space(string(.))"/>
+<xsl:if test="$count != last()">
+<xsl:value-of select="$multiValueSeparator"/>
+</xsl:if>
+</xsl:for-each>
+</xsl:element>
+<xsl:element name="crosssell_skus">
+<xsl:for-each select="crossselling/sku">
+<xsl:variable name="count" select="position()"/>
+<xsl:value-of select="normalize-space(string(.))"/>
+<xsl:if test="$count != last()">
+<xsl:value-of select="$multiValueSeparator"/>
+</xsl:if>
+</xsl:for-each>
+</xsl:element>
+</xsl:element>
+</xsl:for-each>
+</xsl:element>
+</xsl:template>
+</xsl:stylesheet>
