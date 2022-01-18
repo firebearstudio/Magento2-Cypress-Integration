@@ -60,27 +60,27 @@ context('Import Products Custom logic Visibility Search With Parent 15',{ retrie
         cy.get('@goToProductsGrid').click({force:true})
         cy.get('[data-bind="collapsible: {openClass: false, closeOnOuter: false}"]',{timeout: 10000}).find('button').as('filtersButton')
         cy.get('@filtersButton').click({force:true})
-        cy.get('[name="sku"]').invoke('val', 'visibility-four').trigger('change',{force:true})
+        cy.get('[name="sku"]').invoke('val', 'visibility-five').trigger('change',{force:true})
         cy.get('[data-bind="i18n: \'Apply Filters\'"]',{timeout: 10000}).as('applyFiltersButton')
         cy.get('@applyFiltersButton').click({force:true})
 
-        cy.get('table',{timeout:40000}).contains('visibility-four-S-Gray').parentsUntil('tbody')
+        cy.get('table',{timeout:40000}).contains('visibility-five-S-Gray').parentsUntil('tbody')
             .within(function () {
                 cy.contains('Search')
             })
-        cy.get('table',{timeout:40000}).contains('visibility-four-S-Green').parentsUntil('tbody')
+        cy.get('table',{timeout:40000}).contains('visibility-five-S-Green').parentsUntil('tbody')
             .within(function () {
                 cy.contains('Search')
             })
-            cy.get('table',{timeout:40000}).contains('visibility-four-S-Purple').parentsUntil('tbody')
+            cy.get('table',{timeout:40000}).contains('visibility-five-S-Purple').parentsUntil('tbody')
             .within(function () {
                 cy.contains('Search')
             })
-            cy.get('table',{timeout:40000}).contains('visibility-four-M-Gray').parentsUntil('tbody')
+            cy.get('table',{timeout:40000}).contains('visibility-five-M-Gray').parentsUntil('tbody')
             .within(function () {
                 cy.contains('Search')
             })
-            cy.get('table',{timeout:40000}).contains('visibility-four-M-Green').parentsUntil('tbody')
+            cy.get('table',{timeout:40000}).contains('visibility-five-M-Green').parentsUntil('tbody')
             .within(function () {
                 cy.contains('Search')
             })
@@ -89,7 +89,7 @@ context('Import Products Custom logic Visibility Search With Parent 15',{ retrie
                 cy.contains('Catalog, Search')
             })
 
-        //delete 'visibility-four' products
+        //delete 'visibility-five' products
         cy.get('table').find('.data-grid-checkbox-cell-inner',{timeout: 60000}).click({multiple:true})
         cy.get('.admin__data-grid-header-row').contains('Actions').as('actionsWithMultiple')
         cy.get('@actionsWithMultiple').click({force:true})

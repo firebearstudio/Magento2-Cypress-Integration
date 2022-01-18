@@ -65,27 +65,27 @@ context('Import Products Custom logic Visibility Search Copy With Parent 23',{ r
         cy.get('@goToProductsGrid').click({force:true})
         cy.get('[data-bind="collapsible: {openClass: false, closeOnOuter: false}"]',{timeout: 10000}).find('button').as('filtersButton')
         cy.get('@filtersButton').click({force:true})
-        cy.get('[name="sku"]').invoke('val', 'visibility-four').trigger('change',{force:true})
+        cy.get('[name="sku"]').invoke('val', 'visibility-five').trigger('change',{force:true})
         cy.get('[data-bind="i18n: \'Apply Filters\'"]',{timeout: 10000}).as('applyFiltersButton')
         cy.get('@applyFiltersButton').click({force:true})
 
-        cy.get('table',{timeout:40000}).contains('visibility-four-S-Gray').parentsUntil('tbody')
+        cy.get('table',{timeout:40000}).contains('visibility-five-S-Gray',{timeout:40000}).parentsUntil('tbody')
             .within(function () {
                 cy.contains('Search')
             })
-        cy.get('table',{timeout:40000}).contains('visibility-four-S-Green').parentsUntil('tbody')
+        cy.get('table',{timeout:40000}).contains('visibility-five-S-Green').parentsUntil('tbody')
             .within(function () {
                 cy.contains('Search')
             })
-            cy.get('table',{timeout:40000}).contains('visibility-four-S-Purple').parentsUntil('tbody')
+            cy.get('table',{timeout:40000}).contains('visibility-five-S-Purple').parentsUntil('tbody')
             .within(function () {
                 cy.contains('Search')
             })
-            cy.get('table',{timeout:40000}).contains('visibility-four-M-Gray').parentsUntil('tbody')
+            cy.get('table',{timeout:40000}).contains('visibility-five-M-Gray').parentsUntil('tbody')
             .within(function () {
                 cy.contains('Search')
             })
-            cy.get('table',{timeout:40000}).contains('visibility-four-M-Green').parentsUntil('tbody')
+            cy.get('table',{timeout:40000}).contains('visibility-five-M-Green').parentsUntil('tbody')
             .within(function () {
                 cy.contains('Search')
             })
