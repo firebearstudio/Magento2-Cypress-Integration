@@ -66,7 +66,7 @@ context('Import Products Custom logic Visibility Catalog/Search Without Parent 1
         cy.get('[data-bind="i18n: \'Apply Filters\'"]',{timeout: 10000}).as('applyFiltersButton')
         cy.get('@applyFiltersButton').click({force:true})
 
-        cy.get('table',{timeout:40000}).contains('visibility-one-S-Gray').parentsUntil('tbody')
+        cy.get('table',{timeout:40000}).contains('visibility-one-S-Gray',{timeout:40000}).parentsUntil('tbody')
             .within(function () {
                 cy.contains('Catalog, Search')
             })
