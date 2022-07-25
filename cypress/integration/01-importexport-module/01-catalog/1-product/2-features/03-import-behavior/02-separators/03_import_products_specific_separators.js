@@ -1,6 +1,6 @@
 
-context('Import Products Using Downloadable Type Delete 3', () => {
-    it('delete - csv - sftp - new job', { retries: 0 }, () => {
+context('Import Products Specific Separators 03', () => {
+    it('import - specific - separators - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
 
@@ -13,7 +13,7 @@ context('Import Products Using Downloadable Type Delete 3', () => {
         cy.get('@addJobButton').click({force:true})
 
         //specify general section
-        cy.generalImportSectionWithoutReIndex('Product Import - using export file - downloadable type - delete')
+        cy.generalImportSectionWithoutReIndex('Product Import - specific - separators')
     
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
@@ -24,14 +24,16 @@ context('Import Products Using Downloadable Type Delete 3', () => {
         //specify Import Behavior section
         cy.get('.fieldset_behavior').find('.fieldset-wrapper-title').as('fieldsetBehaviour')
         cy.get('.behavior_behavior').find('select').as('behaviorBehavior')
-        cy.get('@behaviorBehavior').select('delete',{force:true});
-        cy.get('[data-index="validation_strategy"]').find('select').as('validationStrategy')
-        cy.get('@validationStrategy').select('validation-skip-errors',{force:true})
+        cy.get('@behaviorBehavior').select('append',{force:true});
+        cy.get('[data-index="_import_field_separator"]').find('input').clear()
+        cy.get('[data-index="_import_field_separator"]').find('input').type(';')
+        .should('have.value', ';')
+        cy.get('[data-index="_import_multiple_value_separator"]').find('input').clear()
+        cy.get('[data-index="_import_multiple_value_separator"]').find('input').type('.')
+        .should('have.value', '.')
 
         //specify Import Source section
-        cy.get('.type_file').find('select').as('importSourceType')
-        cy.get('@importSourceType').select('csv',{force:true});
-        cy.specifySftpSource('importSftp','/chroot/home/a0563af8/develop-gold.dev.firebearstudio.com/pub/media/importexport/test/var/export_downloadable_products.csv')
+        cy.specifySftpSource('importSftp','/chroot/home/a0563af8/develop-gold.dev.firebearstudio.com/pub/media/importexport/test/var/export_products_specific_separators.csv')
         
         //validate Import file
         cy.get('.source_check_button').click({force:true})
