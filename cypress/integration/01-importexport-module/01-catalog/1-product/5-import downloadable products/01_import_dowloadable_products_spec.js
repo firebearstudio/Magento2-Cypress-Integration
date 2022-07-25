@@ -1,6 +1,6 @@
 
-context('Import Products Using Downloadable Type Add 4', () => {
-    it('add - csv - sftp - new job', { retries: 0 }, () => {
+context('Import Downloadable Products 1', () => {
+    it('import downloadable product',{ retries: 0 }, () => {
         //login
         cy.loginToAdminPanel('ee')
 
@@ -13,8 +13,8 @@ context('Import Products Using Downloadable Type Add 4', () => {
         cy.get('@addJobButton').click({force:true})
 
         //specify general section
-        cy.generalImportSectionWithoutReIndex('Product Import - using export file - downloadable type - add')
-    
+        cy.generalImportSectionWithoutReIndex('Import Downloadable Product')
+
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
         cy.get('@fieldsetSettings').click({force:true})
@@ -25,17 +25,13 @@ context('Import Products Using Downloadable Type Add 4', () => {
         cy.get('.fieldset_behavior').find('.fieldset-wrapper-title').as('fieldsetBehaviour')
         cy.get('.behavior_behavior').find('select').as('behaviorBehavior')
         cy.get('@behaviorBehavior').select('append',{force:true});
-        cy.get('[data-index="validation_strategy"]').find('select').as('validationStrategy')
-        cy.get('@validationStrategy').select('validation-skip-errors',{force:true})
 
         //specify Import Source section
-        cy.get('.type_file').find('select').as('importSourceType')
-        cy.get('@importSourceType').select('csv',{force:true});
-        cy.specifySftpSource('importSftp','/chroot/home/a0563af8/develop-gold.dev.firebearstudio.com/pub/media/importexport/test/var/export_downloadable_products.csv')
-        
+        cy.fileSource('pub/media/importexport/test/downloadable_test_product.csv')
+
         //validate Import file
         cy.get('.source_check_button').click({force:true})
-        cy.get('.fieldset_source').contains('File validated successfully',{timeout: 60000})
+        cy.get('.fieldset_source').contains('File validated successfully',{timeout: 20000})
 
         //save and run process
         cy.get('#save_and_run').click({force:true})

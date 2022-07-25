@@ -56,7 +56,7 @@ context('Import Dymanic Bundle Product 1', () => {
         cy.get('[data-index="sku_type"]').find('input').should('have.value','0')
 
         //check that shipment type is Separately
-        cy.get('[data-index="shipment_type"]').find('select').should('have.value','1')
+        cy.get('[data-index="shipment_type"]').find('select').should('have.value','0')
         //check that bundle sections has two products
         cy.get('[data-index="bundle_selections"]').find('tbody').find('tr').should('have.length', 2)
         //check that data for bundle options were imported successfully
