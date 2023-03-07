@@ -12,7 +12,7 @@ context('Import Advanced Pricing Notifications Successful 2', () => {
         cy.get('@addJobButton').click()
 
         //specify general section
-        cy.generalImportSection('Advanced Pricing Import - notifications - successful - xlsx - sftp')
+        cy.generalImportSectionWithoutReIndex('Advanced Pricing Import - notifications - successful - xlsx - sftp')
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
@@ -56,6 +56,6 @@ context('Import Advanced Pricing Notifications Successful 2', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResult('Entity advanced_pricing')
+        cy.consoleImportResultWithoutReIndex('Entity advanced_pricing')
     })
 })

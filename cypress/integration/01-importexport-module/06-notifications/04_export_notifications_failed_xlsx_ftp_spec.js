@@ -46,7 +46,7 @@ context('Export Advanced Pricing Notifications Failed 4', () => {
             .type('marystoikaaaa@gmail.com',{force:true})
             .should('have.value', 'marystoikaaaa@gmail.com')
         cy.get('[data-index="email_notification"]').find('[data-index="copy_method"]').find('select').as('notificationCopyMethod')
-        cy.get('@notificationCopyMethod').select('Separate Email',{force:true})
+        cy.get('@notificationCopyMethod').select('Cc',{force:true})
         cy.get('[data-index="email_notification"]').find('[data-index="is_attach"]').find('.admin__actions-switch-label').as('notificationAttachLog')
         cy.get('@notificationAttachLog').click({force:true})
 
