@@ -70,27 +70,27 @@ context('Import Products Custom logic Visibility Search Copy With Parent 23',{ r
         cy.get('@applyFiltersButton').click({force:true})
 
         cy.get('table',{timeout:40000}).contains('visibility-five-S-Gray',{timeout:40000}).parentsUntil('tbody')
-            .within(function () {
+            .each(function () {
                 cy.contains('Search')
             })
         cy.get('table',{timeout:40000}).contains('visibility-five-S-Green').parentsUntil('tbody')
-            .within(function () {
+            .each(function () {
                 cy.contains('Search')
             })
             cy.get('table',{timeout:40000}).contains('visibility-five-S-Purple').parentsUntil('tbody')
-            .within(function () {
+            .each(function () {
                 cy.contains('Search')
             })
             cy.get('table',{timeout:40000}).contains('visibility-five-M-Gray').parentsUntil('tbody')
-            .within(function () {
+            .each(function () {
                 cy.contains('Search')
             })
             cy.get('table',{timeout:40000}).contains('visibility-five-M-Green').parentsUntil('tbody')
-            .within(function () {
+            .each(function () {
                 cy.contains('Search')
             })
             cy.get('table',{timeout:40000}).contains('Configurable Product').parentsUntil('tbody')
-            .within(function () {
+            .each(function () {
                 cy.contains('Search')
             })
 

@@ -65,27 +65,27 @@ context('Import Products Custom logic Visibility Not Visible With Parent 18',{ r
         cy.get('@applyFiltersButton').click({force:true})
 
         cy.get('table',{timeout:40000}).contains('visibility-eight-S-Gray').parentsUntil('tbody')
-            .within(function () {
+            .each(function () {
                 cy.contains('Catalog, Search')
             })
         cy.get('table',{timeout:40000}).contains('visibility-eight-S-Green').parentsUntil('tbody')
-            .within(function () {
+            .each(function () {
                 cy.contains('Catalog, Search')
             })
             cy.get('table',{timeout:40000}).contains('visibility-eight-S-Purple').parentsUntil('tbody')
-            .within(function () {
+            .each(function () {
                 cy.contains('Catalog, Search')
             })
             cy.get('table',{timeout:40000}).contains('visibility-eight-M-Gray').parentsUntil('tbody')
-            .within(function () {
+            .each(function () {
                 cy.contains('Catalog, Search')
             })
             cy.get('table',{timeout:40000}).contains('visibility-eight-M-Green').parentsUntil('tbody')
-            .within(function () {
+            .each(function () {
                 cy.contains('Catalog, Search')
             })
             cy.get('table',{timeout:40000}).contains('Configurable Product').parentsUntil('tbody')
-            .within(function () {
+            .each(function () {
                 cy.contains('Not Visible Individually')
             })
 
