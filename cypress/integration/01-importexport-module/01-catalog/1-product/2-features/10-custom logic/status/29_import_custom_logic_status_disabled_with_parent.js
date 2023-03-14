@@ -65,27 +65,27 @@ context('Import Products Custom logic Status Disabled With Parent 29',{ retries:
         cy.get('@applyFiltersButton').click({force:true})
 
         cy.get('table',{timeout:40000}).contains('status-three-S-Gray',{timeout:40000}).parentsUntil('tbody')
-            .within(function () {
+            .each(function () {
                 cy.contains('Disabled')
             })
         cy.get('table',{timeout:40000}).contains('status-three-S-Green').parentsUntil('tbody')
-            .within(function () {
+            .each(function () {
                 cy.contains('Disabled')
             })
             cy.get('table',{timeout:40000}).contains('status-three-S-Purple').parentsUntil('tbody')
-            .within(function () {
+            .each(function () {
                 cy.contains('Disabled')
             })
             cy.get('table',{timeout:40000}).contains('status-three-M-Gray').parentsUntil('tbody')
-            .within(function () {
+            .each(function () {
                 cy.contains('Disabled')
             })
             cy.get('table',{timeout:40000}).contains('status-three-M-Green').parentsUntil('tbody')
-            .within(function () {
+            .each(function () {
                 cy.contains('Disabled')
             })
             cy.get('table',{timeout:40000}).contains('Configurable Product').parentsUntil('tbody')
-            .within(function () {
+            .each(function () {
                 cy.contains('Enabled')
             })
 
