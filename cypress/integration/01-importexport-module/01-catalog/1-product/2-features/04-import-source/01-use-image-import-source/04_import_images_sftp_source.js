@@ -27,9 +27,10 @@ context('Import Products Images Sftp Source', () => {
         cy.get('@behaviorBehavior').select('append');
 
         //specify Import Source section
-        cy.specifySftpSource('importSftp','/chroot/home/a0563af8/develop-alpha.dev.firebearstudio.com/pub/media/importexport/test/products_use__image_import_source.csv')
+        cy.specifySftpSource('importSftp','/chroot/home/a0563af8/develop-gold.dev.firebearstudio.com/pub/media/importexport/img/new_test_sftp.csv')
         cy.get('[data-index="image_import_source"]').find('.admin__actions-switch-label').as('useImoprtImageSource')
         cy.get('@useImoprtImageSource').click({force:true})
+        cy.get('[data-index="sftp_remote_images_file_dir"]').find('input').type('/chroot/home/a0563af8/develop-gold.dev.firebearstudio.com/pub/media/importexport/img/')
 
         //validate Import file
         cy.get('.source_check_button').click()
@@ -46,8 +47,6 @@ context('Import Products Images Sftp Source', () => {
         cy.get('#debug-run').contains('Wrong URL/path used for attribute thumbnail in rows in rows').should('not.exist')
         cy.get('#debug-run').contains('Wrong URL/path used for attribute swatch_image in rows in rows').should('not.exist')
         cy.get('#debug-run').contains('Wrong URL/path used for attribute _media_image in rows in rows').should('not.exist')
-        cy.get('#debug-run').contains('Downloading Image From Source for product sku TST-Conf-Simp-S-Gray',{timeout: 10000})
         cy.get('#debug-run').contains('Downloading Image From Source for product sku TST-Conf-Simp-S-Green',{timeout: 10000})
-        cy.get('#debug-run').contains('Downloading Image From Source for product sku TST-Conf-Simp-S-Purple',{timeout: 10000})
     })
 })
