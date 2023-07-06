@@ -98,6 +98,42 @@ context('Import Products Find and Replace Csv File 1', () => {
         cy.get('[name="source_data_replacing[4][data_source_replacing_replace]"]')
             .type('tst-new-simp-m-gray',{force: true})
             .should('have.value', 'tst-new-simp-m-gray')
+
+        //Six row
+        cy.get('@addNewRow').click()
+        cy.get('[name="[5]"]').select('name',{force:true});
+        cy.get('[name="source_data_replacing[5][data_source_replacing_target]"]').select('1',{force:true});
+        cy.get('[name="source_data_replacing[5][data_source_replacing_is_case_sensitive]"]').select('1',{force:true});
+        cy.get('[name="source_data_replacing[5][data_source_replacing_find]"]')
+            .type('product-S-Green',{force: true})
+            .should('have.value', 'product-S-Green')
+        cy.get('[name="source_data_replacing[5][data_source_replacing_replace]"]')
+            .type('Tst-new-S-Green',{force: true})
+            .should('have.value', 'Tst-new-S-Green')
+        
+        //Seven row
+        cy.get('@addNewRow').click()
+        cy.get('[name="[6]"]').select('color',{force:true});
+        cy.get('[name="source_data_replacing[6][data_source_replacing_target]"]').select('1',{force:true});
+        cy.get('[name="source_data_replacing[6][data_source_replacing_is_case_sensitive]"]').select('1',{force:true});
+        cy.get('[name="source_data_replacing[6][data_source_replacing_find]"]')
+            .type('Green',{force: true})
+            .should('have.value', 'Green')
+        cy.get('[name="source_data_replacing[6][data_source_replacing_replace]"]')
+            .type('Red',{force: true})
+            .should('have.value', 'Red')
+
+        //Eight row
+        cy.get('@addNewRow').click()
+        cy.get('[name="[7]"]').select('price',{force:true});
+        cy.get('[name="source_data_replacing[7][data_source_replacing_target]"]').select('1',{force:true});
+        cy.get('[name="source_data_replacing[7][data_source_replacing_is_case_sensitive]"]').select('1',{force:true});
+        cy.get('[name="source_data_replacing[7][data_source_replacing_find]"]')
+            .type('68',{force: true})
+            .should('have.value', '68')
+        cy.get('[name="source_data_replacing[7][data_source_replacing_replace]"]')
+            .type('99',{force: true})
+            .should('have.value', '99')
     
         //save and run process
         cy.get('#save_and_run').click({force:true})
@@ -123,8 +159,16 @@ context('Import Products Find and Replace Csv File 1', () => {
         cy.get('[data-index="search-engine-optimization"]').find('.admin__page-nav-item-messages').click({force:true})
         cy.get('[data-index="meta_title"]').find('input').should('have.value', 'New meta title')
         cy.get('[data-index="meta_keyword"]').find('textarea').should('have.value', 'new1,meta2,meta3')
+        cy.get('[data-index="price"]').find('input').should('have.value', '99.00')
         //there is a bug with case sensitive : No -> therefore belong comands are commented out
         // cy.get('[data-index="meta_description"]').find('textarea').should('have.value', 'New description goes here.')
         // cy.get('[data-index="url_key"]').find('input').should('have.value', 'tst-new-simp-m-gray')
+
+        cy.get('#back').as('backButton')
+        cy.get('@backButton').click({force:true})
+        cy.get('.admin__data-grid-outer-wrap').contains('TST-Conf-Simp-S-Green',{timeout: 60000})
+        cy.get('.admin__data-grid-outer-wrap').contains('TST-Conf-Simp-S-Green').click({force:true});
+        cy.get('[data-index="name"]',{timeout: 60000}).find('input').should('have.value', 'Tst-new-S-Green')
+        cy.get('[data-index="color"]').find('select').find('[data-title="Red"]').should('be.selected')
     })
 })
