@@ -1,6 +1,5 @@
-
-context('Export Attributes Xml Sftp 16', () => {
-    it('xml - sftp - new job', () => {
+context('Export Attributes Json Sftp 7', () => {
+    it('json - sftp - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
 
@@ -16,8 +15,8 @@ context('Export Attributes Xml Sftp 16', () => {
         cy.get('.general_is_active',{timeout: 60000}).find('.admin__actions-switch-label').as('generalIsActive')
         cy.get('@generalIsActive').click({force:true})
         cy.get('.general_title ').find('input')
-            .type('Attributes Export - xml - ftp')
-            .should('have.value', 'Attributes Export - xml - ftp')
+            .type('Attributes Export - json - sftp')
+            .should('have.value', 'Attributes Export - json - sftp')
 
         //specify Export Settings section
         cy.get('.settings_entity').find('select').as('settingsEntity')
@@ -25,10 +24,10 @@ context('Export Attributes Xml Sftp 16', () => {
 
         //specify Export Behavior section
         cy.get('.behavior_behavior_field_file_format').find('select').as('fileFormat')
-        cy.get('@fileFormat').select('xlsx',{force:true});
+        cy.get('@fileFormat').select('json',{force:true});
 
         //specify Import Source section
-        cy.specifySftpSource('exportSftp' , '/chroot/home/a0563af8/develop-gold.dev.firebearstudio.com/pub/media/importexport/test/var/export_xml_products.xml')
+        cy.specifySftpSource('exportSftp' , '/chroot/home/a0563af8/develop-alpha.dev.firebearstudio.com/pub/media/importexport/test/var/export_attrbiutes.json',{force:true})
 
         //check ftp connection
         cy.get('.source_check_button').click({force:true})

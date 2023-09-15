@@ -1,5 +1,5 @@
-context('Import Attributes Set in different rows 22', () => {
-    it('attributes import - set is in different rows - new job', () => {
+context('Import Attributes Add Update Xml File 3', () => {
+    it(' add update - xml - file - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
 
@@ -12,11 +12,11 @@ context('Import Attributes Set in different rows 22', () => {
         cy.get('@addJobButton').click({force:true})
 
         //specify general section
-        cy.generalImportSection('Attributes Import - set is in different rows')
+        cy.generalImportSectionWithoutReIndex('Attributes Import - add update - xml - file')
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
-        cy.get('@fieldsetSettings').click()
+        cy.get('@fieldsetSettings').click({force:true})
         cy.get('.settings_entity').find('select').as('settingsEntity')
         cy.get('@settingsEntity').select('attribute',{force:true});
 
@@ -26,7 +26,10 @@ context('Import Attributes Set in different rows 22', () => {
         cy.get('@behaviorBehavior').select('append',{force:true});
 
         //specify Import Source section
-        cy.fileSource('pub/media/importexport/test/attributes_few_sets.csv',{force:true})
+        cy.get('.type_file').find('select').as('importSourceType')
+        cy.get('@importSourceType').select('xml',{force:true});
+        cy.get('[data-index="import_source"]').find('select').select('file',{force:true})
+        cy.fileSource('pub/media/importexport/test/attributes.xml',{force:true})
 
         //validate Import file
         cy.get('.source_check_button').click({force:true})
@@ -37,6 +40,6 @@ context('Import Attributes Set in different rows 22', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResult('Entity attribute')
+        cy.consoleImportResultWithoutReIndex('Entity attribute')
     })
 })

@@ -1,5 +1,5 @@
-context('Import Attributes Set Is In One Column 19', () => {
-    it('attributes import - set is in one column - new job', () => {
+context('Import Attributes Ods Using Export File 10', () => {
+    it('add update - ods - sftp - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
 
@@ -12,21 +12,23 @@ context('Import Attributes Set Is In One Column 19', () => {
         cy.get('@addJobButton').click({force:true})
 
         //specify general section
-        cy.generalImportSection('Attributes Import - set is in one column')
+        cy.generalImportSectionWithoutReIndex('Attributes Import - using export file - ods - sftp')
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
-        cy.get('@fieldsetSettings').click()
-        cy.get('.settings_entity').find('select').as('settingsEntity')
+        cy.get('@fieldsetSettings').click({force:true})
+        cy.get('.settings_entity').find('select',{force:true}).as('settingsEntity')
         cy.get('@settingsEntity').select('attribute',{force:true});
 
         //specify Import Behavior section
         cy.get('.fieldset_behavior').find('.fieldset-wrapper-title').as('fieldsetBehaviour')
-        cy.get('.behavior_behavior').find('select').as('behaviorBehavior')
+        cy.get('.behavior_behavior').find('select',{force:true}).as('behaviorBehavior')
         cy.get('@behaviorBehavior').select('append',{force:true});
 
         //specify Import Source section
-        cy.fileSource('pub/media/importexport/test/attributes_set_in_one_common_column.csv',{force:true})
+        cy.get('.type_file').find('select').as('importSourceType')
+        cy.get('@importSourceType').select('ods',{force:true});
+        cy.specifySftpSource('importSftp','/chroot/home/a0563af8/develop-alpha.dev.firebearstudio.com/pub/media/importexport/test/var/export_attrbiutes.ods',{force:true})
 
         //validate Import file
         cy.get('.source_check_button').click({force:true})
@@ -37,15 +39,6 @@ context('Import Attributes Set Is In One Column 19', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResult('Entity attribute')
-
-        //check that an attribute was imported
-        cy.get('#menu-magento-backend-stores').find('.item-catalog-attributes-attributes').find('a').as('goToAttributes')
-        cy.get('@goToAttributes').click({force:true})
-        cy.get('#attributeGrid_filter_attribute_code')
-            .type('test_qa_attribute',{force: true})
-            .should('have.value', 'test_qa_attribute')
-            .type('{enter}')
-        cy.get('#attributeGrid').contains('1 records found')
+        cy.consoleImportResultWithoutReIndex('Entity attribute')
     })
 })

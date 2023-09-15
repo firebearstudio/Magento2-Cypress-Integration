@@ -1,5 +1,5 @@
-context('Import Attributes Delete Ods Sftp 9', () => {
-    it('delete - ods - sftp - new job', () => {
+context('Import Attributes Csv Using Export File 4', () => {
+    it('add update - csv - sftp - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
 
@@ -12,23 +12,23 @@ context('Import Attributes Delete Ods Sftp 9', () => {
         cy.get('@addJobButton').click({force:true})
 
         //specify general section
-        cy.generalImportSectionWithoutReIndex('Attributes Import - delete - ods - sftp')
+        cy.generalImportSectionWithoutReIndex('Attributes Import - using export file - csv - sftp')
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
         cy.get('@fieldsetSettings').click({force:true})
-        cy.get('.settings_entity').find('select').as('settingsEntity')
+        cy.get('.settings_entity').find('select',{force:true}).as('settingsEntity')
         cy.get('@settingsEntity').select('attribute',{force:true});
 
         //specify Import Behavior section
         cy.get('.fieldset_behavior').find('.fieldset-wrapper-title').as('fieldsetBehaviour')
-        cy.get('.behavior_behavior').find('select').as('behaviorBehavior')
-        cy.get('@behaviorBehavior').select('delete',{force:true});
+        cy.get('.behavior_behavior').find('select',{force:true}).as('behaviorBehavior')
+        cy.get('@behaviorBehavior').select('append',{force:true});
 
         //specify Import Source section
         cy.get('.type_file').find('select').as('importSourceType')
-        cy.get('@importSourceType').select('ods',{force:true});
-        cy.specifySftpSource('importSftp','/chroot/home/a0563af8/develop-gold.dev.firebearstudio.com/pub/media/importexport/test/attributes.ods',{force:true})
+        cy.get('@importSourceType').select('csv',{force:true});
+        cy.specifySftpSource('importSftp','/chroot/home/a0563af8/develop-alpha.dev.firebearstudio.com/pub/media/importexport/test/var/export_attrbiutes.csv',{force:true})
 
         //validate Import file
         cy.get('.source_check_button').click({force:true})

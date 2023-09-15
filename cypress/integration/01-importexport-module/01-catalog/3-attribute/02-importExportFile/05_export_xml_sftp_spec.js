@@ -1,6 +1,5 @@
-
-context('Export Attributes Json Sftp 18', () => {
-    it('json - sftp - new job', () => {
+context('Export Attributes Xml Sftp 5', () => {
+    it('xml - sftp - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
 
@@ -16,8 +15,8 @@ context('Export Attributes Json Sftp 18', () => {
         cy.get('.general_is_active',{timeout: 60000}).find('.admin__actions-switch-label').as('generalIsActive')
         cy.get('@generalIsActive').click({force:true})
         cy.get('.general_title ').find('input')
-            .type('Attributes Export - json - sftp')
-            .should('have.value', 'Attributes Export - json - sftp')
+            .type('Attributes Export - xml - sftp')
+            .should('have.value', 'Attributes Export - xml - sftp')
 
         //specify Export Settings section
         cy.get('.settings_entity').find('select').as('settingsEntity')
@@ -25,10 +24,10 @@ context('Export Attributes Json Sftp 18', () => {
 
         //specify Export Behavior section
         cy.get('.behavior_behavior_field_file_format').find('select').as('fileFormat')
-        cy.get('@fileFormat').select('json',{force:true});
+        cy.get('@fileFormat').select('xml',{force:true});
 
         //specify Import Source section
-        cy.specifySftpSource('exportSftp' , '/chroot/home/a0563af8/develop-gold.dev.firebearstudio.com/pub/media/importexport/test/var/export_json_products.json')
+        cy.specifySftpSource('exportSftp' , '/chroot/home/a0563af8/develop-alpha.dev.firebearstudio.com/pub/media/importexport/test/var/export_attrbiutes.xml',{force:true})
 
         //check ftp connection
         cy.get('.source_check_button').click({force:true})

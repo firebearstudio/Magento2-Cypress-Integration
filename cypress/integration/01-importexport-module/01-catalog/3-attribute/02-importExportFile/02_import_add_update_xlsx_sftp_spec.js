@@ -28,7 +28,7 @@ context('Import Attributes Using Export File 2', () => {
         //specify Import Source section
         cy.get('.type_file').find('select').as('importSourceType')
         cy.get('@importSourceType').select('xlsx',{force:true});
-        cy.specifySftpSource('importSftp','/chroot/home/a0563af8/develop-gold.dev.firebearstudio.com/pub/media/importexport/test/var/export_attrbiutes.xlsx',{force:true})
+        cy.specifySftpSource('importSftp','/chroot/home/a0563af8/develop-alpha.dev.firebearstudio.com/pub/media/importexport/test/var/export_attrbiutes.xlsx',{force:true})
 
         //validate Import file
         cy.get('.source_check_button').click({force:true})

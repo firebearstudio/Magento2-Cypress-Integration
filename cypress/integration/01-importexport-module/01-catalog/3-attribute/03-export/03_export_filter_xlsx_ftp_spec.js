@@ -1,4 +1,4 @@
-context('Export Attributes Filter 14', () => {
+context('Export Attributes Filter 3', () => {
     it('xlsx - sftp - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -27,7 +27,7 @@ context('Export Attributes Filter 14', () => {
         cy.get('@fileFormat').select('xlsx',{force:true});
 
         //specify Import Source section
-        cy.specifySftpSource('exportSftp' , '/chroot/home/a0563af8/develop-gold.dev.firebearstudio.com/pub/media/importexport/test/var/export_attributes_filter.xlsx',{force:true})
+        cy.specifySftpSource('exportSftp' , '/chroot/home/a0563af8/develop-alpha.dev.firebearstudio.com/pub/media/importexport/test/var/export_attributes_filter.xlsx',{force:true})
 
         //check ftp connection
         cy.get('.source_check_button').click({force:true})
