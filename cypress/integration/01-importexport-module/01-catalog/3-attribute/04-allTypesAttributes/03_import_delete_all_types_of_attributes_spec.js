@@ -1,5 +1,6 @@
-context('Import Attributes Set Is In One Column Delete 21', () => {
-    it('attributes import - set is in one column - delete - new job', () => {
+
+context('Import Attributes All Types 3', () => {
+    it('all types - delete - csv - file - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
 
@@ -9,10 +10,10 @@ context('Import Attributes Set Is In One Column Delete 21', () => {
 
         //go to new job page
         cy.get('#add').as('addJobButton')
-        cy.get('@addJobButton').click({force:true})
+        cy.get('@addJobButton').click()
 
         //specify general section
-        cy.generalImportSection('Attributes Import - set is in one column - Delete')
+        cy.generalImportSectionWithoutReIndex('Attributes Import - delete - All Types')
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
@@ -26,17 +27,18 @@ context('Import Attributes Set Is In One Column Delete 21', () => {
         cy.get('@behaviorBehavior').select('delete',{force:true});
 
         //specify Import Source section
-        cy.fileSource('pub/media/importexport/test/attributes_set_in_one_common_column.csv',{force:true})
+        cy.fileSource('pub/media/importexport/test/attributes_all_types.csv',{force:true})
 
         //validate Import file
-        cy.get('.source_check_button').click({force:true})
+        cy.get('.source_check_button').click()
         cy.get('.fieldset_source').contains('File validated successfully',{timeout: 60000})
 
         //save and run process
         cy.get('#save_and_run').click({force:true})
         cy.get('.run').click()
-
+    
         //check Import results
-        cy.consoleImportResult('Entity attribute')
+        cy.consoleImportResultWithoutReIndex('Entity attribute')
     })
+
 })

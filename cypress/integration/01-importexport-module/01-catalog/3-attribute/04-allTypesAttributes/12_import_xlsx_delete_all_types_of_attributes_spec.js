@@ -1,5 +1,6 @@
-context('Import Attributes Add Update Xlsx Sftp 8', () => {
-    it('add update - xlsx - sftp - new job', () => {
+
+context('Import Attributes Xlsx All Types 12', () => {
+    it('all types - delete - xlsx - file - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
 
@@ -9,26 +10,26 @@ context('Import Attributes Add Update Xlsx Sftp 8', () => {
 
         //go to new job page
         cy.get('#add').as('addJobButton')
-        cy.get('@addJobButton').click({force:true})
+        cy.get('@addJobButton').click()
 
         //specify general section
-        cy.generalImportSectionWithoutReIndex('Attributes Import - add update - xlsx - sftp')
-        
+        cy.generalImportSectionWithoutReIndex('Attributes Import - xlsx - delete - All Types')
+
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
-        cy.get('@fieldsetSettings').click({force:true})
+        cy.get('@fieldsetSettings').click()
         cy.get('.settings_entity').find('select').as('settingsEntity')
         cy.get('@settingsEntity').select('attribute',{force:true});
 
         //specify Import Behavior section
         cy.get('.fieldset_behavior').find('.fieldset-wrapper-title').as('fieldsetBehaviour')
         cy.get('.behavior_behavior').find('select').as('behaviorBehavior')
-        cy.get('@behaviorBehavior').select('append',{force:true});
+        cy.get('@behaviorBehavior').select('delete',{force:true});
 
         //specify Import Source section
         cy.get('.type_file').find('select').as('importSourceType')
         cy.get('@importSourceType').select('xlsx',{force:true});
-        cy.specifySftpSource('importSftp','/chroot/home/a0563af8/develop-gold.dev.firebearstudio.com/pub/media/importexport/test/attributes.xlsx',{force:true})
+        cy.fileSource('pub/media/importexport/test/attributes_all_types.xlsx',{force:true})
 
         //validate Import file
         cy.get('.source_check_button').click({force:true})
@@ -37,8 +38,9 @@ context('Import Attributes Add Update Xlsx Sftp 8', () => {
         //save and run process
         cy.get('#save_and_run').click({force:true})
         cy.get('.run').click()
-
+    
         //check Import results
         cy.consoleImportResultWithoutReIndex('Entity attribute')
     })
+
 })

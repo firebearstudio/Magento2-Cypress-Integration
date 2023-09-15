@@ -1,5 +1,5 @@
-context('Import Attributes Mapping Empty Rows 11', () => {
-    it(' only update - csv - file - new job', () => {
+context('Import Attributes Only Add Xml Dropbox 2', () => {
+    it('only add - xml - dropbox - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
 
@@ -12,7 +12,7 @@ context('Import Attributes Mapping Empty Rows 11', () => {
         cy.get('@addJobButton').click({force:true})
 
         //specify general section
-        cy.generalImportSectionWithoutReIndex('Attributes Import - empty - rows')
+        cy.generalImportSectionWithoutReIndex('Attributes Import - add update - xml - dropbox')
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
@@ -26,21 +26,17 @@ context('Import Attributes Mapping Empty Rows 11', () => {
         cy.get('@behaviorBehavior').select('append',{force:true});
 
         //specify Import Source section
-        cy.get('[data-index="import_source"]').find('select').select('file',{force:true})
-        cy.fileSource('pub/media/importexport/test/attributes_map.csv',{force:true})
+        cy.get('.type_file').find('select').as('importSourceType')
+        cy.get('@importSourceType').select('xml',{force:true});
+        cy.dropboxSource('/attributes.xml',{force:true})
 
         //validate Import file
         cy.get('.source_check_button').click({force:true})
         cy.get('.fieldset_source').contains('File validated successfully',{timeout: 60000})
 
-        //map attributes
-        cy.addMappingRowImport('.record-1','store_id','store_id_map')
-        cy.addMappingRowImport('.record-2','attribute_set','attribute_set_map')
-        cy.addMappingRowImport('.record-3','attribute_code','attribute_code_map')
-
         //save and run process
         cy.get('#save_and_run').click({force:true})
-        cy.get('.run',{timeout: 9000}).click()
+        cy.get('.run').click()
 
         //check Import results
         cy.consoleImportResultWithoutReIndex('Entity attribute')

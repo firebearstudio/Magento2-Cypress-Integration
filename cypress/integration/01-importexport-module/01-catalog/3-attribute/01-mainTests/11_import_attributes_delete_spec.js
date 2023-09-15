@@ -1,5 +1,5 @@
-context('Import Attributes Delete Csv Url 7', () => {
-    it('delete - csv - url - new job', () => {
+context('Import Attributes Set Is In One Column Delete 11', () => {
+    it('attributes import - set is in one column - delete - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
 
@@ -12,11 +12,11 @@ context('Import Attributes Delete Csv Url 7', () => {
         cy.get('@addJobButton').click({force:true})
 
         //specify general section
-        cy.generalImportSectionWithoutReIndex('Attributes Import - delete - csv - url')
+        cy.generalImportSectionWithoutReIndex('Attributes Import - set is in one column - Delete')
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
-        cy.get('@fieldsetSettings').click({force:true})
+        cy.get('@fieldsetSettings').click()
         cy.get('.settings_entity').find('select').as('settingsEntity')
         cy.get('@settingsEntity').select('attribute',{force:true});
 
@@ -26,7 +26,7 @@ context('Import Attributes Delete Csv Url 7', () => {
         cy.get('@behaviorBehavior').select('delete',{force:true});
 
         //specify Import Source section
-        cy.urlSource('https://4af610548f-253334.nxcli.net/media/importexport/test/attributes_replace.csv',{force:true})
+        cy.fileSource('pub/media/importexport/test/attributes_set_in_one_common_column.csv',{force:true})
 
         //validate Import file
         cy.get('.source_check_button').click({force:true})

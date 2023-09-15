@@ -1,5 +1,5 @@
-context('Import Attributes Only Add Xml Dropbox 4', () => {
-    it('only add - xml - dropbox - new job', () => {
+context('Import Attributes Set Is In One Column 9', () => {
+    it('attributes import - set is in one column - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
 
@@ -12,11 +12,11 @@ context('Import Attributes Only Add Xml Dropbox 4', () => {
         cy.get('@addJobButton').click({force:true})
 
         //specify general section
-        cy.generalImportSectionWithoutReIndex('Attributes Import - add update - xml - dropbox')
+        cy.generalImportSectionWithoutReIndex('Attributes Import - set is in one column')
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
-        cy.get('@fieldsetSettings').click({force:true})
+        cy.get('@fieldsetSettings').click()
         cy.get('.settings_entity').find('select').as('settingsEntity')
         cy.get('@settingsEntity').select('attribute',{force:true});
 
@@ -26,9 +26,7 @@ context('Import Attributes Only Add Xml Dropbox 4', () => {
         cy.get('@behaviorBehavior').select('append',{force:true});
 
         //specify Import Source section
-        cy.get('.type_file').find('select').as('importSourceType')
-        cy.get('@importSourceType').select('xml',{force:true});
-        cy.dropboxSource('/attributes.xml',{force:true})
+        cy.fileSource('pub/media/importexport/test/attributes_set_in_one_common_column.csv',{force:true})
 
         //validate Import file
         cy.get('.source_check_button').click({force:true})
@@ -40,5 +38,14 @@ context('Import Attributes Only Add Xml Dropbox 4', () => {
 
         //check Import results
         cy.consoleImportResultWithoutReIndex('Entity attribute')
+
+        //check that an attribute was imported
+        cy.get('#menu-magento-backend-stores').find('.item-catalog-attributes-attributes').find('a').as('goToAttributes')
+        cy.get('@goToAttributes').click({force:true})
+        cy.get('#attributeGrid_filter_attribute_code')
+            .type('test_qa_attribute',{force: true})
+            .should('have.value', 'test_qa_attribute')
+            .type('{enter}')
+        cy.get('#attributeGrid').contains('1 records found')
     })
 })

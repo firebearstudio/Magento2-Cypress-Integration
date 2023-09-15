@@ -1,5 +1,5 @@
-context('Import Attributes Field Multiple Separators 15', () => {
-    it(' add update - field - multiple - separators', () => {
+context('Import Attributes Add Update Xlsx Sftp 5', () => {
+    it('add update - xlsx - sftp - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
 
@@ -12,8 +12,8 @@ context('Import Attributes Field Multiple Separators 15', () => {
         cy.get('@addJobButton').click({force:true})
 
         //specify general section
-        cy.generalImportSectionWithoutReIndex('Attributes Import - add update - field - multiple - separators')
-
+        cy.generalImportSectionWithoutReIndex('Attributes Import - add update - xlsx - sftp')
+        
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
         cy.get('@fieldsetSettings').click({force:true})
@@ -24,14 +24,11 @@ context('Import Attributes Field Multiple Separators 15', () => {
         cy.get('.fieldset_behavior').find('.fieldset-wrapper-title').as('fieldsetBehaviour')
         cy.get('.behavior_behavior').find('select').as('behaviorBehavior')
         cy.get('@behaviorBehavior').select('append',{force:true});
-        cy.get('[data-index="_import_field_separator"]').find('input').as('fieldSeparator')
-        cy.get('@fieldSeparator').invoke('val', '|').trigger('change',{force:true})
-        cy.get('[data-index="_import_multiple_value_separator"]').find('input').as('multipleSeparator')
-        cy.get('@multipleSeparator').invoke('val', ';').trigger('change',{force:true})
 
         //specify Import Source section
-        cy.get('[data-index="import_source"]').find('select').select('file',{force:true})
-        cy.fileSource('pub/media/importexport/test/attributes_separators.csv',{force:true})
+        cy.get('.type_file').find('select').as('importSourceType')
+        cy.get('@importSourceType').select('xlsx',{force:true});
+        cy.specifySftpSource('importSftp','/chroot/home/a0563af8/develop-alpha.dev.firebearstudio.com/pub/media/importexport/test/attributes.xlsx',{force:true})
 
         //validate Import file
         cy.get('.source_check_button').click({force:true})

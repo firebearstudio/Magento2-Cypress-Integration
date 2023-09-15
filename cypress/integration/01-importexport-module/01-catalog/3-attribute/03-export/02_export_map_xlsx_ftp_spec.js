@@ -1,4 +1,4 @@
-context('Export Attributes Only Mapping 12', () => {
+context('Export Attributes Mapping 2', () => {
     it('xlsx - sftp - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -15,8 +15,8 @@ context('Export Attributes Only Mapping 12', () => {
         cy.get('.general_is_active',{timeout: 60000}).find('.admin__actions-switch-label').as('generalIsActive')
         cy.get('@generalIsActive').click({force:true})
         cy.get('.general_title ').find('input')
-            .type('Attributes Export - only - mapping')
-            .should('have.value', 'Attributes Export - only - mapping')
+            .type('Attributes Export - mapping - xlsx - sftp')
+            .should('have.value', 'Attributes Export - mapping - xlsx - sftp')
 
         //specify Export Settings section
         cy.get('.settings_entity').find('select').as('settingsEntity')
@@ -27,18 +27,17 @@ context('Export Attributes Only Mapping 12', () => {
         cy.get('@fileFormat').select('xlsx',{force:true});
 
         //specify Import Source section
-        cy.specifySftpSource('exportSftp' , '/chroot/home/a0563af8/develop-gold.dev.firebearstudio.com/pub/media/importexport/test/var/export_attributes_only_map.xlsx',{force:true})
-        
+        cy.specifySftpSource('exportSftp' , '/chroot/home/a0563af8/develop-alpha.dev.firebearstudio.com/pub/media/importexport/test/var/export_attribtes_map.xlsx',{force:true})
+
         //check ftp connection
         cy.get('.source_check_button').click({force:true})
         cy.get('.fieldset_source').contains('Success! Your connection is ready!',{timeout: 60000})
 
          //mapping
-         cy.get('.source_data_map_container_source_data_count').find('.admin__actions-switch').click()
          cy.get('.source_data_map_rows').find('tfoot').as('tfoot')
          cy.get('@tfoot').find('.addButton').click({force:true})
          cy.get('.record-1').find('.source_data_map_source_data_system').find('select').as('sourceDataSystem')
-         cy.get('@sourceDataSystem').select('store_id',{force:true});
+         cy.get('@sourceDataSystem').select('store_id');
          cy.get('.record-1').find('.source_data_map_source_data_export').find('input').as('sourceDataImport')
          cy.get('@sourceDataImport')
              .type('_map')
@@ -47,7 +46,7 @@ context('Export Attributes Only Mapping 12', () => {
          cy.get('.source_data_map_rows').find('tfoot').as('tfoot')
          cy.get('@tfoot').find('.addButton').click({force:true})
          cy.get('.record-2').find('.source_data_map_source_data_system').find('select').as('sourceDataSystem')
-         cy.get('@sourceDataSystem').select('attribute_set',{force:true});
+         cy.get('@sourceDataSystem').select('attribute_set');
          cy.get('.record-2').find('.source_data_map_source_data_export').find('input').as('sourceDataImport')
          cy.get('@sourceDataImport')
              .type('_map')
@@ -56,7 +55,7 @@ context('Export Attributes Only Mapping 12', () => {
          cy.get('.source_data_map_rows').find('tfoot').as('tfoot')
          cy.get('@tfoot').find('.addButton').click({force:true})
          cy.get('.record-3').find('.source_data_map_source_data_system').find('select').as('sourceDataSystem')
-         cy.get('@sourceDataSystem').select('attribute_code',{force:true});
+         cy.get('@sourceDataSystem').select('attribute_code');
          cy.get('.record-3').find('.source_data_map_source_data_export').find('input').as('sourceDataImport')
          cy.get('@sourceDataImport')
              .type('_map')
