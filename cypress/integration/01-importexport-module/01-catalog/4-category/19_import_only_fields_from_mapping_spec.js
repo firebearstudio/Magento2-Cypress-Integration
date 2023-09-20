@@ -1,5 +1,5 @@
 
-context('Import Categories Only Fields From Mapping 19',{ retries: 3 }, () => {
+context('Import Categories Only Fields From Mapping 19', () => {
     it(' only mapping fields - csv - file - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -31,7 +31,7 @@ context('Import Categories Only Fields From Mapping 19',{ retries: 3 }, () => {
         cy.get('@behaviorBehavior').select('append',{force:true});
 
         //specify Import Source section
-        cy.fileSource('pub/media/importexport/test/сategories_for_mapping_update.csv')
+        cy.fileSource('pub/media/importexport/test/categories_for_mapping_update.csv')
        
         //validate Import file
         cy.get('.source_check_button').click()
