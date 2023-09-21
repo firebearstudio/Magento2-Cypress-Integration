@@ -1,5 +1,5 @@
-context('Import Сategories Delete Ods Sftp 9', () => {
-    it('delete - ods - sftp - new job', () => {
+context('Import Categories Ods Using Export File 8', () => {
+    it('add update - ods - sftp - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
 
@@ -13,29 +13,28 @@ context('Import Сategories Delete Ods Sftp 9', () => {
 
         //specify general section
         cy.get('.general_is_active',{timeout: 60000}).find('.admin__actions-switch-label').as('generalIsActive')
-        cy.get('@generalIsActive').click({force:true})
+        cy.get('@generalIsActive').click()
         cy.get('.general_title ').find('input')
-           .type('Category Import - delete - ods - sftp')
-           .should('have.value', 'Category Import - delete - ods - sftp')
-        
+           .type('Category Import - using export file - ods - sftp')
+           .should('have.value', 'Category Import - using export file - ods - sftp')
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
         cy.get('@fieldsetSettings').click({force:true})
         cy.get('.settings_entity').find('select').as('settingsEntity')
         cy.get('@settingsEntity').select('catalog_category',{force:true});
-        cy.get('.general_generate_url').find('.admin__actions-switch-label').as('generateUrl')
+        cy.get('[data-index="generate_url"]').find('.admin__actions-switch-label').as('generateUrl')
         cy.get('@generateUrl').click({force:true})
 
         //specify Import Behavior section
         cy.get('.fieldset_behavior').find('.fieldset-wrapper-title').as('fieldsetBehaviour')
         cy.get('.behavior_behavior').find('select').as('behaviorBehavior')
-        cy.get('@behaviorBehavior').select('delete',{force:true});
+        cy.get('@behaviorBehavior').select('append',{force:true});
 
         //specify Import Source section
         cy.get('.type_file').find('select').as('importSourceType')
         cy.get('@importSourceType').select('ods',{force:true});
-        cy.specifySftpSource('importSftp','/chroot/home/a0563af8/develop-gold.dev.firebearstudio.com/pub/media/importexport/test/categories.ods',{force:true})
+        cy.specifySftpSource('importSftp','/chroot/home/a0563af8/develop-alpha.dev.firebearstudio.com/pub/media/importexport/test/var/export_categories.ods',{force:true})
 
         //validate Import file
         cy.get('.source_check_button').click({force:true})
@@ -47,13 +46,5 @@ context('Import Сategories Delete Ods Sftp 9', () => {
 
         //check Import results
         cy.consoleImportResultWithoutReIndex('Entity catalog_category')
-
-        //check that categories were removed
-        cy.get('#menu-magento-catalog-catalog').find('.item-catalog-categories').find('a').as('goToCategories')
-        cy.get('@goToCategories').click({force:true})
-        cy.get('#tree-div').contains('Default Category',{timeout: 60000})
-        cy.get('#tree-div').contains('First test category',{timeout: 60000}).should('not.exist')
-        cy.get('#tree-div').contains('Second test category',{timeout: 60000}).should('not.exist')
-        cy.get('#tree-div').contains('Third test category',{timeout: 60000}).should('not.exist')
     })
 })

@@ -1,6 +1,5 @@
-
-context('Import Сategories Csv GoogleSheet 3', () => {
-    it('add update - csv - google sheet - new job', () => {
+context('Import Сategories Add Update Xml File 5', () => {
+    it('add update - xml - file - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
 
@@ -16,17 +15,15 @@ context('Import Сategories Csv GoogleSheet 3', () => {
         cy.get('.general_is_active',{timeout: 60000}).find('.admin__actions-switch-label').as('generalIsActive')
         cy.get('@generalIsActive').click({force:true})
         cy.get('.general_title ').find('input')
-           .type('Category Import - add update - csv - google sheet')
-           .should('have.value', 'Category Import - add update - csv - google sheet')
-        cy.get('.general_reindex').find('.admin__actions-switch-label').as('generalReindex')
-        cy.get('@generalReindex').click({force:true})
-        
+           .type('Category Import - add update - xml - file')
+           .should('have.value', 'Category Import - add update - xml - file')
+
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
         cy.get('@fieldsetSettings').click({force:true})
         cy.get('.settings_entity').find('select').as('settingsEntity')
         cy.get('@settingsEntity').select('catalog_category',{force:true});
-        cy.get('.general_generate_url').find('.admin__actions-switch-label').as('generateUrl')
+        cy.get('[data-index="generate_url"]').find('.admin__actions-switch-label').as('generateUrl')
         cy.get('@generateUrl').click({force:true})
 
         //specify Import Behavior section
@@ -35,7 +32,9 @@ context('Import Сategories Csv GoogleSheet 3', () => {
         cy.get('@behaviorBehavior').select('append',{force:true});
 
         //specify Import Source section
-        cy.googlePathSource('https://docs.google.com/spreadsheets/d/13FemIzzexF5koAdQYjbcKscqoCfXyknYWkQkbSZGPsk/edit#gid=577514786',{force:true})
+        cy.get('.type_file').find('select').as('importSourceType')
+        cy.get('@importSourceType').select('xml',{force:true});
+        cy.fileSource('pub/media/importexport/test/categories.xml',{force:true})
 
         //validate Import file
         cy.get('.source_check_button').click({force:true})
@@ -46,13 +45,6 @@ context('Import Сategories Csv GoogleSheet 3', () => {
         cy.get('.run').click()
 
         //check Import results
-        cy.consoleImportResult('Entity catalog_category')
-
-        //check that categories were created
-        cy.get('#menu-magento-catalog-catalog').find('.item-catalog-categories').find('a').as('goToCategories')
-        cy.get('@goToCategories').click({force:true})
-        cy.get('#tree-div').contains('First test category',{timeout: 60000})
-        cy.get('#tree-div').contains('Second test category',{timeout: 60000})
-        cy.get('#tree-div').contains('Third test category',{timeout: 60000})
+        cy.consoleImportResultWithoutReIndex('Entity catalog_category')
     })
 })

@@ -23,7 +23,7 @@ context('Import Сategories Add Update Json Dropbox 4', () => {
         cy.get('@fieldsetSettings').click({force:true})
         cy.get('.settings_entity').find('select').as('settingsEntity')
         cy.get('@settingsEntity').select('catalog_category',{force:true});
-        cy.get('.general_generate_url').find('.admin__actions-switch-label').as('generateUrl')
+        cy.get('[data-index="generate_url"]').find('.admin__actions-switch-label').as('generateUrl')
         cy.get('@generateUrl').click({force:true})
 
         //specify Import Behavior section
