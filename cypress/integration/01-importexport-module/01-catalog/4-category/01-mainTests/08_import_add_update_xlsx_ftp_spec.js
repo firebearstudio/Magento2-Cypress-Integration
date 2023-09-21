@@ -23,7 +23,7 @@ context('Import Сategories Add Update Xlsx Sftp 8', () => {
         cy.get('@fieldsetSettings').click({force:true})
         cy.get('.settings_entity').find('select').as('settingsEntity')
         cy.get('@settingsEntity').select('catalog_category',{force:true});
-        cy.get('.general_generate_url').find('.admin__actions-switch-label').as('generateUrl')
+        cy.get('[data-index="generate_url"]').find('.admin__actions-switch-label').as('generateUrl')
         cy.get('@generateUrl').click({force:true})
 
         //specify Import Behavior section
@@ -34,7 +34,7 @@ context('Import Сategories Add Update Xlsx Sftp 8', () => {
         //specify Import Source section
         cy.get('.type_file').find('select').as('importSourceType')
         cy.get('@importSourceType').select('xlsx',{force:true});
-        cy.specifySftpSource('importSftp','/chroot/home/a0563af8/develop-gold.dev.firebearstudio.com/pub/media/importexport/test/categories.xlsx',{force:true})
+        cy.specifySftpSource('importSftp','/chroot/home/a0563af8/develop-alpha.dev.firebearstudio.com/pub/media/importexport/test/categories.xlsx',{force:true})
 
         //validate Import file
         cy.get('.source_check_button').click({force:true})

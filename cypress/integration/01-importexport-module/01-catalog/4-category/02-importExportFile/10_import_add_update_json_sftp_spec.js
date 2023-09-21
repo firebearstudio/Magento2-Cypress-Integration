@@ -1,5 +1,5 @@
-context('Import Сategories Mapping All Rows 10', () => {
-    it('add update - csv - file - new job', () => {
+context('Import Categories Json Using Export File 10', () => {
+    it('add update - json - sftp - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
 
@@ -13,17 +13,17 @@ context('Import Сategories Mapping All Rows 10', () => {
 
         //specify general section
         cy.get('.general_is_active',{timeout: 60000}).find('.admin__actions-switch-label').as('generalIsActive')
-        cy.get('@generalIsActive').click({force:true})
-        cy.get('.general_title').find('input')
-           .type('Category Import - mapping - all rows')
-           .should('have.value', 'Category Import - mapping - all rows')
+        cy.get('@generalIsActive').click()
+        cy.get('.general_title ').find('input')
+           .type('Category Import - using export file - json - sftp')
+           .should('have.value', 'Category Import - using export file - json - sftp')
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
         cy.get('@fieldsetSettings').click({force:true})
         cy.get('.settings_entity').find('select').as('settingsEntity')
         cy.get('@settingsEntity').select('catalog_category',{force:true});
-        cy.get('.general_generate_url').find('.admin__actions-switch-label').as('generateUrl')
+        cy.get('[data-index="generate_url"]').find('.admin__actions-switch-label').as('generateUrl')
         cy.get('@generateUrl').click({force:true})
 
         //specify Import Behavior section
@@ -32,19 +32,13 @@ context('Import Сategories Mapping All Rows 10', () => {
         cy.get('@behaviorBehavior').select('append',{force:true});
 
         //specify Import Source section
-        cy.fileSource('pub/media/importexport/test/categories_map.csv',{force:true})
+        cy.get('.type_file').find('select').as('importSourceType')
+        cy.get('@importSourceType').select('json',{force:true});
+        cy.specifySftpSource('importSftp','/chroot/home/a0563af8/develop-alpha.dev.firebearstudio.com/pub/media/importexport/test/var/export_categories.json',{force:true})
 
         //validate Import file
         cy.get('.source_check_button').click({force:true})
         cy.get('.fieldset_source').contains('File validated successfully',{timeout: 60000})
-
-        //map attributes
-        cy.addMappingRowImport('.record-1','name','name_map')
-        cy.addMappingRowImport('.record-2','image','image_map')
-        cy.addMappingRowImport('.record-3','is_active','is_active_map')
-        cy.get('.record-3').find('.source_data_map_source_data_replace').find('input')
-            .type('99')
-            .should('have.value', '99')
 
         //save and run process
         cy.get('#save_and_run').click({force:true})
