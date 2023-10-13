@@ -1,4 +1,10 @@
 
+
+
+
+
+
+
 context('Import Categories Replace 3', () => {
     it(' import - replace category - new job', () => {
         //login
@@ -58,7 +64,7 @@ context('Import Categories Replace 3', () => {
         //checking values in the Content Section
         cy.get('[data-index="content"]').find('.fieldset-wrapper-title').click({force:true});
         cy.get('[data-index="content"]').find('.file-uploader').find('.file-uploader-filename').contains('logo.png')
-        cy.get('[name="landing_page"]').find('[value="3"]').should('be.selected')
+        cy.get('[name="landing_page"]').find('[data-title="Contact us info"]').should('be.selected')
         
         //checking values in the Display Setting Section
         cy.get('[data-index="display_settings"]').find('.fieldset-wrapper-title').click({force:true});
