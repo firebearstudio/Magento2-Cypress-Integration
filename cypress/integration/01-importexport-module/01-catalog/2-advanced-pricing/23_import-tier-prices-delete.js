@@ -52,6 +52,7 @@ context('Import Advanced Pricing delete 23', () => {
        cy.get('.admin__data-grid-outer-wrap').contains('tier-prices-product',{timeout: 10000})
        cy.get('.admin__data-grid-outer-wrap').contains('tier-prices-product').click({force:true});
        cy.get('[data-index="container_price"]',{timeout: 10000}).contains('Advanced Pricing').click()
-       cy.get('tbody').find('tr').should('have.length', 0)
+       cy.get('[data-index="tier_price"]').find('tbody').as('tierPriceGrid')
+       cy.get('@tierPriceGrid').find('tr').should('have.length', 0)
     })
 })
