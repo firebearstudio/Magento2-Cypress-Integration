@@ -52,7 +52,8 @@ context('Import Advanced Pricing Add Update 21', () => {
        cy.get('.admin__data-grid-outer-wrap').contains('tier-prices-product',{timeout: 10000})
        cy.get('.admin__data-grid-outer-wrap').contains('tier-prices-product').click({force:true});
        cy.get('[data-index="container_price"]',{timeout: 10000}).contains('Advanced Pricing').click()
-       cy.get('tbody').find('tr').should('have.length', 4)
+       cy.get('[data-index="tier_price"]').find('tbody').as('tierPriceGrid')
+       cy.get('@tierPriceGrid').find('tr').should('have.length', 4)
        //check customer group data
        cy.get('[data-index="cust_group"]').eq(0).contains('ALL GROUPS')
        cy.get('[data-index="cust_group"]').eq(1).contains('General')
