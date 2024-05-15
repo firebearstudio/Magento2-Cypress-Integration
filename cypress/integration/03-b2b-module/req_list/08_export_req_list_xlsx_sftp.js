@@ -27,11 +27,11 @@ context('Export Req List Xlsx Sftp 8', () => {
         cy.get('@fileFormat').select('xlsx');
 
         //select the Req List Entities: Requisition List, Item
-        cy.get('#1').click()
-        cy.get('#2').click()
+        cy.get('[data-index="behavior_field_requisition_list"]').find('.admin__field-control > :nth-child(1)').find('input').click()
+        cy.get('[data-index="behavior_field_requisition_list"]').find('.admin__field-control > :nth-child(2)').find('input').click()
     
         //specify Import Source section
-        cy.specifySftpSource('exportSftp','/chroot/home/a0563af8/develop-gold.dev.firebearstudio.com/pub/media/importexport/test/var/b2b_req_list.xlsx')
+        cy.specifySftpSource('exportSftp','/chroot/home/a0563af8/develop-alpha.dev.firebearstudio.com/pub/media/importexport/test/var/b2b_req_list.xlsx')
         
         //check ftp connection
         cy.get('.source_check_button').click()

@@ -27,12 +27,12 @@ context('Export Companies Only Map 11', () => {
         cy.get('@fileFormat').select('csv');
 
         //select the Company Entities: Company, Customer, Customer Advanced
-        cy.get('#12').click()
-        cy.get('#13').click()
-        cy.get('#14').click()
+        cy.get('[data-index="behavior_field_company"]').find('.admin__field-control > :nth-child(1)').find('input').click()
+        cy.get('[data-index="behavior_field_company"]').find('.admin__field-control > :nth-child(2)').find('input').click()
+        cy.get('[data-index="behavior_field_company"]').find('.admin__field-control > :nth-child(3)').find('input').click()
 
         //specify Import Source section
-        cy.specifySftpSource('exportSftp','/chroot/home/a0563af8/develop-gold.dev.firebearstudio.com/pub/media/importexport/test/var/export_company_only_mapping.csv')
+        cy.specifySftpSource('exportSftp','/chroot/home/a0563af8/develop-alpha.dev.firebearstudio.com/pub/media/importexport/test/var/export_company_only_mapping.csv')
 
         //check ftp connection
         cy.get('.source_check_button').click()

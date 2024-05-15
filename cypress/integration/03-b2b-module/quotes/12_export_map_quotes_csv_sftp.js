@@ -1,4 +1,4 @@
-context('Export Quote', () => {
+context('Export Quote Map 12', () => {
     it('csv - sftp - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
@@ -27,12 +27,12 @@ context('Export Quote', () => {
         cy.get('@fileFormat').select('csv');
 
         //select the Quotes Entities: Quote, Item, Negotiable Quote
-        cy.get('#3').click()
-        cy.get('#4').click()
-        cy.get('#5').click()
+        cy.get('[data-index="behavior_field_quote"]').find('.admin__field-control > :nth-child(1)').find('input').click()
+        cy.get('[data-index="behavior_field_quote"]').find('.admin__field-control > :nth-child(2)').find('input').click()
+        cy.get('[data-index="behavior_field_quote"]').find('.admin__field-control > :nth-child(3)').find('input').click()
 
         //specify Import Source section
-        cy.specifySftpSource('exportSftp','/var/www/alex/files/test/export_quote.csv')
+        cy.specifySftpSource('exportSftp','/chroot/home/a0563af8/develop-alpha.dev.firebearstudio.com/pub/media/importexport/test/var/export_quote_map.csv')
 
         //check ftp connection
         cy.get('.source_check_button').click()
