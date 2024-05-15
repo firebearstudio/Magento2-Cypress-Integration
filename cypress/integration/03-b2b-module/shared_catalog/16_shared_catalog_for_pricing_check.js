@@ -1,5 +1,5 @@
-context('Import Shared Catalog Delete Csv Url 8', () => {
-    it('delete - csv - url - new job', () => {
+context('Import Shared Catalog For Pricing Check 16', () => {
+    it(' add - shared - catalog - pricing', () => {
         //login
         cy.loginToAdminPanel('ee')
 
@@ -12,7 +12,7 @@ context('Import Shared Catalog Delete Csv Url 8', () => {
         cy.get('@addJobButton').click()
 
         //specify general section
-        cy.generalImportSectionWithoutReIndex('Shared Catalog Import - delete - csv - url')
+        cy.generalImportSectionWithoutReIndex('Shared Catalog Import - for pricing checking')
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
@@ -23,10 +23,12 @@ context('Import Shared Catalog Delete Csv Url 8', () => {
         //specify Import Behavior section
         cy.get('.fieldset_behavior').find('.fieldset-wrapper-title').as('fieldsetBehaviour')
         cy.get('.behavior_behavior').find('select').as('behaviorBehavior')
-        cy.get('@behaviorBehavior').select('delete');
+        cy.get('@behaviorBehavior').select('add_update');
 
         //specify Import Source section
-        cy.urlSource('https://bcb62cd561-254704.nxcli.net/media/importexport/test/b2b_shared_catalogs.csv')
+        cy.get('.type_file').find('select').as('importSourceType')
+        cy.get('@importSourceType').select('csv');
+        cy.fileSource('pub/media/importexport/test/b2b-shared-catalogs-for-pricing.csv')
 
         //validate Import file
         cy.get('.source_check_button').click()

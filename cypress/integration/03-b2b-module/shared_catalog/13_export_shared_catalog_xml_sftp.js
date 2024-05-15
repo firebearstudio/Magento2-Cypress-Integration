@@ -32,7 +32,7 @@ context('Export Shared Catalog Xml 13', () => {
         cy.get('#11').click()
 
         //specify Import Source section
-        cy.specifySftpSource('exportSftp','/chroot/home/a0563af8/develop-gold.dev.firebearstudio.com/pub/media/importexport/test/var/export_shared_catalog.xml')
+        cy.specifySftpSource('exportSftp','/chroot/home/a0563af8/develop-alpha.dev.firebearstudio.com/pub/media/importexport/test/var/export_shared_catalog.xml')
 
         //check ftp connection
         cy.get('.source_check_button').click()
