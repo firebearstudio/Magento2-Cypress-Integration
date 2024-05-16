@@ -28,7 +28,7 @@ context('Import Shared Catalog Add Update Xlsx 9', () => {
         //specify Import Source section
         cy.get('.type_file').find('select').as('importSourceType')
         cy.get('@importSourceType').select('xlsx');
-        cy.specifySftpSource('importSftp','/chroot/home/a0563af8/develop-gold.dev.firebearstudio.com/pub/media/importexport/test/b2b_shared_catalogs.xlsx')
+        cy.specifySftpSource('importSftp','/chroot/home/a0563af8/develop-alpha.dev.firebearstudio.com/pub/media/importexport/test/b2b_shared_catalogs.xlsx')
 
         //validate Import file
         cy.get('.source_check_button').click()

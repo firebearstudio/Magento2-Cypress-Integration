@@ -13,6 +13,8 @@ context('Import Shared Catalog Add Update Csv Sftp 5', () => {
 
         //specify general section
         cy.generalImportSectionWithoutReIndex('Shared Catalog Import - export file - add update - csv - sftp')
+        cy.get('[data-index="indexers"]').find('.admin__control-multiselect').as('indexManagement')
+        cy.get('@indexManagement').select('customer_grid',{force:true})
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
@@ -26,7 +28,7 @@ context('Import Shared Catalog Add Update Csv Sftp 5', () => {
         cy.get('@behaviorBehavior').select('add_update');
 
         //specify Import Source section
-        cy.specifySftpSource('importSftp','/chroot/home/a0563af8/develop-gold.dev.firebearstudio.com/pub/media/importexport/test/var/export_shared_catalog_filter.csv')
+        cy.specifySftpSource('importSftp','/chroot/home/a0563af8/develop-alpha.dev.firebearstudio.com/pub/media/importexport/test/var/export_shared_catalog_filter.csv')
 
         //validate Import file
         cy.get('.source_check_button').click()
@@ -42,7 +44,7 @@ context('Import Shared Catalog Add Update Csv Sftp 5', () => {
         //check that  Shared Catalog were added
         cy.get('#menu-magento-catalog-catalog').find('.item-shared-list').find('a').as('goToSharedCatalogGrid')
         cy.get('@goToSharedCatalogGrid').click({force:true})
-        cy.get('table').contains('Shared Catalog 1')
+        cy.get('table').contains('Shared Catalog 1',{timeout: 20000})
         cy.get('table').contains('Shared Catalog 2')
         
     })

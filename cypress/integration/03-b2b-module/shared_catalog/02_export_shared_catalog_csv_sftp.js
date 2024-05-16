@@ -27,12 +27,12 @@ context('Export Shared Catalog 2', () => {
         cy.get('@fileFormat').select('csv');
 
         //select the Shared Catalog Entities: Shared Catalog, Customer Group, Company
-        cy.get('#9').click()
-        cy.get('#10').click()
-        cy.get('#11').click()
+        cy.get('[data-index="behavior_field_shared_catalog"]').find('.admin__field-control > :nth-child(1)').find('input').click()
+        cy.get('[data-index="behavior_field_shared_catalog"]').find('.admin__field-control > :nth-child(2)').find('input').click()
+        cy.get('[data-index="behavior_field_shared_catalog"]').find('.admin__field-control > :nth-child(3)').find('input').click()
 
         //specify Import Source section
-        cy.specifySftpSource('exportSftp','/chroot/home/a0563af8/develop-gold.dev.firebearstudio.com/pub/media/importexport/test/var/export_shared_catalog.csv')
+        cy.specifySftpSource('exportSftp','/chroot/home/a0563af8/develop-alpha.dev.firebearstudio.com/pub/media/importexport/test/var/export_shared_catalog.csv')
 
         //check ftp connection
         cy.get('.source_check_button').click()

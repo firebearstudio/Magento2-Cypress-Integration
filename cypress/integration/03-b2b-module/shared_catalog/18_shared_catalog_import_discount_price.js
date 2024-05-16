@@ -1,5 +1,5 @@
-context('Import Shared Catalog Delete Csv Url 8', () => {
-    it('delete - csv - url - new job', () => {
+context('Import Shared Catalog Add Update Discount Price 18', () => {
+    it('add update - csv - file - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
 
@@ -12,7 +12,7 @@ context('Import Shared Catalog Delete Csv Url 8', () => {
         cy.get('@addJobButton').click()
 
         //specify general section
-        cy.generalImportSectionWithoutReIndex('Shared Catalog Import - delete - csv - url')
+        cy.generalImportSectionWithoutReIndex('Shared Catalog Import - add update - discount - price')
 
         //specify Import Settings section
         cy.get('.fieldset_settings').find('.fieldset-wrapper-title').as('fieldsetSettings')
@@ -23,10 +23,10 @@ context('Import Shared Catalog Delete Csv Url 8', () => {
         //specify Import Behavior section
         cy.get('.fieldset_behavior').find('.fieldset-wrapper-title').as('fieldsetBehaviour')
         cy.get('.behavior_behavior').find('select').as('behaviorBehavior')
-        cy.get('@behaviorBehavior').select('delete');
+        cy.get('@behaviorBehavior').select('add_update');
 
         //specify Import Source section
-        cy.urlSource('https://bcb62cd561-254704.nxcli.net/media/importexport/test/b2b_shared_catalogs.csv')
+        cy.fileSource('pub/media/importexport/test/b2b_shared_catalog_discount.csv')
 
         //validate Import file
         cy.get('.source_check_button').click()
@@ -38,5 +38,20 @@ context('Import Shared Catalog Delete Csv Url 8', () => {
 
         //check Import results
         cy.consoleImportResultWithoutReIndex('Entity shared_catalog')
+
+        //check that  Shared Catalog were added . Discount price was imported successful. 
+        cy.get('#menu-magento-catalog-catalog').find('.item-shared-list').find('a').as('goToSharedCatalogGrid')
+        cy.get('@goToSharedCatalogGrid').click({force:true})
+        cy.get('table').contains('Shared Catalog 1',{timeout: 20000})
+        cy.get('table').contains('Shared Catalog 5')
+        cy.get('table').contains('Shared Catalog 5').parents('tr').contains('Select').click() 
+        cy.get('table').contains('Shared Catalog 5').parents('tr').find('ul').find('[data-repeat-index="0"]').click()
+        cy.wait(10000)
+        cy.get('#container').contains('Configure').click({force:true})
+        cy.get('a[href="#catalog-steps-wizard_step_pricing"]').click()
+        cy.get('table').contains('Discount')
+        cy.get('table').contains('51.00')
+        cy.get('table').contains('Test Configurable-simple product-S-Green')
+        
     })
 })
