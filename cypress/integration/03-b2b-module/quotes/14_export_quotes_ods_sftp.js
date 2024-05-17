@@ -1,5 +1,5 @@
-context('Export Companies Json File 15', () => {
-    it('json - sftp - new job', () => {
+context('Export Quotes Ods 14', () => {
+    it('ods - sftp - new job', () => {
         //login
         cy.loginToAdminPanel('ee')
 
@@ -15,24 +15,24 @@ context('Export Companies Json File 15', () => {
         cy.get('.general_is_active',{timeout: 60000}).find('.admin__actions-switch-label').as('generalIsActive')
         cy.get('@generalIsActive').click()
         cy.get('.general_title ').find('input')
-            .type('Companies Export - json - sftp')
-            .should('have.value', 'Companies Export - json - sftp')
+            .type('Quotes Export - ods - sftp')
+            .should('have.value', 'Quotes Export - ods - sftp')
 
         //specify Export Settings section
         cy.get('.settings_entity').find('select').as('settingsEntity')
-        cy.get('@settingsEntity').select('company')
+        cy.get('@settingsEntity').select('quote')
 
         //specify Export Behavior section
         cy.get('.behavior_behavior_field_file_format').find('select').as('fileFormat')
-        cy.get('@fileFormat').select('json');
+        cy.get('@fileFormat').select('ods');
 
-        //select the Company Entities: Company, Customer, Customer Advanced
-        cy.get('[data-index="behavior_field_company"]').find('.admin__field-control > :nth-child(1)').find('input').click()
-        cy.get('[data-index="behavior_field_company"]').find('.admin__field-control > :nth-child(2)').find('input').click()
-        cy.get('[data-index="behavior_field_company"]').find('.admin__field-control > :nth-child(3)').find('input').click()
+        //select the Quotes Entities: Quote, Item, Negotiable Quote
+        cy.get('[data-index="behavior_field_quote"]').find('.admin__field-control > :nth-child(1)').find('input').click()
+        cy.get('[data-index="behavior_field_quote"]').find('.admin__field-control > :nth-child(2)').find('input').click()
+        cy.get('[data-index="behavior_field_quote"]').find('.admin__field-control > :nth-child(3)').find('input').click()
 
         //specify Import Source section
-        cy.specifySftpSource('exportSftp','/chroot/home/a0563af8/develop-alpha.dev.firebearstudio.com/pub/media/importexport/test/var/export_companies.json')
+        cy.specifySftpSource('exportSftp','/chroot/home/a0563af8/develop-alpha.dev.firebearstudio.com/pub/media/importexport/test/var/export_quote.ods')
 
         //check ftp connection
         cy.get('.source_check_button').click()
@@ -43,6 +43,6 @@ context('Export Companies Json File 15', () => {
         cy.get('.run').click()
 
         //check Export results
-        cy.consoleExportResult('Entity company')
+        cy.consoleExportResult('Entity quote')
     })
 })
