@@ -37,14 +37,14 @@
                     css="'record-' + ($record().recordId + 1)">
                     <td if="dndConfig.enabled"
                         class="col-draggable"
-                        template="name: dndConfig.template, data: dnd"/>
+                        template="name: dndConfig.template, data: dnd"></td>
 
                     <!-- ko foreach: { data: $record().elems(), as: 'elem'}  -->
                     <td if="elem.template"
                         css="$parent.setClasses(elem)"
                         visible="elem.visible"
                         disable="elem.disabled"
-                        template="elem.template"/>
+                        template="elem.template"></td>
                     <!-- /ko -->
                 </tr>
                 </tbody>
